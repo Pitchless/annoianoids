@@ -599,6 +599,7 @@ void kinectGuiApp::keyPressed(int key){
 
     if(key == 'c') { world.addCircle(mouseX/scale, mouseY/scale); }
     if(key == 'b') { world.addRect(mouseX/scale, mouseY/scale); }
+    if(key == 'a') { world.addAsteroid(mouseX/scale, mouseY/scale); }
 }
 
 //--------------------------------------------------------------

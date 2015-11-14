@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxBox2d.h"
 #include "Outline.h"
+#include "Asteroid.h"
 
 class World {
 private:
@@ -10,6 +11,7 @@ private:
     vector <shared_ptr<ofxBox2dCircle> > circles;
     vector <shared_ptr<ofxBox2dRect> > boxes;
     vector <shared_ptr<Outline> > outlines;
+    vector <shared_ptr<Asteroid> > asteroids;
 
 public:
     ofParameter<int> numBodies;
@@ -73,5 +75,11 @@ public:
         boxes.push_back(shared_ptr<ofxBox2dRect>(new ofxBox2dRect));
         boxes.back().get()->setPhysics(3.0, 0.53, 0.1);
         boxes.back().get()->setup(box2d.getWorld(), x, y, w, h);
+    };
+
+    void addAsteroid(int x, int y) {
+        float r = ofRandom(4, 20);
+        asteroids.push_back(shared_ptr<Asteroid>(new Asteroid));
+        asteroids.back().get()->setup(box2d.getWorld(), x, y, r);
     };
 };
