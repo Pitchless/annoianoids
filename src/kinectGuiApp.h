@@ -14,6 +14,9 @@
 #include "KinectBlobTracker.h"
 #include "World.h"
 
+const float VIEW_W = 640;
+const float VIEW_H = 480;
+
 class kinectGuiApp : public ofBaseApp, public ofxMidiListener {
 
     public:

@@ -80,7 +80,7 @@ void kinectGuiApp::setup(){
 
     cueVideo(0);
 
-    world.setup();
+    world.setup(VIEW_W, VIEW_H);
 }
 
 //--------------------------------------------------------------
@@ -370,7 +370,18 @@ void kinectGuiApp::clearMask() {
 void kinectGuiApp::update(){
     getCurVideo().update();
     kinect.update();
-    world.updateOutlines(kinect.blobs);
+    float scalex = VIEW_W/kinect.kinect.width;
+    float scaley = VIEW_H/kinect.kinect.height;
+    vector<ofPolyline> bloblines;
+    for (int i=0; i<kinect.blobs.size(); i++ ) {
+	ofPolyline ln;
+        vector<ofPoint> verts = kinect.blobs[i].getVertices();
+	for (int j=0; j<verts.size(); j++) {
+	    ln.addVertex(verts[j].x *scalex, verts[j].y*scaley);
+	}
+	bloblines.push_back(ln);
+    }
+    world.updateOutlines(bloblines);
 
     if (joyAxisLeftY != 0) {
         ofColor c = kinect.lineColor.get();
@@ -434,28 +445,29 @@ void kinectGuiApp::update(){
 
 //--------------------------------------------------------------
 void kinectGuiApp::draw(){
-    float w = ofGetWidth();
-    float h = ofGetWindowHeight();
+    float w = VIEW_W;
+    float h = VIEW_H;
 
     ofBackgroundGradient(bgColor1, bgColor2);
-
-    if (showVideo)
-        getCurVideo().draw(0,0,w,h);
-
-    drawKinectImages();
-
-    if (showPointCloud) {
-        easyCam.begin();
-        //kinect.drawPointCloud();
-        drawPointCloud();
-        easyCam.end();
-    }
 
     ofPushMatrix();
       ofTranslate((w/2.0), (h/2.0));
       ofRotate(mainRotation);
       ofTranslate(-(w/2.0), -(h/2.0));
       ofScale(scale, scale, 0.0);
+
+      if (showVideo)
+          getCurVideo().draw(0,0,w,h);
+
+      drawKinectImages();
+
+      if (showPointCloud) {
+          easyCam.begin();
+          //kinect.drawPointCloud();
+          drawPointCloud();
+          easyCam.end();
+      }
+
       if (showMain)  imgMain.draw(0,0,w,h);
       if (showWorld) world.draw();
       if (showBlobs) kinect.drawBlobs(0,0,w,h);
@@ -650,6 +662,12 @@ void kinectGuiApp::buttonReleased(ofxGamepadButtonEvent& e) {
 
 //--------------------------------------------------------------
 void kinectGuiApp::windowResized(int w, int h){
+    float sw = ofGetWidth()/VIEW_W;
+    float sh = ofGetHeight()/VIEW_H;
+    scale = sw > sh ? sh : sw;
+    ofLogNotice() << "Window: " << w << " x " << h << "Scale " << scale;
+
+    // Re-layout the gui
     status = ofToString(w) + "x" + ofToString(h);
     guiApp.setPosition(ofGetWidth()-guiApp.getShape().width-10, 10);
     guiImages.setPosition(10,10);

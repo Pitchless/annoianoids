@@ -14,11 +14,11 @@ private:
 public:
     ofParameter<int> numBodies;
 
-    void setup() {
+    void setup(float w, float h) {
         numBodies.set("Num Bodies", 0, 0, 1000);
         box2d.init();
         box2d.setGravity(0,10);
-        box2d.createBounds();
+        box2d.createBounds(0,0,w,h);
         box2d.setFPS(60.0);
         box2d.registerGrabbing();
     };
