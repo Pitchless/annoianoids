@@ -370,6 +370,7 @@ void kinectGuiApp::clearMask() {
 void kinectGuiApp::update(){
     getCurVideo().update();
     kinect.update();
+    world.updateOutlines(kinect.blobs);
 
     if (joyAxisLeftY != 0) {
         ofColor c = kinect.lineColor.get();

@@ -2,12 +2,14 @@
 
 #include "ofMain.h"
 #include "ofxBox2d.h"
+#include "Outline.h"
 
 class World {
 private:
     ofxBox2d box2d;
     vector <shared_ptr<ofxBox2dCircle> > circles;
     vector <shared_ptr<ofxBox2dRect> > boxes;
+    vector <shared_ptr<Outline> > outlines;
 
 public:
     ofParameter<int> numBodies;
@@ -23,7 +25,19 @@ public:
 
     void update() {
         box2d.update();
+        for(int i=0; i<outlines.size(); i++) {
+            outlines[i].get()->update();
+        }
         numBodies = box2d.getBodyCount();
+    };
+
+    void updateOutlines(vector<ofPolyline> blobs) {
+        outlines.clear();
+        for ( int i=0; i<blobs.size(); i++) {
+            shared_ptr<Outline> ol = shared_ptr<Outline>(new Outline);
+            ol->setup(box2d.getWorld(), blobs[i]);
+            outlines.push_back(ol);
+        }
     };
 
     void draw() {
@@ -37,6 +51,10 @@ public:
             ofFill();
             ofSetHexColor(0xBF2545);
             boxes[i].get()->draw();
+        }
+
+        for(int i=0; i<outlines.size(); i++) {
+            outlines[i].get()->draw();
         }
 
         box2d.draw();
