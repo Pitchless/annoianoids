@@ -36,6 +36,7 @@ public:
         polyShape.create(world);
 
 	texture = ofImage("tex_6.png");
+	printf("IMAGE %i x %i\n", texture.getWidth(), texture.getHeight());
         texture.getTextureReference().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
         texture.getTextureReference().setTextureWrap(GL_REPEAT, GL_REPEAT);
     };
@@ -44,6 +45,7 @@ public:
     };
 
     void draw() {
+        ofPushStyle();
         mesh.clearVertices();
         vector<ofPoint> &pts = polyShape.getPoints();
         ofPoint center       = polyShape.getCentroid2D();
@@ -53,10 +55,11 @@ public:
         }
         mesh.addVertex(center);
         mesh.addVertex(pts.front());
-        
+
         ofSetColor(color);
         texture.bind();
         mesh.draw();
         texture.unbind();
+        ofPopStyle();
     };
 };

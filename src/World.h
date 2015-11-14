@@ -19,7 +19,7 @@ public:
     void setup(float w, float h) {
         numBodies.set("Num Bodies", 0, 0, 1000);
         box2d.init();
-        box2d.setGravity(0,10);
+        box2d.setGravity(0,0.1);
         box2d.createBounds(0,0,w,h);
         box2d.setFPS(60.0);
         box2d.registerGrabbing();
@@ -55,6 +55,10 @@ public:
             boxes[i].get()->draw();
         }
 
+        for(int i=0; i<asteroids.size(); i++) {
+            asteroids[i].get()->draw();
+        }
+
         for(int i=0; i<outlines.size(); i++) {
             outlines[i].get()->draw();
         }
@@ -78,7 +82,7 @@ public:
     };
 
     void addAsteroid(int x, int y) {
-        float r = ofRandom(4, 20);
+        float r = ofRandom(20, 60);
         asteroids.push_back(shared_ptr<Asteroid>(new Asteroid));
         asteroids.back().get()->setup(box2d.getWorld(), x, y, r);
     };
