@@ -26,6 +26,7 @@ void kinectGuiApp::setup(){
     mainSaturation.set("Main Saturation", 255, 0, 255);
     imgMain.allocate(kinect.kinect.width, kinect.kinect.height, OF_IMAGE_COLOR_ALPHA);
     mainRotation.set("Rotation", 0, 0, 360);
+    scale.set("Scale", 1.0, 0.1, 10.0);
     pointMode.set("Point Mode",6,0,6);
     bPointColor.set("Point Color", true);
     // enum ofPrimitiveMode{
@@ -243,7 +244,7 @@ void kinectGuiApp::setupGui() {
     appParams.add( showGui.set("Show Gui", true) );
     appParams.add( showJoystick );
     appParams.add( joyDeadzone );
-    appParams.add( showPointCloud.set("Show Point Cloud", true) );
+    appParams.add( showPointCloud.set("Show Point Cloud", false) );
     appParams.add( pointMode );
     appParams.add( bPointColor );
     appParams.add( showColorImg.set("RGB", false) );
@@ -255,6 +256,7 @@ void kinectGuiApp::setupGui() {
     appParams.add( showVideo );
     appParams.add( showWorld );
     appParams.add( mainRotation );
+    appParams.add( scale );
     appParams.add( showMain );
     appParams.add( mainAlpha );
     appParams.add( mainHue );
@@ -449,18 +451,13 @@ void kinectGuiApp::draw(){
     }
 
     ofPushMatrix();
-    ofTranslate((w/2.0), (h/2.0));
-    ofRotate(mainRotation);
-    ofTranslate(-(w/2.0), -(h/2.0));
-    if (showMain)
-        imgMain.draw(0,0,w,h);
-    
-    if (showWorld)
-        world.draw();
-
-    if (showBlobs) {
-        kinect.drawBlobs(0,0,w,h);
-    }
+      ofTranslate((w/2.0), (h/2.0));
+      ofRotate(mainRotation);
+      ofTranslate(-(w/2.0), -(h/2.0));
+      ofScale(scale, scale, 0.0);
+      if (showMain)  imgMain.draw(0,0,w,h);
+      if (showWorld) world.draw();
+      if (showBlobs) kinect.drawBlobs(0,0,w,h);
     ofPopMatrix();
 
     if (showJoystick)
@@ -587,8 +584,8 @@ void kinectGuiApp::keyPressed(int key){
     else if (key == 'y') { kinect.lineColor.set(ofColor(200,200,0,32)); }
     else if (key == 'm') { showBlobs = false; showMain = true; }
 
-    if(key == 'c') { world.addCircle(mouseX, mouseY); }
-    if(key == 'b') { world.addRect(mouseX, mouseY); }
+    if(key == 'c') { world.addCircle(mouseX/scale, mouseY/scale); }
+    if(key == 'b') { world.addRect(mouseX/scale, mouseY/scale); }
 }
 
 //--------------------------------------------------------------

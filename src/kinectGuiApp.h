@@ -39,6 +39,7 @@ class kinectGuiApp : public ofBaseApp, public ofxMidiListener {
         ofParameter<int> mainSaturation;
         ofParameter<int> mainBrightness;
         ofParameter<float> mainRotation;
+        ofParameter<float> scale;
         ofParameter<int> pointMode;
         ofParameter<bool> bPointColor;
 

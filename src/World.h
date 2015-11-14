@@ -39,7 +39,7 @@ public:
             boxes[i].get()->draw();
         }
 
-        box2d.drawGround();
+        box2d.draw();
     };
 
     void addCircle(int x, int y) {
