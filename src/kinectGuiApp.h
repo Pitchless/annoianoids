@@ -6,6 +6,7 @@
 #include "ofxKinect.h"
 #include "ofxMidi.h"
 #include "ofxGamepadHandler.h"
+#include "ofxBox2d.h"
 
 
 // Custom controls.
@@ -28,6 +29,7 @@ class kinectGuiApp : public ofBaseApp, public ofxMidiListener {
         ofParameter<bool> showBlobs;
         ofParameter<bool> showVideo;
         ofParameter<bool> showMain;
+        ofParameter<bool> showWorld;
         ofParameter<bool> showJoystick;
         ofParameter<float> joyDeadzone;
         float joyAxisLeftX, joyAxisLeftY, joyAxisRightX, joyAxisRightY;
@@ -41,9 +43,16 @@ class kinectGuiApp : public ofBaseApp, public ofxMidiListener {
         ofParameter<int> pointMode;
         ofParameter<bool> bPointColor;
 
+        ofxBox2d box2d; // the box2d world
+        vector <shared_ptr<ofxBox2dCircle> > circles;
+        vector <shared_ptr<ofxBox2dRect> > boxes;
+
+
         void setup();
         void update();
+        void updateWorld();
         void draw();
+        void drawWorld();
         void drawPointCloud();
 
         void keyPressed  (int key);

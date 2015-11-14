@@ -25,3 +25,7 @@
 ../../../../addons/ofxKinect/libs/libfreenect/include
 ../../../../addons/ofxKinect/libs/libfreenect/src
 ../../../../addons/ofxKinect/libs/libusb-1.0/include/libusb-1.0
+../../../../addons/ofxMidi/src
+../../../../addons/ofxGamepad/src
+../../../../addons/ofxBox2d/src
+

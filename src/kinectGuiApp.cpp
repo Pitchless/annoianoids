@@ -20,6 +20,7 @@ void kinectGuiApp::setup(){
     //pauseVideo();
 
     showMain.set("Show Main", true);
+    showWorld.set("Show World", true);
     mainAlpha.set("Main Alpha", 100, 0, 255);
     mainHue.set("Main Hue", 255, 0, 255);
     mainSaturation.set("Main Saturation", 255, 0, 255);
@@ -77,6 +78,12 @@ void kinectGuiApp::setup(){
     kinect.connect();
 
     cueVideo(0);
+
+    box2d.init();
+    box2d.setGravity(0,10);
+    box2d.createBounds();
+    box2d.setFPS(60.0);
+    box2d.registerGrabbing();
 }
 
 //--------------------------------------------------------------
@@ -250,6 +257,7 @@ void kinectGuiApp::setupGui() {
     appParams.add( showGrayImg.set("Gray", false) );
     appParams.add( showBlobs.set("Show Blobs", false) );
     appParams.add( showVideo );
+    appParams.add( showWorld );
     appParams.add( mainRotation );
     appParams.add( showMain );
     appParams.add( mainAlpha );
@@ -380,6 +388,8 @@ void kinectGuiApp::update(){
     //    mainSaturation = ofClamp(mainSaturation+(-4*joyAxisRightY), 0, 255);
     //}
 
+    box2d.update();
+
     // Copy the kinect grey image into our video layer
     unsigned char* newPix = imgMain.getPixels();
     unsigned char* pix = kinect.grayImg.getPixels();
@@ -420,6 +430,12 @@ void kinectGuiApp::update(){
     imgMain.update();
 }
 
+void kinectGuiApp::updateWorld()
+{
+    box2d.update();
+}
+
+
 //--------------------------------------------------------------
 void kinectGuiApp::draw(){
     float w = ofGetWidth();
@@ -445,6 +461,9 @@ void kinectGuiApp::draw(){
     ofTranslate(-(w/2.0), -(h/2.0));
     if (showMain)
         imgMain.draw(0,0,w,h);
+    
+    if (showWorld)
+        drawWorld();
 
     if (showBlobs) {
         kinect.drawBlobs(0,0,w,h);
@@ -460,6 +479,25 @@ void kinectGuiApp::draw(){
         guiImages.draw();
     }
 }
+
+void kinectGuiApp::drawWorld()
+{
+    for(int i=0; i<circles.size(); i++) {
+        ofFill();
+        ofSetHexColor(0xf6c738);
+        circles[i].get()->draw();
+    }
+    
+    for(int i=0; i<boxes.size(); i++) {
+        ofFill();
+        ofSetHexColor(0xBF2545);
+        boxes[i].get()->draw();
+    }
+
+    // draw the ground
+    box2d.drawGround();
+}
+
 
 void kinectGuiApp::drawKinectImages() {
     vector<ofxCvImage*> images;
@@ -570,9 +608,25 @@ void kinectGuiApp::keyPressed(int key){
     if (key == '9') { cueVideo(8); }
     if (key == '0') { cueVideo(9); }
     else if (key == 'g') { kinect.lineColor.set(ofColor(0,230,0,32)); }
-    else if (key == 'b') { kinect.lineColor.set(ofColor(0,0,200,32)); }
+    //else if (key == 'b') { kinect.lineColor.set(ofColor(0,0,200,32)); }
     else if (key == 'y') { kinect.lineColor.set(ofColor(200,200,0,32)); }
     else if (key == 'm') { showBlobs = false; showMain = true; }
+
+    if(key == 'c') {
+        float r = ofRandom(4, 20);
+        circles.push_back(shared_ptr<ofxBox2dCircle>(new ofxBox2dCircle));
+        circles.back().get()->setPhysics(3.0, 0.53, 0.1);
+        circles.back().get()->setup(box2d.getWorld(), mouseX, mouseY, r);
+        
+    }
+    if(key == 'b') {
+        float w = ofRandom(4, 20);
+        float h = ofRandom(4, 20);
+        boxes.push_back(shared_ptr<ofxBox2dRect>(new ofxBox2dRect));
+        boxes.back().get()->setPhysics(3.0, 0.53, 0.1);
+        boxes.back().get()->setup(box2d.getWorld(), mouseX, mouseY, w, h);
+    }
+
 }
 
 //--------------------------------------------------------------
