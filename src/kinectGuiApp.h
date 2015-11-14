@@ -6,14 +6,13 @@
 #include "ofxKinect.h"
 #include "ofxMidi.h"
 #include "ofxGamepadHandler.h"
-#include "ofxBox2d.h"
-
 
 // Custom controls.
 #include "ofxFpsSlider.h"
 #include "ofxGuiImage.h"
 
 #include "KinectBlobTracker.h"
+#include "World.h"
 
 class kinectGuiApp : public ofBaseApp, public ofxMidiListener {
 
@@ -43,16 +42,11 @@ class kinectGuiApp : public ofBaseApp, public ofxMidiListener {
         ofParameter<int> pointMode;
         ofParameter<bool> bPointColor;
 
-        ofxBox2d box2d; // the box2d world
-        vector <shared_ptr<ofxBox2dCircle> > circles;
-        vector <shared_ptr<ofxBox2dRect> > boxes;
-
+        World world; // the box2d world
 
         void setup();
         void update();
-        void updateWorld();
         void draw();
-        void drawWorld();
         void drawPointCloud();
 
         void keyPressed  (int key);
@@ -124,6 +118,8 @@ class kinectGuiApp : public ofBaseApp, public ofxMidiListener {
         ofxGuiImage maskImgGui;
         ofxGuiImage stencilImgGui;
         ofxGuiImage grayImgGui;
+	
+	ofxPanel guiBox2d;
 
         // used for viewing the point cloud
         ofEasyCam easyCam;
