@@ -19,6 +19,17 @@ public:
     };
 
     void setup(b2World *world, float cx, float cy, float r) {
+        ofDisableArbTex();
+        string fname("tex_6.png");
+        if (texture.loadImage(fname)) {
+            ofLogNotice() << "Loaded texture file '" << fname << "'";
+        } else {
+            ofLogError() << "Failed to load texture file '" << fname << "'";
+        }
+        //printf("IMAGE %f x %f\n", texture.getWidth(), texture.getHeight());
+        texture.getTextureReference().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
+        texture.getTextureReference().setTextureWrap(GL_REPEAT, GL_REPEAT);
+
         color.setHex(hexColors[(int)ofRandom(4)]);
         mesh.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
         int   nPts  = 8;
@@ -35,10 +46,6 @@ public:
         polyShape.setPhysics(0.3, 0.5, 0.1);
         polyShape.create(world);
 
-	texture = ofImage("tex_6.png");
-	printf("IMAGE %i x %i\n", texture.getWidth(), texture.getHeight());
-        texture.getTextureReference().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
-        texture.getTextureReference().setTextureWrap(GL_REPEAT, GL_REPEAT);
     };
 
     void update() {
