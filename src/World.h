@@ -19,7 +19,7 @@ public:
     void setup(float w, float h) {
         numBodies.set("Num Bodies", 0, 0, 1000);
         box2d.init();
-        box2d.setGravity(0,0.1);
+        box2d.setGravity(0,0);
         box2d.createBounds(0,0,w,h);
         box2d.setFPS(60.0);
         box2d.registerGrabbing();
@@ -71,6 +71,7 @@ public:
         circles.push_back(shared_ptr<ofxBox2dCircle>(new ofxBox2dCircle));
         circles.back().get()->setPhysics(3.0, 0.53, 0.1);
         circles.back().get()->setup(box2d.getWorld(), x, y, r);
+        circles.back().get()->setVelocity(ofRandom(-30, 30), ofRandom(-30, 30));
     };
 
     void addRect(int x, int y) {
