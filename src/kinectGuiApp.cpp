@@ -338,6 +338,8 @@ void kinectGuiApp::setupGui() {
     
     guiBox2d.setup("Box2DWorld");
     guiBox2d.add( world.numBodies );
+    guiBox2d.add( world.gravityX );
+    guiBox2d.add( world.gravityY );
 }
 
 void kinectGuiApp::connect() { kinect.reConnect(); }

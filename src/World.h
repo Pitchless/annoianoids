@@ -15,15 +15,25 @@ private:
 
 public:
     ofParameter<int> numBodies;
+    ofParameter<float> gravityX;
+    ofParameter<float> gravityY;
 
     void setup(float w, float h) {
         numBodies.set("Num Bodies", 0, 0, 1000);
+        gravityX.set("Gravity X", 0, -23, 23);
+        gravityY.set("Gravity Y", 0, -23, 23);
         box2d.init();
-        box2d.setGravity(0,0);
+        box2d.setGravity(gravityX, gravityY);
         box2d.createBounds(0,0,w,h);
         box2d.setFPS(60.0);
         box2d.registerGrabbing();
+
+        gravityX.addListener(this, &World::setGravityX);
+        gravityY.addListener(this, &World::setGravityY);
     };
+    
+    void setGravityX(float &v) { gravityX = v; box2d.setGravity(gravityX, gravityY);};
+    void setGravityY(float &v) { gravityY = v; box2d.setGravity(gravityX, gravityY);};
 
     void update() {
         box2d.update();
