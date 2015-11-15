@@ -17,8 +17,11 @@ public:
     ofParameter<int> numBodies;
     ofParameter<float> gravityX;
     ofParameter<float> gravityY;
+    float width, height;
 
     void setup(float w, float h) {
+        width = w;
+        height = h;
         numBodies.set("Num Bodies", 0, 0, 1000);
         gravityX.set("Gravity X", 0, -23, 23);
         gravityY.set("Gravity Y", 0, -23, 23);
@@ -40,6 +43,26 @@ public:
         for(int i=0; i<outlines.size(); i++) {
             outlines[i].get()->update();
         }
+        /*
+        for(int i=0; i<asteroids.size(); i++) {
+            Asteroid* ast = asteroids[i].get();
+            ast->update();
+            ofVec2f pos = ast->getPosition();
+            if ( pos.x < 0 ) {
+                pos.x = width;
+                ast->setPosition(pos);
+            } else if ( pos.x > width ) {
+                pos.x = 0;
+                ast->setPosition(pos);
+            } else if ( pos.y < 0 ) {
+                pos.y = height;
+                ast->setPosition(pos);
+            } else if ( pos.y > height ) {
+                pos.y = 0;
+                ast->setPosition(pos);
+            }
+        }
+        */
         numBodies = box2d.getBodyCount();
     };
 

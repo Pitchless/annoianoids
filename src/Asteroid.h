@@ -68,5 +68,17 @@ public:
         mesh.draw();
         texture.unbind();
         ofPopStyle();
+
+        stringstream info;
+	ofVec2f pos = getPosition();
+        info << "Pos: " << pos.x << " x " << pos.y;
+        ofSetColor(ofColor::green);
+        //ofRectangle box = it->getBoundingBox();
+        //ofRect(box);
+        //ofDrawBitmapString(info.str(), box.x, box.y);
+        ofDrawBitmapString(info.str(), pos.x, pos.y);
     };
+
+    ofVec2f getPosition() { return polyShape.getPosition(); };
+    ofVec2f setPosition(ofVec2f pos) { polyShape.setPosition(pos); };
 };
