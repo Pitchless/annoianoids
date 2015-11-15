@@ -66,6 +66,13 @@ public:
         box2d.draw();
     };
 
+    void clear() {
+        circles.clear();
+        boxes.clear();
+        outlines.clear();
+        asteroids.clear();
+    };
+
     void addCircle(int x, int y) {
         float r = ofRandom(4, 20);
         circles.push_back(shared_ptr<ofxBox2dCircle>(new ofxBox2dCircle));

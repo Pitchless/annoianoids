@@ -597,6 +597,7 @@ void kinectGuiApp::keyPressed(int key){
     else if (key == 'y') { kinect.lineColor.set(ofColor(200,200,0,32)); }
     else if (key == 'm') { showBlobs = false; showMain = true; }
 
+    if(key == 'C') { world.clear(); }
     if(key == 'c') { world.addCircle(mouseX/scale, mouseY/scale); }
     if(key == 'b') { world.addRect(mouseX/scale, mouseY/scale); }
     if(key == 'a') { world.addAsteroid(mouseX/scale, mouseY/scale); }
