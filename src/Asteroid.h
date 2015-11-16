@@ -43,7 +43,7 @@ public:
             mesh.addTexCoord(ofPoint(0, 0));
             mesh.addTexCoord(ofPoint(x * scale, y * scale));
         }
-        polyShape.setPhysics(0.3, 0.5, 0.1);
+        polyShape.setPhysics(2.0, 0.8, 0.1);
         polyShape.create(world);
 
     };
@@ -70,7 +70,7 @@ public:
         ofPopStyle();
 
         stringstream info;
-	ofVec2f pos = getPosition();
+        ofVec2f pos = getPosition();
         info << "Pos: " << pos.x << " x " << pos.y;
         ofSetColor(ofColor::green);
         //ofRectangle box = it->getBoundingBox();
@@ -80,5 +80,6 @@ public:
     };
 
     ofVec2f getPosition() { return polyShape.getPosition(); };
-    ofVec2f setPosition(ofVec2f pos) { polyShape.setPosition(pos); };
+    void setPosition(ofVec2f pos) { polyShape.setPosition(pos); };
+    void setPosition(float x, float y) { polyShape.setPosition(x, y); };
 };

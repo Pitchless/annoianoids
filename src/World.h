@@ -17,6 +17,7 @@ public:
     ofParameter<int> numBodies;
     ofParameter<float> gravityX;
     ofParameter<float> gravityY;
+    ofParameter<float> border;
     float width, height;
 
     void setup(float w, float h) {
@@ -25,9 +26,10 @@ public:
         numBodies.set("Num Bodies", 0, 0, 1000);
         gravityX.set("Gravity X", 0, -23, 23);
         gravityY.set("Gravity Y", 0, -23, 23);
+        border.set("World Border", 100, 0, 100);
         box2d.init();
         box2d.setGravity(gravityX, gravityY);
-        box2d.createBounds(0,0,w,h);
+        //box2d.createBounds(0,0,w,h);
         box2d.setFPS(60.0);
         box2d.registerGrabbing();
 
@@ -40,29 +42,61 @@ public:
 
     void update() {
         box2d.update();
+        float left = 0 - border;
+        float right = width + border;
+        float top = 0 - border;
+        float bottom = height + border;
         for(int i=0; i<outlines.size(); i++) {
             outlines[i].get()->update();
         }
-        /*
         for(int i=0; i<asteroids.size(); i++) {
             Asteroid* ast = asteroids[i].get();
             ast->update();
             ofVec2f pos = ast->getPosition();
-            if ( pos.x < 0 ) {
+            if ( pos.x < left ) {
+	        printf("Hello left %fx%f w:%f h:%f\n", pos.x, pos.y, left, right);
                 pos.x = width;
+	        printf("World %fx%f w:%f h:%f\n", pos.x, pos.y, left, right);
                 ast->setPosition(pos);
-            } else if ( pos.x > width ) {
+            } else if ( pos.x > right ) {
+	        printf("Hello right %fx%f w:%f h:%f\n", pos.x, pos.y, left, right);
                 pos.x = 0;
                 ast->setPosition(pos);
-            } else if ( pos.y < 0 ) {
+            } else if ( pos.y < top ) {
+	        printf("Hello top %fx%f w:%f h:%f\n", pos.x, pos.y, top, bottom);
                 pos.y = height;
                 ast->setPosition(pos);
-            } else if ( pos.y > height ) {
-                pos.y = 0;
-                ast->setPosition(pos);
+            } else if ( pos.y > bottom ) {
+	        printf("Hello bot %fx%f w:%f h:%f\n", pos.x, pos.y, top, bottom);
+                //pos.y = 0;
+	        printf("World bot %fx%f w:%f h:%f\n", pos.x, pos.y, top, bottom);
+                //ast->setPosition(foo);
+                ast->setPosition(10.0,10.0);
             }
         }
-        */
+        for(int i=0; i<circles.size(); i++) {
+            ofxBox2dCircle* obj = circles[i].get();
+            obj->update();
+            ofVec2f pos = obj->getPosition();
+            ofVec2f vel = obj->getVelocity();
+            if ( pos.x < left ) {
+                pos.x = width;
+                obj->setPosition(pos);
+                obj->setVelocity(vel);
+            } else if ( pos.x > right ) {
+                pos.x = 0;
+                obj->setPosition(pos);
+                obj->setVelocity(vel);
+            } else if ( pos.y < top ) {
+                pos.y = height;
+                obj->setPosition(pos);
+                obj->setVelocity(vel);
+            } else if ( pos.y > bottom ) {
+                pos.y = 0;
+                obj->setPosition(pos);
+                obj->setVelocity(vel);
+            }
+        }
         numBodies = box2d.getBodyCount();
     };
 
@@ -107,11 +141,11 @@ public:
     };
 
     void addCircle(int x, int y) {
-        float r = ofRandom(4, 20);
+        float r = ofRandom(20, 40);
         circles.push_back(shared_ptr<ofxBox2dCircle>(new ofxBox2dCircle));
-        circles.back().get()->setPhysics(3.0, 0.53, 0.1);
+        circles.back().get()->setPhysics(6.0, 0.02, 0.2);
         circles.back().get()->setup(box2d.getWorld(), x, y, r);
-        circles.back().get()->setVelocity(ofRandom(-30, 30), ofRandom(-30, 30));
+        circles.back().get()->setVelocity(ofRandom(-10, 10), ofRandom(-10, 10));
     };
 
     void addRect(int x, int y) {
