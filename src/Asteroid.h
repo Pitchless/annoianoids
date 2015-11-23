@@ -36,7 +36,7 @@ public:
 
         color.setHex(hexColors[(int)ofRandom(4)]);
         mesh.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
-        int   nPts  = 8;
+        int   nPts  = ofRandom(3, 12);
         float scale = r / (float)texture.getWidth();
         for (int i=0; i<nPts; i++) {
             float n = ofMap(i, 0, nPts-1, 0.0, TWO_PI);

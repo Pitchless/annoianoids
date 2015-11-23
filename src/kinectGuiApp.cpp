@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void kinectGuiApp::setup(){
-    ofSetWindowTitle("kinectGui");
+    ofSetWindowTitle("Invaderoids");
     //ofSetLogLevel(OF_LOG_VERBOSE);
     ofSetFrameRate(60);
     ofEnableAlphaBlending();

@@ -176,7 +176,7 @@ public:
     }
 
     void addCircle(int x, int y) {
-        float r = ofRandom(20, 40);
+        float r = ofRandom(10, 23);
         circles.push_back(shared_ptr<ofxBox2dCircle>(new ofxBox2dCircle));
         circles.back().get()->setPhysics(6.0, 0.02, 0.2);
         circles.back().get()->setup(box2d.getWorld(), x, y, r);
