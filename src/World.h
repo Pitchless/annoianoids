@@ -18,16 +18,20 @@ public:
     ofParameter<float> gravityX;
     ofParameter<float> gravityY;
     ofParameter<float> border;
+    ofParameter<bool> paused;
     float width, height;
-
+    
+    World() : numBodies("Num Bodies", 0, 0, 1000)
+      , gravityX("Gravity X", 0, -2, 2)
+      , gravityY("Gravity Y", 0, -10, 10)
+      , border("World Border", 100, 0, 100)
+      , paused("Pause", false)
+      {};
 
     void setup(float w, float h) {
         width = w;
         height = h;
         numBodies.set("Num Bodies", 0, 0, 1000);
-        gravityX.set("Gravity X", 0, -2, 2);
-        gravityY.set("Gravity Y", 0, -10, 10);
-        border.set("World Border", 100, 0, 100);
         box2d.init();
         box2d.setGravity(gravityX, gravityY);
         //box2d.createBounds(0,0,w,h);
@@ -45,15 +49,18 @@ public:
         gui.add( numBodies );
         gui.add( gravityX );
         gui.add( gravityY );
+        gui.add( paused );
 	gui.add( clearBtn.setup("Clear") );
 	clearBtn.addListener(this, &World::clear);
     }
-
     
     void setGravityX(float &v) { gravityX = v; box2d.setGravity(gravityX, gravityY);};
     void setGravityY(float &v) { gravityY = v; box2d.setGravity(gravityX, gravityY);};
 
     void update() {
+        if (paused) {
+	  return;
+	}
         box2d.update();
         float left = 0 - border;
         float right = width + border;
