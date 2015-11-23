@@ -11,7 +11,7 @@ class Photon : public Stuff {
 private:
     float radius, x_, y_;
 public:
-    Photon() : radius(2.0), x_(0), y_(0) {};
+    Photon() : radius(1.0), x_(0), y_(0) {};
     ~Photon() {};
 
     virtual void setup(float x, float y) {
@@ -51,9 +51,9 @@ public:
         ofTranslate(getPosition().x, getPosition().y, 0);
         ofRotate(getRotation(), 0, 0, 1);
         ofFill();
-        ofSetColor(223,223,223,223);
+        ofSetColor(255,255,255,200);
         ofCircle(0, 0, radius);
-        ofSetColor(255,255,255,255);
+        ofSetColor(255,255,0,223);
         ofCircle(0, 0, radius/2);
         ofPopStyle();
         ofPopMatrix();
