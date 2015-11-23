@@ -620,7 +620,9 @@ void kinectGuiApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void kinectGuiApp::mousePressed(int x, int y, int button){
-
+    world.addCircle(mouseX/scale, mouseY/scale);
+    //world.addRect(mouseX/scale, mouseY/scale);
+    //world.addAsteroid(mouseX/scale, mouseY/scale);
 }
 
 //--------------------------------------------------------------

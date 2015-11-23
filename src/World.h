@@ -14,19 +14,21 @@ private:
     vector <shared_ptr<Asteroid> > asteroids;
 
 public:
-    ofParameter<int> numBodies;
+    ofParameter<int> numBodies, numJoints;
     ofParameter<float> gravityX;
     ofParameter<float> gravityY;
     ofParameter<float> border;
     ofParameter<bool> paused;
     float width, height;
-    
-    World() : numBodies("Num Bodies", 0, 0, 1000)
-      , gravityX("Gravity X", 0, -2, 2)
-      , gravityY("Gravity Y", 0, -10, 10)
-      , border("World Border", 100, 0, 100)
-      , paused("Pause", false)
-      {};
+
+    World()
+        : numBodies("Num Bodies", 0, 0, 1000)
+        , numJoints("Num Joints", 0, 0, 1000)
+        , gravityX("Gravity X", 0, -2, 2)
+        , gravityY("Gravity Y", 0, -10, 10)
+        , border("World Border", 100, 0, 100)
+        , paused("Pause", false)
+    {};
 
     void setup(float w, float h) {
         width = w;
@@ -43,24 +45,33 @@ public:
     };
 
     ofxPanel gui;
-    ofxButton clearBtn;
+    ofxButton clearBtn, wakeUpBtn;
     void setupGui() {
         gui.setup("Box2DWorld");
         gui.add( numBodies );
+        gui.add( numJoints );
         gui.add( gravityX );
         gui.add( gravityY );
         gui.add( paused );
-	gui.add( clearBtn.setup("Clear") );
-	clearBtn.addListener(this, &World::clear);
+        gui.add( clearBtn.setup("Clear") );
+        gui.add( wakeUpBtn.setup("Wake up") );
+        clearBtn.addListener(this, &World::clear);
+        wakeUpBtn.addListener(this, &World::wakeUp);
     }
-    
-    void setGravityX(float &v) { gravityX = v; box2d.setGravity(gravityX, gravityY);};
-    void setGravityY(float &v) { gravityY = v; box2d.setGravity(gravityX, gravityY);};
+
+    void setGravityX(float &v) {
+        gravityX = v;
+        box2d.setGravity(gravityX, gravityY);
+    };
+    void setGravityY(float &v) {
+        gravityY = v;
+        box2d.setGravity(gravityX, gravityY);
+    };
 
     void update() {
         if (paused) {
-	  return;
-	}
+            return;
+        }
         box2d.update();
         float left = 0 - border;
         float right = width + border;
@@ -74,22 +85,22 @@ public:
             ast->update();
             ofVec2f pos = ast->getPosition();
             if ( pos.x < left ) {
-	        printf("Hello left %fx%f w:%f h:%f\n", pos.x, pos.y, left, right);
+                printf("Hello left %fx%f w:%f h:%f\n", pos.x, pos.y, left, right);
                 pos.x = width;
-	        printf("World %fx%f w:%f h:%f\n", pos.x, pos.y, left, right);
+                printf("World %fx%f w:%f h:%f\n", pos.x, pos.y, left, right);
                 ast->setPosition(pos);
             } else if ( pos.x > right ) {
-	        printf("Hello right %fx%f w:%f h:%f\n", pos.x, pos.y, left, right);
+                printf("Hello right %fx%f w:%f h:%f\n", pos.x, pos.y, left, right);
                 pos.x = 0;
                 ast->setPosition(pos);
             } else if ( pos.y < top ) {
-	        printf("Hello top %fx%f w:%f h:%f\n", pos.x, pos.y, top, bottom);
+                printf("Hello top %fx%f w:%f h:%f\n", pos.x, pos.y, top, bottom);
                 pos.y = height;
                 ast->setPosition(pos);
             } else if ( pos.y > bottom ) {
-	        printf("Hello bot %fx%f w:%f h:%f\n", pos.x, pos.y, top, bottom);
+                printf("Hello bot %fx%f w:%f h:%f\n", pos.x, pos.y, top, bottom);
                 //pos.y = 0;
-	        printf("World bot %fx%f w:%f h:%f\n", pos.x, pos.y, top, bottom);
+                printf("World bot %fx%f w:%f h:%f\n", pos.x, pos.y, top, bottom);
                 //ast->setPosition(foo);
                 ast->setPosition(10.0,10.0);
             }
@@ -159,6 +170,10 @@ public:
         outlines.clear();
         asteroids.clear();
     };
+
+    void wakeUp() {
+        box2d.wakeupShapes();
+    }
 
     void addCircle(int x, int y) {
         float r = ofRandom(20, 40);

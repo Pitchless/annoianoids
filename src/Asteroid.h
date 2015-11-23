@@ -58,9 +58,9 @@ public:
     void draw() {
         ofPushStyle();
         ofPushMatrix();
-        ofTranslate(getPosition());
-        ofRotate(polyShape.getRotation(), 0, 0, 1);
         if (style == STYLE_TEX) {
+            ofTranslate(getPosition());
+            ofRotate(polyShape.getRotation(), 0, 0, 1);
             drawTex();
         } else {
             // Old skool
@@ -68,23 +68,29 @@ public:
             ofEnableAlphaBlending();
             ofSetLineWidth(7);
             ofSetColor(ofColor::blueSteel, 0.1);
+	    drawShape();
+            ofSetLineWidth(3);
+            ofSetColor(ofColor::white);
+	    drawShape();
+	    // Shadow
+            ofSetLineWidth(0);
+	    ofFill();
+            ofSetColor(0,0,0,100);
+	    drawShape();
+        }
+        ofPopMatrix();
+        ofPopStyle();
+    }
+    
+    // Draw shape in current style.
+    void drawShape() {
             ofBeginShape();
             vector<ofPoint> pts = polyShape.getPoints();
             for (int i=0; i<pts.size(); i++) {
                 ofVertex(pts[i]);
             }
             ofEndShape(true);
-            ofSetLineWidth(3);
-            ofSetColor(ofColor::white);
-            ofBeginShape();
-            pts = polyShape.getPoints();
-            for (int i=0; i<pts.size(); i++) {
-                ofVertex(pts[i]);
-            }
-            ofEndShape(true);
-        }
-        ofPopMatrix();
-        ofPopStyle();
+      
     }
 
     void drawTex() {
