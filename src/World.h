@@ -19,7 +19,6 @@ public:
     ofParameter<float> gravityY;
     ofParameter<float> border;
     float width, height;
-    ofxPanel gui;
 
 
     void setup(float w, float h) {
@@ -39,11 +38,15 @@ public:
         gravityY.addListener(this, &World::setGravityY);
     };
 
+    ofxPanel gui;
+    ofxButton clearBtn;
     void setupGui() {
         gui.setup("Box2DWorld");
         gui.add( numBodies );
         gui.add( gravityX );
         gui.add( gravityY );
+	gui.add( clearBtn.setup("Clear") );
+	clearBtn.addListener(this, &World::clear);
     }
 
     

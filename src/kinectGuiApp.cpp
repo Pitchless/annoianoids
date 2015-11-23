@@ -571,7 +571,7 @@ void kinectGuiApp::drawPointCloud() {
 
 //--------------------------------------------------------------
 void kinectGuiApp::keyPressed(int key){
-    if (key == 'H') { showGui = !showGui; }
+    if (key == '\t') { showGui = !showGui; }
     if (key == 'F') { ofToggleFullscreen(); }
     if (key == 'S') { saveSettings(); }
     if (key == 'L') { loadSettings(); }
