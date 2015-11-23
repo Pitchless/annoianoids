@@ -7,10 +7,11 @@ void kinectGuiApp::setup(){
     ofSetFrameRate(60);
     ofEnableAlphaBlending();
     ofEnableSmoothing();
+    ofSetWindowShape(1280, 1024);
 
     maskFilename = "mask.png";
-    bgColor1.set("bgColor1", ofColor(200,200,200),ofColor(0,0),ofColor(255,255));
-    bgColor2.set("bgColor2", ofColor(23,23,23),ofColor(0,0),ofColor(255,255));
+    bgColor1.set("bgColor1", ofColor(5,5,5),ofColor(2,2),ofColor(12,12));
+    bgColor2.set("bgColor2", ofColor(23,23,23),ofColor(23,23),ofColor(38,38));
 
     // Video
     iCurVideo = 0;

@@ -3,6 +3,7 @@
 
 #include "ofMain.h"
 #include "ofxBox2d.h"
+#include "Style.h"
 
 static int hexColors[4] = {0x31988A, 0xFDB978, 0xFF8340, 0xE8491B};
 
@@ -12,10 +13,13 @@ private:
     ofMesh          mesh;
     ofColor         color;
     ofxBox2dPolygon polyShape;
+    Style style;
 
 public:
-    Asteroid() {
-      // TODO? Allocate empty image?
+    Asteroid()
+        : style(STYLE_OLDSKOOL)
+    {
+        // TODO? Allocate empty image?
     };
 
     void setup(b2World *world, float cx, float cy, float r) {
@@ -53,6 +57,37 @@ public:
 
     void draw() {
         ofPushStyle();
+        ofPushMatrix();
+        ofTranslate(getPosition());
+        ofRotate(polyShape.getRotation(), 0, 0, 1);
+        if (style == STYLE_TEX) {
+	  drawTex();
+	} else {
+        // Old skool
+	    ofNoFill();
+	    ofEnableAlphaBlending();
+	    ofSetLineWidth(7);
+	    ofSetColor(ofColor::blueSteel, 0.1);
+	    ofBeginShape();
+	      vector<ofPoint> pts = polyShape.getPoints();
+	      for (int i=0; i<pts.size(); i++) {
+		  ofVertex(pts[i]);
+	      }
+	    ofEndShape(true);
+	    ofSetLineWidth(3);
+	    ofSetColor(ofColor::white);
+	    ofBeginShape();
+	      pts = polyShape.getPoints();
+	      for (int i=0; i<pts.size(); i++) {
+		  ofVertex(pts[i]);
+	      }
+	    ofEndShape(true);
+	}
+        ofPopMatrix();
+	ofPopStyle();
+    }
+    void drawTex() {
+        ofPushStyle();
         mesh.clearVertices();
         vector<ofPoint> &pts = polyShape.getPoints();
         ofPoint center       = polyShape.getCentroid2D();
@@ -79,7 +114,14 @@ public:
         ofDrawBitmapString(info.str(), pos.x, pos.y);
     };
 
-    ofVec2f getPosition() { return polyShape.getPosition(); };
-    void setPosition(ofVec2f pos) { polyShape.setPosition(pos); };
-    void setPosition(float x, float y) { polyShape.setPosition(x, y); };
+    ofVec2f getPosition() {
+        return polyShape.getPosition();
+    };
+    void setPosition(ofVec2f pos) {
+        polyShape.setPosition(pos);
+    };
+    void setPosition(float x, float y) {
+        polyShape.setPosition(x, y);
+    };
 };
+

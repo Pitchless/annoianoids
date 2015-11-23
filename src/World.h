@@ -24,8 +24,8 @@ public:
         width = w;
         height = h;
         numBodies.set("Num Bodies", 0, 0, 1000);
-        gravityX.set("Gravity X", 0, -23, 23);
-        gravityY.set("Gravity Y", 0, -23, 23);
+        gravityX.set("Gravity X", 0, -2, 2);
+        gravityY.set("Gravity Y", 0, -10, 10);
         border.set("World Border", 100, 0, 100);
         box2d.init();
         box2d.setGravity(gravityX, gravityY);
