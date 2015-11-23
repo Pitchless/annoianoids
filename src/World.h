@@ -65,16 +65,9 @@ public:
         return box2d.getWorld();
     };
 
-    void setGravityX(float &v) {
-        box2d.setGravity(gravityX, v);
-    };
-    void setGravityY(float &v) {
-        box2d.setGravity(v, gravityY);
-    };
-
-    void setGravity(float &x, float &y) {
-        box2d.setGravity(x, y);
-    };
+    void setGravityX(float &v) { box2d.setGravity(v, gravityY); };
+    void setGravityY(float &v) { box2d.setGravity(gravityX, v); };
+    void setGravity(float &x, float &y) { box2d.setGravity(x, y); };
 
     void update() {
         if (paused) {
