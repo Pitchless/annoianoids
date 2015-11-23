@@ -337,10 +337,7 @@ void kinectGuiApp::setupGui() {
     guiImgGroup->add( grayImgGui.setup("Gray", (ofImage*)&kinect.grayImg, true) );
     guiImages.add( guiImgGroup );
     
-    guiBox2d.setup("Box2DWorld");
-    guiBox2d.add( world.numBodies );
-    guiBox2d.add( world.gravityX );
-    guiBox2d.add( world.gravityY );
+    world.setupGui();
 }
 
 void kinectGuiApp::connect() { kinect.reConnect(); }
@@ -483,7 +480,7 @@ void kinectGuiApp::draw(){
         guiApp.draw();
         guiKinect.draw();
         guiImages.draw();
-	guiBox2d.draw();
+	world.gui.draw();
     }
 }
 
@@ -677,7 +674,7 @@ void kinectGuiApp::windowResized(int w, int h){
     guiApp.setPosition(ofGetWidth()-guiApp.getShape().width-10, 10);
     guiImages.setPosition(10,10);
     guiKinect.setPosition(guiImages.getShape().getRight()+10,10);
-    guiBox2d.setPosition(guiKinect.getShape().getRight()+10,10);
+    world.gui.setPosition(guiKinect.getShape().getRight()+10,10);
     guiImages.minimizeAll();
     guiKinect.minimizeAll();
     guiBox2d.minimizeAll();

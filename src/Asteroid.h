@@ -61,31 +61,32 @@ public:
         ofTranslate(getPosition());
         ofRotate(polyShape.getRotation(), 0, 0, 1);
         if (style == STYLE_TEX) {
-	  drawTex();
-	} else {
-        // Old skool
-	    ofNoFill();
-	    ofEnableAlphaBlending();
-	    ofSetLineWidth(7);
-	    ofSetColor(ofColor::blueSteel, 0.1);
-	    ofBeginShape();
-	      vector<ofPoint> pts = polyShape.getPoints();
-	      for (int i=0; i<pts.size(); i++) {
-		  ofVertex(pts[i]);
-	      }
-	    ofEndShape(true);
-	    ofSetLineWidth(3);
-	    ofSetColor(ofColor::white);
-	    ofBeginShape();
-	      pts = polyShape.getPoints();
-	      for (int i=0; i<pts.size(); i++) {
-		  ofVertex(pts[i]);
-	      }
-	    ofEndShape(true);
-	}
+            drawTex();
+        } else {
+            // Old skool
+            ofNoFill();
+            ofEnableAlphaBlending();
+            ofSetLineWidth(7);
+            ofSetColor(ofColor::blueSteel, 0.1);
+            ofBeginShape();
+            vector<ofPoint> pts = polyShape.getPoints();
+            for (int i=0; i<pts.size(); i++) {
+                ofVertex(pts[i]);
+            }
+            ofEndShape(true);
+            ofSetLineWidth(3);
+            ofSetColor(ofColor::white);
+            ofBeginShape();
+            pts = polyShape.getPoints();
+            for (int i=0; i<pts.size(); i++) {
+                ofVertex(pts[i]);
+            }
+            ofEndShape(true);
+        }
         ofPopMatrix();
-	ofPopStyle();
+        ofPopStyle();
     }
+
     void drawTex() {
         ofPushStyle();
         mesh.clearVertices();

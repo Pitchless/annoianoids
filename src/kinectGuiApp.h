@@ -128,3 +128,4 @@ class kinectGuiApp : public ofBaseApp, public ofxMidiListener {
         // used for viewing the point cloud
         ofEasyCam easyCam;
 };
+
