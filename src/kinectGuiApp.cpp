@@ -1,8 +1,9 @@
 #include "kinectGuiApp.h"
+#include "photon.h"
 
 //--------------------------------------------------------------
 void kinectGuiApp::setup(){
-    ofSetWindowTitle("Invaderoids");
+    ofSetWindowTitle("Annoyanoids");
     //ofSetLogLevel(OF_LOG_VERBOSE);
     ofSetFrameRate(60);
     ofEnableAlphaBlending();
@@ -10,8 +11,8 @@ void kinectGuiApp::setup(){
     ofSetWindowShape(1280, 1024);
 
     maskFilename = "mask.png";
-    bgColor1.set("bgColor1", ofColor(5,5,5),ofColor(2,2),ofColor(12,12));
-    bgColor2.set("bgColor2", ofColor(23,23,23),ofColor(23,23),ofColor(38,38));
+    bgColor1.set("bgColor1", ofColor(5,2,12),ofColor(0,0,0),ofColor(255,255,255));
+    bgColor2.set("bgColor2", ofColor(23,23,38),ofColor(23,23),ofColor(38,38));
 
     // Video
     iCurVideo = 0;
@@ -227,7 +228,8 @@ void kinectGuiApp::setupGui() {
     ofxGuiSetBorderColor( ofColor(200) );     // bg of param groups (but not panels)
     ofxGuiSetFillColor( ofColor(175,145,0) ); // Fill on slider bars etc
     ofxGuiSetTextColor( ofColor::white );
-    ofxGuiSetFont("verdana.ttf", 10);
+    //ofxGuiSetFont("verdana.ttf", 10);
+    ofxGuiSetFont("Hyperspace.otf", 10);
 
     // Note: The panels will get repositioned in windowResized
     guiApp.setup("KinectGui");
@@ -601,6 +603,12 @@ void kinectGuiApp::keyPressed(int key){
     if(key == 'c') { world.addCircle(mouseX/scale, mouseY/scale); }
     if(key == 'b') { world.addRect(mouseX/scale, mouseY/scale); }
     if(key == 'a') { world.addAsteroid(mouseX/scale, mouseY/scale); }
+    if(key == 'p') {
+      PhotonPtr p = PhotonPtr(new Photon);
+      p->setup(mouseX/scale, mouseY/scale);
+      world.add((StuffPtr)p); 
+      p->setVelocity(ofRandom(-10, 10), ofRandom(-10, 10));
+    }
 }
 
 //--------------------------------------------------------------

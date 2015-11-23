@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxBox2d.h"
+#include "stuff.h"
 #include "Outline.h"
 #include "Asteroid.h"
 
@@ -12,6 +13,7 @@ private:
     vector <shared_ptr<ofxBox2dRect> > boxes;
     vector <shared_ptr<Outline> > outlines;
     vector <shared_ptr<Asteroid> > asteroids;
+    Thing things;
 
 public:
     ofParameter<int> numBodies, numJoints;
@@ -59,13 +61,19 @@ public:
         wakeUpBtn.addListener(this, &World::wakeUp);
     }
 
+    b2World* getB2World() {
+        return box2d.getWorld();
+    };
+
     void setGravityX(float &v) {
-        gravityX = v;
-        box2d.setGravity(gravityX, gravityY);
+        box2d.setGravity(gravityX, v);
     };
     void setGravityY(float &v) {
-        gravityY = v;
-        box2d.setGravity(gravityX, gravityY);
+        box2d.setGravity(v, gravityY);
+    };
+
+    void setGravity(float &x, float &y) {
+        box2d.setGravity(x, y);
     };
 
     void update() {
@@ -73,6 +81,7 @@ public:
             return;
         }
         box2d.update();
+        things.update();
         float left = 0 - border;
         float right = width + border;
         float top = 0 - border;
@@ -156,6 +165,7 @@ public:
         for(int i=0; i<asteroids.size(); i++) {
             asteroids[i].get()->draw();
         }
+        things.draw();
 
         for(int i=0; i<outlines.size(); i++) {
             outlines[i].get()->draw();
@@ -169,11 +179,17 @@ public:
         boxes.clear();
         outlines.clear();
         asteroids.clear();
+	things.clear();
     };
 
     void wakeUp() {
         box2d.wakeupShapes();
     }
+
+    void add(StuffPtr stuff) {
+        stuff->create(getB2World());
+        things.add(stuff);
+    };
 
     void addCircle(int x, int y) {
         float r = ofRandom(10, 23);
