@@ -21,7 +21,9 @@ public:
         // TODO? Allocate empty image?
     };
 
-    void setup(b2World *world, float cx, float cy, float r) {
+    void setup(b2World *world, float cx, float cy, float r=0) {
+        if (r == 0)
+            r = ofRandom(32, 64);
         ofDisableArbTex();
         string fname("tex_6.png");
         if (texture.loadImage(fname)) {
@@ -66,29 +68,29 @@ public:
             ofEnableAlphaBlending();
             ofSetLineWidth(7);
             ofSetColor(ofColor::blueSteel, 0.1);
-	    drawShape();
+            drawShape();
             ofSetLineWidth(3);
             ofSetColor(ofColor::white);
-	    drawShape();
-	    // Shadow
+            drawShape();
+            // Shadow
             ofSetLineWidth(0);
-	    ofFill();
+            ofFill();
             ofSetColor(0,0,0,100);
-	    drawShape();
+            drawShape();
         }
         ofPopMatrix();
         ofPopStyle();
     }
-    
+
     // Draw shape in current style.
     void drawShape() {
-            ofBeginShape();
-            vector<ofPoint> pts = getPoints();
-            for (int i=0; i<pts.size(); i++) {
-                ofVertex(pts[i]);
-            }
-            ofEndShape(true);
-      
+        ofBeginShape();
+        vector<ofPoint> pts = getPoints();
+        for (int i=0; i<pts.size(); i++) {
+            ofVertex(pts[i]);
+        }
+        ofEndShape(true);
+
     }
 
     void drawTex() {

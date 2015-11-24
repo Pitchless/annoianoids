@@ -201,8 +201,7 @@ public:
     };
 
     void addAsteroid(int x, int y) {
-        float r = ofRandom(20, 60);
         asteroids.push_back(shared_ptr<Asteroid>(new Asteroid));
-        asteroids.back().get()->setup(box2d.getWorld(), x, y, r);
+        asteroids.back().get()->setup(box2d.getWorld(), x, y);
     };
 };
