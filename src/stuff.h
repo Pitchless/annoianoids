@@ -7,6 +7,7 @@
 
 class Stuff;
 class Thing;
+class Thing;
 
 typedef shared_ptr<Stuff> StuffPtr;
 typedef vector<StuffPtr> StuffVec;

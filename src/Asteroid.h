@@ -3,7 +3,6 @@
 
 #include "ofMain.h"
 #include "ofxBox2d.h"
-#include "Style.h"
 
 static int hexColors[4] = {0x31988A, 0xFDB978, 0xFF8340, 0xE8491B};
 
@@ -12,11 +11,12 @@ private:
     ofImage         texture;
     ofMesh          mesh;
     ofColor         color;
-    Style style;
 
 public:
+    ofParameter<bool> useTexture;
+
     Asteroid()
-        : style(STYLE_OLDSKOOL)
+        : useTexture(false)
     {
         // TODO? Allocate empty image?
     };
@@ -58,12 +58,11 @@ public:
     void draw() {
         ofPushStyle();
         ofPushMatrix();
-        if (style == STYLE_TEX) {
+        if (useTexture) {
             ofTranslate(getPosition());
             ofRotate(getRotation(), 0, 0, 1);
             drawTex();
         } else {
-            // Old skool
             ofNoFill();
             ofEnableAlphaBlending();
             ofSetLineWidth(7);
