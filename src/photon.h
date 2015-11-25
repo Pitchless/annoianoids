@@ -9,17 +9,12 @@
 
 class Photon : public Stuff {
 private:
-    float radius, x_, y_;
+    float radius;
 public:
-    Photon() : radius(1.0), x_(0), y_(0) {};
+    Photon() : radius(1.0) {};
     ~Photon() {};
 
-    virtual void setup(float x, float y) {
-        x_=x;
-        y_=y;
-    };
-
-    virtual void create(b2World *world) {
+    virtual void setup(b2World *world, float x, float y) {
         // these are used to create the shape
         b2CircleShape shape;
 
@@ -34,7 +29,7 @@ public:
 
         bodyDef.type	= b2_dynamicBody;
 
-        bodyDef.position.Set(x_/OFX_BOX2D_SCALE, y_/OFX_BOX2D_SCALE);
+        bodyDef.position.Set(x/OFX_BOX2D_SCALE, y/OFX_BOX2D_SCALE);
 
         body  = world->CreateBody(&bodyDef);
         body->CreateFixture(&fixture);

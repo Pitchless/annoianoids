@@ -605,7 +605,7 @@ void kinectGuiApp::keyPressed(int key){
     if(key == 'a') { world.addAsteroid(mouseX/scale, mouseY/scale); }
     if(key == 'p') {
       PhotonPtr p = PhotonPtr(new Photon);
-      p->setup(mouseX/scale, mouseY/scale);
+      p->setup(world.getB2World(), mouseX/scale, mouseY/scale);
       world.add((StuffPtr)p); 
       p->setVelocity(ofRandom(-10, 10), ofRandom(-10, 10));
     }

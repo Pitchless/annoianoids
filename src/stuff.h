@@ -5,18 +5,14 @@
 #include "ofxBox2d.h"
 #include "World.h"
 
-class Stuff;
-class Thing;
-class Thing;
-
-typedef shared_ptr<Stuff> StuffPtr;
-typedef vector<StuffPtr> StuffVec;
-typedef shared_ptr<Thing> ThingPtr;
-typedef vector<ThingPtr> ThingVec;
-
 /*
  * The world is made of Stuff, the leaves on the tree.
  */
+typedef ofxBox2dBaseShape Stuff;
+typedef shared_ptr<Stuff> StuffPtr;
+typedef vector<StuffPtr> StuffVec;
+
+/*
 class Stuff : public ofxBox2dBaseShape {
 protected:
 private:
@@ -27,10 +23,15 @@ public:
   virtual void update() {};
   virtual void draw() {};
 };
+*/
 
 /*
  * Stuff is orgnaised into Things, the branches of the tree.
  */
+class Thing;
+typedef shared_ptr<Thing> ThingPtr;
+typedef vector<ThingPtr> ThingVec;
+
 class Thing {
 protected:
   StuffVec stuff_;

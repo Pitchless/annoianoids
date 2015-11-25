@@ -3,6 +3,7 @@
 
 #include "ofMain.h"
 #include "ofxBox2d.h"
+#include "stuff.h"
 
 static int hexColors[4] = {0x31988A, 0xFDB978, 0xFF8340, 0xE8491B};
 
@@ -53,7 +54,40 @@ public:
 
     };
 
-    void update() { };
+    void update() {
+        /*
+        // TODO: these need to be on the world, we need access.
+        // So either give them access to world, tricky without a base we control.
+        // Or do this in world and call methods for out of bounds, again the base is an issue.
+        // Are we going to need to create our own hier so we don't have to wrap all the box2d classes?
+        // Or don't inherit, wrap the ofxBox2dBaseShape instead.
+        float left = 0 - border;
+        float right = width + border;
+        float top = 0 - border;
+        float bottom = height + border;
+        ofVec2f pos = getPosition();
+        if ( pos.x < left ) {
+            printf("Hello left %fx%f w:%f h:%f\n", pos.x, pos.y, left, right);
+            pos.x = width;
+            printf("World %fx%f w:%f h:%f\n", pos.x, pos.y, left, right);
+            ast->setPosition(pos);
+        } else if ( pos.x > right ) {
+            printf("Hello right %fx%f w:%f h:%f\n", pos.x, pos.y, left, right);
+            pos.x = 0;
+            ast->setPosition(pos);
+        } else if ( pos.y < top ) {
+            printf("Hello top %fx%f w:%f h:%f\n", pos.x, pos.y, top, bottom);
+            pos.y = height;
+            ast->setPosition(pos);
+        } else if ( pos.y > bottom ) {
+            printf("Hello bot %fx%f w:%f h:%f\n", pos.x, pos.y, top, bottom);
+            //pos.y = 0;
+            printf("World bot %fx%f w:%f h:%f\n", pos.x, pos.y, top, bottom);
+            //ast->setPosition(foo);
+            ast->setPosition(10.0,10.0);
+        }
+        */
+    };
 
     void draw() {
         ofPushStyle();

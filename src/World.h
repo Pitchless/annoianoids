@@ -12,7 +12,6 @@ private:
     vector <shared_ptr<ofxBox2dCircle> > circles;
     vector <shared_ptr<ofxBox2dRect> > boxes;
     vector <shared_ptr<Outline> > outlines;
-    vector <shared_ptr<Asteroid> > asteroids;
     Thing things;
 
 public:
@@ -82,31 +81,6 @@ public:
         for(int i=0; i<outlines.size(); i++) {
             outlines[i].get()->update();
         }
-        for(int i=0; i<asteroids.size(); i++) {
-            Asteroid* ast = asteroids[i].get();
-            ast->update();
-            ofVec2f pos = ast->getPosition();
-            if ( pos.x < left ) {
-                printf("Hello left %fx%f w:%f h:%f\n", pos.x, pos.y, left, right);
-                pos.x = width;
-                printf("World %fx%f w:%f h:%f\n", pos.x, pos.y, left, right);
-                ast->setPosition(pos);
-            } else if ( pos.x > right ) {
-                printf("Hello right %fx%f w:%f h:%f\n", pos.x, pos.y, left, right);
-                pos.x = 0;
-                ast->setPosition(pos);
-            } else if ( pos.y < top ) {
-                printf("Hello top %fx%f w:%f h:%f\n", pos.x, pos.y, top, bottom);
-                pos.y = height;
-                ast->setPosition(pos);
-            } else if ( pos.y > bottom ) {
-                printf("Hello bot %fx%f w:%f h:%f\n", pos.x, pos.y, top, bottom);
-                //pos.y = 0;
-                printf("World bot %fx%f w:%f h:%f\n", pos.x, pos.y, top, bottom);
-                //ast->setPosition(foo);
-                ast->setPosition(10.0,10.0);
-            }
-        }
         for(int i=0; i<circles.size(); i++) {
             ofxBox2dCircle* obj = circles[i].get();
             obj->update();
@@ -130,6 +104,7 @@ public:
                 obj->setVelocity(vel);
             }
         }
+        // TODO: Cull (destroy) objects that have gone too far and reached the outer limits.
         numBodies = box2d.getBodyCount();
     };
 
@@ -155,9 +130,9 @@ public:
             boxes[i].get()->draw();
         }
 
-        for(int i=0; i<asteroids.size(); i++) {
-            asteroids[i].get()->draw();
-        }
+        //for(int i=0; i<asteroids.size(); i++) {
+        //    asteroids[i].get()->draw();
+        //}
         things.draw();
 
         for(int i=0; i<outlines.size(); i++) {
@@ -171,7 +146,7 @@ public:
         circles.clear();
         boxes.clear();
         outlines.clear();
-        asteroids.clear();
+        //asteroids.clear();
 	things.clear();
     };
 
@@ -180,7 +155,7 @@ public:
     }
 
     void add(StuffPtr stuff) {
-        stuff->create(getB2World());
+        //stuff->create(getB2World());
         things.add(stuff);
     };
 
@@ -201,7 +176,8 @@ public:
     };
 
     void addAsteroid(int x, int y) {
-        asteroids.push_back(shared_ptr<Asteroid>(new Asteroid));
-        asteroids.back().get()->setup(box2d.getWorld(), x, y);
+        shared_ptr<Asteroid> ast = shared_ptr<Asteroid>(new Asteroid);
+        ast->setup(getB2World(), x, y);
+	add(ast);
     };
 };
