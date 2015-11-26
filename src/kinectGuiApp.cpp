@@ -9,7 +9,7 @@ void kinectGuiApp::setup(){
     ofEnableAlphaBlending();
     ofEnableSmoothing();
     ofSetWindowShape(1280, 1024);
-    bg.setup();
+    bg.setup("bg");
 
     maskFilename = "mask.png";
 
