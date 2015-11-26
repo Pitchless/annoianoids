@@ -17,10 +17,16 @@ public:
     ofParameter<bool> showGradient, showImages;
     ofParameter<ofColor> color1;
     ofParameter<ofColor> color2;
+    ofParameter<ofColor> colorTint;
+    ofxPanel gui;
 
-    Background() : curImg_(0), showGradient(false), showImages(true) {
+    Background()
+      : curImg_(0)
+      , showGradient("Show Gradient", false)
+      , showImages("Show Images", true) {
         color1.set( "BGColor1", ofColor ( 0,0,0,255 ),ofColor ( 0,0,0,0 ),ofColor ( 255,255,255,255 ) );
         color2.set( "BGColor2", ofColor ( 255,255,255,255 ),ofColor ( 0,0,0,0 ),ofColor ( 255,255,255,255 ) );
+        colorTint.set( "Image Tint", ofColor ( 255,255,255,255 ),ofColor ( 0,0,0,0 ),ofColor ( 255,255,255,255 ) );
     };
     virtual ~Background() {};
 
@@ -28,18 +34,36 @@ public:
         dataDirPath = dirname;
         if (dirname != "")
             loadDir(dataDirPath);
+	setupGui();
+    };
+    
+    void setupGui() {
+      gui.setup("Background");
+      static ofxButton btnNext, btnPrev;
+      gui.add(btnNext.setup("Next"));
+      btnNext.addListener(this, &Background::next);
+      gui.add(btnPrev.setup("Previous"));
+      btnPrev.addListener(this, &Background::prev);
+      gui.add(showGradient);
+      gui.add(color1);
+      gui.add(color2);
+      gui.add(showImages);
+      gui.add(colorTint);
     };
 
     void update() {};
 
     void draw() {
+        ofPushStyle();
         if (showGradient)
             ofBackgroundGradient( color1, color2 );
         if (showImages && hasImages())
             drawImages();
+	ofPopStyle();
     };
 
     void drawImages() {
+        ofSetColor(colorTint);
         curImage().draw(0, 0, ofGetWidth(), ofGetHeight());
     };
 

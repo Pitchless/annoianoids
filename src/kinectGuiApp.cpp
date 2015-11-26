@@ -229,7 +229,7 @@ void kinectGuiApp::setupGui() {
     ofxGuiSetTextColor( ofColor::white );
     //ofxGuiSetFont("verdana.ttf", 10);
     ofxGuiSetFont("Hyperspace Bold.otf", 10);
-
+    
     // Note: The panels will get repositioned in windowResized
     guiApp.setup("KinectGui");
     guiApp.add( fpsSlider.setup("FPS", 60) );
@@ -263,8 +263,6 @@ void kinectGuiApp::setupGui() {
     appParams.add( mainAlpha );
     appParams.add( mainHue );
     appParams.add( mainSaturation );
-    appParams.add( bg.color1 );
-    appParams.add( bg.color2 );
     guiApp.add( appParams );
     guiApp.add( status.setup("Status","") );
     reConnectButton.addListener(this, &kinectGuiApp::connect);
@@ -479,6 +477,7 @@ void kinectGuiApp::draw(){
         ofxGamepadHandler::get()->draw(42,80);
 
     if (showGui) {
+        bg.gui.draw();
         guiApp.draw();
         guiKinect.draw();
         guiImages.draw();
@@ -628,7 +627,7 @@ void kinectGuiApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void kinectGuiApp::mousePressed(int x, int y, int button){
-    world.addCircle(mouseX/scale, mouseY/scale);
+    //world.addCircle(mouseX/scale, mouseY/scale);
     //world.addRect(mouseX/scale, mouseY/scale);
     //world.addAsteroid(mouseX/scale, mouseY/scale);
 }
@@ -685,6 +684,7 @@ void kinectGuiApp::windowResized(int w, int h){
     guiImages.setPosition(10,10);
     guiKinect.setPosition(guiImages.getShape().getRight()+10,10);
     world.gui.setPosition(guiKinect.getShape().getRight()+10,10);
+    bg.gui.setPosition(world.gui.getShape().getRight()+10,10);
     guiImages.minimizeAll();
     guiKinect.minimizeAll();
     guiBox2d.minimizeAll();
