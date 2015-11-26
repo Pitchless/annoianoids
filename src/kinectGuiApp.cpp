@@ -9,10 +9,9 @@ void kinectGuiApp::setup(){
     ofEnableAlphaBlending();
     ofEnableSmoothing();
     ofSetWindowShape(1280, 1024);
+    bg.setup();
 
     maskFilename = "mask.png";
-    bgColor1.set("bgColor1", ofColor(5,2,12,255),ofColor(0,0,0,0),ofColor(255,255,255,255));
-    bgColor2.set("bgColor2", ofColor(23,23,38,255),ofColor(0,0,0,0),ofColor(255,255,255,255));
 
     // Video
     iCurVideo = 0;
@@ -264,8 +263,8 @@ void kinectGuiApp::setupGui() {
     appParams.add( mainAlpha );
     appParams.add( mainHue );
     appParams.add( mainSaturation );
-    appParams.add( bgColor1 );
-    appParams.add( bgColor2 );
+    appParams.add( bg.color1 );
+    appParams.add( bg.color2 );
     guiApp.add( appParams );
     guiApp.add( status.setup("Status","") );
     reConnectButton.addListener(this, &kinectGuiApp::connect);
@@ -370,6 +369,7 @@ void kinectGuiApp::clearMask() {
 
 //--------------------------------------------------------------
 void kinectGuiApp::update(){
+    bg.update();
     getCurVideo().update();
     kinect.update();
     float scalex = VIEW_W/kinect.kinect.width;
@@ -450,7 +450,7 @@ void kinectGuiApp::draw(){
     float w = VIEW_W;
     float h = VIEW_H;
 
-    ofBackgroundGradient(bgColor1, bgColor2);
+    bg.draw();
 
     ofPushMatrix();
       ofTranslate((w/2.0), (h/2.0));

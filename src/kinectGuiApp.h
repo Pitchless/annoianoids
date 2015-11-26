@@ -12,6 +12,7 @@
 #include "ofxGuiImage.h"
 
 #include "KinectBlobTracker.h"
+#include "background.h"
 #include "World.h"
 #include "photon.h"
 
@@ -47,6 +48,7 @@ class kinectGuiApp : public ofBaseApp, public ofxMidiListener {
         ofParameter<int> pointMode;
         ofParameter<bool> bPointColor;
 
+	Background bg;
         World world; // the box2d world
 
         void setup();

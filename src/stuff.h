@@ -6,6 +6,14 @@
 #include "World.h"
 
 /*
+ TODO: stuff mess.
+ Maybe the way out is to define stuff as an interface, then anything
+ that wants to be stuff can mix that in.
+ 
+ We do want all the attraction point stuff.
+ */
+
+/*
  * The world is made of Stuff, the leaves on the tree.
  */
 typedef ofxBox2dBaseShape Stuff;
@@ -34,36 +42,40 @@ typedef vector<ThingPtr> ThingVec;
 
 class Thing {
 protected:
-  StuffVec stuff_;
+    StuffVec stuff_;
 public:
-  Thing() {};
+    Thing() {};
 
-  //void create(World world) {
-  //  for (int i=0; i<stuff.size(); i++) {
-  //    stuff[i]->create(world);
-  //  }
-  //};
-  
-  size_t size() { return stuff_.size(); };
-  
-  void add(StuffPtr stuff) { stuff_.push_back(stuff); };
+    //void create(World world) {
+    //  for (int i=0; i<stuff.size(); i++) {
+    //    stuff[i]->create(world);
+    //  }
+    //};
 
-  void clear(){
-    //for (int i=0; i<stuff_.size(); i++) {
-    //  stuff_[i]->destroy();
-    //}
-    stuff_.clear();
-  };
-  
-  void update(){
-    for (int i=0; i<stuff_.size(); i++) {
-      stuff_[i]->update();
-    }
-  };
+    size_t size() {
+        return stuff_.size();
+    };
 
-  void draw(){
-    for (int i=0; i<stuff_.size(); i++) {
-      stuff_[i]->draw();
-    }
-  };
+    void add(StuffPtr stuff) {
+        stuff_.push_back(stuff);
+    };
+
+    void clear() {
+        //for (int i=0; i<stuff_.size(); i++) {
+        //  stuff_[i]->destroy();
+        //}
+        stuff_.clear();
+    };
+
+    void update() {
+        for (int i=0; i<stuff_.size(); i++) {
+            stuff_[i]->update();
+        }
+    };
+
+    void draw() {
+        for (int i=0; i<stuff_.size(); i++) {
+            stuff_[i]->draw();
+        }
+    };
 };
