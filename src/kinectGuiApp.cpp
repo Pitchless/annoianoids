@@ -381,7 +381,7 @@ void kinectGuiApp::update(){
 	}
 	bloblines.push_back(ln);
     }
-    //world.updateOutlines(bloblines);
+    world.updateOutlines(bloblines);
 
     if (joyAxisLeftY != 0) {
         ofColor c = kinect.lineColor.get();

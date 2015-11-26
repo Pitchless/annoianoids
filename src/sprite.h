@@ -20,7 +20,7 @@ public:
 
     //virtual void setup(b2World *world, float x, float y) {
     void setup(b2World *world, float x, float y, string fname) {
-        setPhysics(6.0, 0.02, 0.2);
+        setPhysics(6.0, 1.00, 0.8);
         ofxBox2dCircle::setup(world, x, y, 40);
         if (image.loadImage(fname)) {
             ofLogNotice() << "Loaded texture file '" << fname << "'";
