@@ -39,6 +39,7 @@ public:
         box2d.init();
         box2d.setGravity(gravityX, gravityY);
         //box2d.createBounds(0,0,w,h+1000);
+	box2d.createGround(0,h,w,h);
         box2d.setFPS(60.0);
         box2d.registerGrabbing();
 
@@ -190,11 +191,11 @@ public:
         add(ast);
     };
 
-    void addSprite(float x, float y, string name) {
+    void addSprite(float x, float y, string name, float scale = 1.0) {
         string fname("sprites/");
 	fname += name;
         SpritePtr spr = SpritePtr(new Sprite);
-        spr->setup(getB2World(), x, y, fname);
+        spr->setup(getB2World(), x, y, fname, scale);
         add(spr);
     };
 

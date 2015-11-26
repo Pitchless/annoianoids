@@ -8,7 +8,7 @@ void kinectGuiApp::setup(){
     ofSetFrameRate(60);
     ofEnableAlphaBlending();
     ofEnableSmoothing();
-    ofSetWindowShape(1280, 1024);
+    ofSetWindowShape(1280, 960);
     bg.setup("bg");
 
     maskFilename = "mask.png";
@@ -583,6 +583,7 @@ void kinectGuiApp::keyPressed(int key){
     if (key == ' ') { showBlobs = false; showMain = false; }
     if (key == 'C') { cueNextVideo(); }
     if (key == 'N') { playNextVideo(); }
+    /*
     if (key == '1') { cueVideo(0); }
     if (key == '2') { cueVideo(1); }
     if (key == '3') { cueVideo(2); }
@@ -593,6 +594,7 @@ void kinectGuiApp::keyPressed(int key){
     if (key == '8') { cueVideo(7); }
     if (key == '9') { cueVideo(8); }
     if (key == '0') { cueVideo(9); }
+    */
     else if (key == 'g') { kinect.lineColor.set(ofColor(0,230,0,32)); }
     //else if (key == 'b') { kinect.lineColor.set(ofColor(0,0,200,32)); }
     else if (key == 'y') { kinect.lineColor.set(ofColor(200,200,0,32)); }
@@ -602,6 +604,9 @@ void kinectGuiApp::keyPressed(int key){
     if(key == 'c') { world.addCircle(mouseX/scale, mouseY/scale); }
     if(key == 'b') { world.addRect(mouseX/scale, mouseY/scale); }
     if(key == 'a') { world.addAsteroid(mouseX/scale, mouseY/scale); }
+    if(key == '1') { world.addSprite(mouseX/scale, mouseY/scale, "600px-Smiley_svg.png"); }
+    if(key == '2') { world.addSprite(mouseX/scale, mouseY/scale, "2883994.png"); }
+    if(key == '3') { world.addSprite(mouseX/scale, mouseY/scale, "qiBAkjkgT.png", 2); }
     if(key == 'p') {
       PhotonPtr p = PhotonPtr(new Photon);
       p->setup(world.getB2World(), mouseX/scale, mouseY/scale);
