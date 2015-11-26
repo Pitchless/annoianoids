@@ -5,6 +5,7 @@
 #include "stuff.h"
 #include "Outline.h"
 #include "Asteroid.h"
+#include "sprite.h"
 
 class World {
 private:
@@ -46,7 +47,7 @@ public:
     };
 
     ofxPanel gui;
-    ofxButton clearBtn, wakeUpBtn;
+    ofxButton clearBtn, wakeUpBtn, addBtn;
     void setupGui() {
         gui.setup("Box2DWorld");
         gui.add( numBodies );
@@ -55,18 +56,26 @@ public:
         gui.add( gravityY );
         gui.add( paused );
         gui.add( clearBtn.setup("Clear") );
-        gui.add( wakeUpBtn.setup("Wake up") );
         clearBtn.addListener(this, &World::clear);
+        gui.add( wakeUpBtn.setup("Wake up") );
         wakeUpBtn.addListener(this, &World::wakeUp);
-    }
+        gui.add( addBtn.setup("Add Smile") );
+	addBtn.addListener(this, &World::addSpider5);
+    };
 
     b2World* getB2World() {
         return box2d.getWorld();
     };
 
-    void setGravityX(float &v) { box2d.setGravity(v, gravityY); };
-    void setGravityY(float &v) { box2d.setGravity(gravityX, v); };
-    void setGravity(float &x, float &y) { box2d.setGravity(x, y); };
+    void setGravityX(float &v) {
+        box2d.setGravity(v, gravityY);
+    };
+    void setGravityY(float &v) {
+        box2d.setGravity(gravityX, v);
+    };
+    void setGravity(float &x, float &y) {
+        box2d.setGravity(x, y);
+    };
 
     void update() {
         if (paused) {
@@ -147,7 +156,7 @@ public:
         boxes.clear();
         outlines.clear();
         //asteroids.clear();
-	things.clear();
+        things.clear();
     };
 
     void wakeUp() {
@@ -178,6 +187,18 @@ public:
     void addAsteroid(int x, int y) {
         shared_ptr<Asteroid> ast = shared_ptr<Asteroid>(new Asteroid);
         ast->setup(getB2World(), x, y);
-	add(ast);
+        add(ast);
+    };
+
+    void addSprite(float x, float y, string name) {
+        string fname("sprites/");
+	fname += name;
+        SpritePtr spr = SpritePtr(new Sprite);
+        spr->setup(getB2World(), x, y, fname);
+        add(spr);
+    };
+
+    void addSpider5() {
+      addSprite(200,200, "600px-Smiley_svg.png");
     };
 };

@@ -40,9 +40,9 @@ public:
     void setupGui() {
       gui.setup("Background");
       static ofxButton btnNext, btnPrev;
-      gui.add(btnNext.setup("Next"));
+      gui.add(btnNext.setup("Next Image", gui.getWidth(), 32));
       btnNext.addListener(this, &Background::next);
-      gui.add(btnPrev.setup("Previous"));
+      gui.add(btnPrev.setup("Previous", gui.getWidth(), 32));
       btnPrev.addListener(this, &Background::prev);
       gui.add(showGradient);
       gui.add(color1);
