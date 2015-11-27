@@ -15,14 +15,14 @@ void kinectGuiApp::setup(){
 
     // Video
     iCurVideo = 0;
-    showVideo.set("Show Video", true);
+    showVideo.set("Show Video", false);
     loadVideoDir("video");
     //playVideo();
     //pauseVideo();
 
     showMain.set("Show Main", true);
     showWorld.set("Show World", true);
-    mainAlpha.set("Main Alpha", 100, 0, 255);
+    mainAlpha.set("Main Alpha", 223, 0, 255);
     mainHue.set("Main Hue", 255, 0, 255);
     mainSaturation.set("Main Saturation", 255, 0, 255);
     imgMain.allocate(kinect.kinect.width, kinect.kinect.height, OF_IMAGE_COLOR_ALPHA);
@@ -188,6 +188,7 @@ void kinectGuiApp::cueNextVideo() {
 }
 
 void kinectGuiApp::cueVideo(int num) {
+    return;
     if ( num < 0 || num > videos.size()-1 ) {
         ofLogWarning() << "Attempt to cue unknown video: " << num;
         return;
@@ -238,15 +239,15 @@ void kinectGuiApp::setupGui() {
     guiApp.add( loadButton.setup("Load") );
     guiApp.add( saveButton.setup("Save") );
     guiApp.add( grabMaskButton.setup("Grab Mask") );
-    guiApp.add( clearMaskButton.setup("Clear Mask") );
-    guiApp.add( playVideoButton.setup("Play Video") );
-    guiApp.add( pauseVideoButton.setup("Pause Video") );
-    guiApp.add( cueNextVideoButton.setup("Cue Next Video") );
-    guiApp.add( nextVideoButton.setup("Play Next Video") );
+    //guiApp.add( clearMaskButton.setup("Clear Mask") );
+    //guiApp.add( playVideoButton.setup("Play Video") );
+    //guiApp.add( pauseVideoButton.setup("Pause Video") );
+    //guiApp.add( cueNextVideoButton.setup("Cue Next Video") );
+    //guiApp.add( nextVideoButton.setup("Play Next Video") );
     appParams.setName("Display");
     appParams.add( showGui.set("Show Gui", true) );
-    appParams.add( showJoystick );
-    appParams.add( joyDeadzone );
+    //appParams.add( showJoystick );
+    //appParams.add( joyDeadzone );
     appParams.add( showPointCloud.set("Show Point Cloud", false) );
     appParams.add( pointMode );
     appParams.add( bPointColor );
@@ -255,8 +256,8 @@ void kinectGuiApp::setupGui() {
     appParams.add( showMaskImg.set("Mask", false) );
     appParams.add( showStencilImg.set("Stencil", false) );
     appParams.add( showGrayImg.set("Gray", false) );
-    appParams.add( showBlobs.set("Show Blobs", false) );
-    appParams.add( showVideo );
+    appParams.add( showBlobs.set("Show Blobs", true) );
+    //appParams.add( showVideo );
     appParams.add( showWorld );
     appParams.add( mainRotation );
     appParams.add( scale );
@@ -346,12 +347,16 @@ void kinectGuiApp::connect() { kinect.reConnect(); }
 void kinectGuiApp::loadSettings() {
     guiApp.loadFromFile("settings.xml");
     guiKinect.loadFromFile("kinect.xml");
+    bg.gui.loadFromFile("bg.xml");
+    world.gui.loadFromFile("world.xml");
     kinect.loadMask(maskFilename);
 }
 
 void kinectGuiApp::saveSettings() {
     guiApp.saveToFile("settings.xml");
     guiKinect.saveToFile("kinect.xml");
+    bg.gui.saveToFile("bg.xml");
+    world.gui.saveToFile("world.xml");
     kinect.saveMask(maskFilename);
 }
 
@@ -384,6 +389,7 @@ void kinectGuiApp::update(){
     }
     world.updateOutlines(bloblines);
 
+    /* TODO: fix for floats
     if (joyAxisLeftY != 0) {
         ofColor c = kinect.lineColor.get();
         int foo = -4*joyAxisLeftY;
@@ -393,8 +399,9 @@ void kinectGuiApp::update(){
         //c.clamp();
         kinect.lineColor.set(c);
 
-        mainAlpha = ofClamp(mainAlpha+foo, 0, 255);
+        mainAlpha = ofClamp(mainAlpha+foo, 0, 1.0);
     }
+    */
     //if (joyAxisRightX != 0) {
     //    mainHue = ofClamp(mainHue+(-4*joyAxisRightX), 0, 255);
     //}
@@ -419,26 +426,11 @@ void kinectGuiApp::update(){
         }
         else {
             int val = pix[i];
-            //ofColor newcol = ofColor(val, mainAlpha);
             ofColor newcol = ofColor::fromHsb(mainHue, mainSaturation, pix[i], mainAlpha);
-            //col.r = pix[i];
-            //col.g = pix[i];
-            //col.b = pix[i];
-            //col[4] = mainAlpha;
-            //imgMain.setColor(i,col);
-            //newPix[i*4]   = pix[i];
-            //newPix[i*4+1] = pix[i];
-            //newPix[i*4+2] = pix[i];
-            //newPix[i*4+3] = mainAlpha
-            //newPix[i*4]   = col.r;
-            //newPix[i*4+1] = col.g;
-            //newPix[i*4+2] = col.b;
-            //newPix[i*4+3] = col[4];
             newPix[i*4]   = newcol.r;
             newPix[i*4+1] = newcol.g;
             newPix[i*4+2] = newcol.b;
             newPix[i*4+3] = newcol[3];
-            //newPix[i*4+3] = mainAlpha;
         }
     }
     imgMain.update();
@@ -451,14 +443,15 @@ void kinectGuiApp::draw(){
 
     bg.draw();
 
+    ofPushStyle();
     ofPushMatrix();
       ofTranslate((w/2.0), (h/2.0));
       ofRotate(mainRotation);
       ofTranslate(-(w/2.0), -(h/2.0));
       ofScale(scale, scale, 0.0);
 
-      if (showVideo)
-          getCurVideo().draw(0,0,w,h);
+      //if (showVideo)
+      //    getCurVideo().draw(0,0,w,h);
 
       drawKinectImages();
 
@@ -469,10 +462,11 @@ void kinectGuiApp::draw(){
           easyCam.end();
       }
 
-      if (showMain)  imgMain.draw(0,0,w,h);
       if (showWorld) world.draw();
+      if (showMain)  imgMain.draw(0,0,w,h);
       if (showBlobs) kinect.drawBlobs(0,0,w,h);
     ofPopMatrix();
+    ofPopStyle();
 
     if (showJoystick)
         ofxGamepadHandler::get()->draw(42,80);
@@ -577,14 +571,14 @@ void kinectGuiApp::keyPressed(int key){
     if (key == 'F') { ofToggleFullscreen(); }
     if (key == 'S') { saveSettings(); }
     if (key == 'L') { loadSettings(); }
-    if (key == 'G') { grabMask(); }
+    if (key == 'g') { grabMask(); }
+    /*
     if (key == 'p') { playVideo(); }
     if (key == 'P') { pauseVideo(); }
     //if (key == ' ') { togglePlayVideo(); }
     if (key == ' ') { showBlobs = false; showMain = false; }
     if (key == 'C') { cueNextVideo(); }
     if (key == 'N') { playNextVideo(); }
-    /*
     if (key == '1') { cueVideo(0); }
     if (key == '2') { cueVideo(1); }
     if (key == '3') { cueVideo(2); }
@@ -677,6 +671,7 @@ void kinectGuiApp::axisChanged(ofxGamepadAxisEvent& e) {
 }
 
 void kinectGuiApp::buttonPressed(ofxGamepadButtonEvent& e) {
+  /*
 	//ofLogNotice() << "BUTTON " << e.button << " PRESSED" << endl;
 	if (e.button == 1) { showBlobs = !showBlobs; } // B
 	if (e.button == 3) {
@@ -689,6 +684,7 @@ void kinectGuiApp::buttonPressed(ofxGamepadButtonEvent& e) {
     }
     else if (e.button == 4) { kinect.lineColor.set(ofColor(255,255,255,32)); } // left shoulder
     else if (e.button == 5) { kinect.lineColor.set(ofColor(0,0,0,32)); } // left shoulder
+    */
 }
 
 void kinectGuiApp::buttonReleased(ofxGamepadButtonEvent& e) {
