@@ -612,27 +612,32 @@ void kinectGuiApp::keyPressed(int key){
     if(key == 'b') { world.addRect(mouseX/scale, mouseY/scale); }
     if(key == 'a') { world.addAsteroid(mouseX/scale, mouseY/scale); }
     if(key == 'n') { addShiz(); }
+    /*
     if(key == '1') {
-      world.addSprite(mouseX/scale, mouseY/scale, "600px-Smiley_svg.png");
+      //world.addSprite(mouseX/scale, mouseY/scale, "600px-Smiley_svg.png");
     }
     if(key == '2') {
-      world.addSprite(mouseX/scale, mouseY/scale, "2883994.png");
+      //world.addSprite(mouseX/scale, mouseY/scale, "2883994.png");
     }
     if(key == '3') {
-      float x = mouseX/scale;
-      float y = mouseY/scale;
-      world.addSprite(x, y, "qiBAkjkgT.png", 40, 2.2, 2.0, 0.02, 0.6);
+      //world.addSprite(x, y, "qiBAkjkgT.png", 40, 2.2, 2.0, 0.02, 0.6);
     }
     if(key == '4') {
-      float x = mouseX/scale;
-      float y = mouseY/scale;
-      world.addBox(x, y, "424956_10151243754230300_1382486128_n.png", 3, 2.2, 1.0, 0.5, 1.6);
+      //world.addBox(x, y, "424956_10151243754230300_1382486128_n.png", 3, 2.2, 1.0, 0.5, 1.6);
     }
     if(key == '5') {
-      float x = mouseX/scale;
-      float y = mouseY/scale;
-      world.addBox(x, y, "tumblr_lnxy5xxaWS1qm9sn7o1_500.gif", 4, 0.6, 1.0, 0.5, 1.6);
+      //world.addBox(x, y, "tumblr_lnxy5xxaWS1qm9sn7o1_500.gif", 4, 0.6, 1.0, 0.5, 1.6);
     }
+    */
+    if (key == '1') addShiz(1);
+    if (key == '2') addShiz(2);
+    if (key == '3') addShiz(3);
+    if (key == '4') addShiz(4);
+    if (key == '5') addShiz(5);
+    if (key == '6') addShiz(6);
+    if (key == '7') addShiz(7);
+    if (key == '8') addShiz(8);
+    if (key == '9') addShiz(9);
     if(key == 'p') {
       PhotonPtr p = PhotonPtr(new Photon);
       p->setup(world.getB2World(), mouseX/scale, mouseY/scale);
@@ -641,31 +646,34 @@ void kinectGuiApp::keyPressed(int key){
     }
 }
 
-void kinectGuiApp::addShiz() { addShiz(int(ofRandom(1,6))); };
+void kinectGuiApp::addShiz() { addShiz(int(ofRandom(1,12))); };
 
 void kinectGuiApp::addShiz(int shiz) {
     float x = ofRandom(0.0, world.width);
-    float y = -200;
+    float y = -50;
     ofLogNotice() << "SHIZ " << shiz << " " << x << "x" << y;
-    if(shiz == 1) {
-      world.addSprite(x, y, "smiley_yell.png");
-      return;
+    if(shiz == 1) { world.addSprite(x, y, "smiley_yell.png", 23); }
+    if(shiz == 2) { world.addSprite(x, y, "smiley_yell.png", 40); }
+    if(shiz == 3) { world.addSprite(x, y, "smiley_yell.png", 18); }
+    if(shiz == 4) { world.addSprite(x, y, "smiley_pink.png", 23, 1, 1, 1.4); }
+    if(shiz == 5) { world.addSprite(x, y, "smiley_pink.png", 42, 1, 1, 1.4); }
+    if(shiz == 6) { world.addSprite(x, y, "smiley_pink.png", 16, 1, 1, 1.4); }
+    if(shiz == 7) { world.addSprite(x, y, "axe.png", 42, 2.2, 2.0, 0.02, 0.6); }
+    if(shiz == 8) { world.addBox(x, y, "raggy1.png", 6, 3.0, 1.0, 0.1, 1.6); }
+    if(shiz == 9) {
+      for (int i=0; i<int(ofRandom(1,3)); i++) {
+	float s = ofRandom(3,6);
+	world.addBox(x, y, "dildo.gif", s, 0.9, 1.0, 0.5, 1.6);
+      }
     }
-    if(shiz == 2) {
-      world.addSprite(x, y, "smiley_pink.png");
-      return;
-    }
-    if(shiz == 3) {
-      world.addSprite(x, y, "axe.png", 40, 2.2, 2.0, 0.02, 0.6);
-      return;
-    }
-    if(shiz == 4) {
-      world.addBox(x, y, "raggy1.png", 3, 2.2, 1.0, 0.5, 1.6);
-      return;
-    }
-    if(shiz == 5) {
-      world.addBox(x, y, "dildo.gif", 4, 0.6, 1.0, 0.5, 1.6);
-      return;
+    if(shiz == 10) { world.addSprite(x, y, "fanny.png", 40, 1.0, 1.0, 1.4, 0.5); }
+    if(shiz == 11) { world.addSprite(x, y, "dino.png", 20, 2.0, 3.0, 0.4, 1.5); }
+    if(shiz == 12) { world.addBox(x, y, "spider5.png", 5, 2.0, 1.0, 1.4, 0.5); }
+    if(shiz == 13) {
+      for (int i=0; i<int(ofRandom(1,3)); i++) {
+	float s = ofRandom(20,30);
+        world.addSprite(x, y, "raggy2.png", s, 2.0, 1.0, 1.4, 0.5);
+      }
     }
     /*
     if(shiz == "p") {
