@@ -13,18 +13,25 @@ protected:
     vector<SpriteImage> images_;
     int curImg_;
     string dataDirPath;
+    int lastBg_s;
 
 public:
     ofParameter<bool> showGradient, showImages;
     ofParameter<ofColor> color1;
     ofParameter<ofColor> color2;
     ofParameter<ofColor> colorTint;
+    ofParameter<int> autoChangeSec;
+    ofParameter<int> autoChangeMax;
     ofxPanel gui;
 
     Background()
       : curImg_(0)
       , showGradient("Show Gradient", false)
-      , showImages("Show Images", true) {
+      , showImages("Show Images", true)
+      , autoChangeSec("Auto Advance", 3, 0, 60)
+      , autoChangeMax("Auto Max", 60, 1, 300)
+      , lastBg_s(0)
+      {
         color1.set( "BGColor1", ofColor ( 0,0,0,255 ),ofColor ( 0,0,0,0 ),ofColor ( 255,255,255,255 ) );
         color2.set( "BGColor2", ofColor ( 255,255,255,255 ),ofColor ( 0,0,0,0 ),ofColor ( 255,255,255,255 ) );
         colorTint.set( "Image Tint", ofColor ( 255,255,255,255 ),ofColor ( 0,0,0,0 ),ofColor ( 255,255,255,255 ) );
@@ -51,9 +58,18 @@ public:
       gui.add(color1);
       gui.add(color2);
       gui.add(colorTint);
+      gui.add(autoChangeSec);
+      gui.add(autoChangeMax);
     };
 
-    void update() {};
+    void update() {
+      float now = ofGetElapsedTimef();
+      if ( autoChangeSec > 0 && (now - lastBg_s > autoChangeSec)) {
+        lastBg_s = now;
+        next();
+	autoChangeSec = ofRandom(2,autoChangeMax);
+      }
+    };
 
     void draw() {
         ofPushStyle();
