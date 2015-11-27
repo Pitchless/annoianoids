@@ -206,4 +206,16 @@ public:
         add(spr);
         return spr;
     };
+
+    BoxPtr addBox(float x, float y, string name, float s=1.0, float ss = 1.0, float d=1, float b=1, float f=1) {
+        string fname("sprites/");
+        fname += name;
+        BoxPtr spr = BoxPtr(new Box);
+        spr->setup(getB2World(), x, y, fname, s, ss, d, b, f);
+        if (debug) {
+            spr->showDebug = debug;
+        }
+        add(spr);
+        return spr;
+    };
 };
