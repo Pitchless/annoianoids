@@ -100,7 +100,8 @@ public:
         for (size_t i=0; i < dir.numFiles(); i++) {
             names.push_back(dir.getPath(i));
         }
-        sort(names.begin(), names.end());
+        //sort(names.begin(), names.end());
+        std::random_shuffle(names.begin(), names.end());
 
         int num_loaded = 0;
         for (size_t i=0; i < names.size(); i++) {
