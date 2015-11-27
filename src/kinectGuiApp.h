@@ -50,6 +50,8 @@ class kinectGuiApp : public ofBaseApp, public ofxMidiListener {
         ofParameter<bool> bPointColor;
         ofParameter<bool> bAutoAdd;
         ofParameter<int> autoAddRate;
+        ofParameter<int> autoHueRate;
+        ofParameter<int> autoOutline;
 
 	Background bg;
         World world; // the box2d world

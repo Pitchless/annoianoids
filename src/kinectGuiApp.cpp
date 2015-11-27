@@ -260,6 +260,8 @@ void kinectGuiApp::setupGui() {
     appParams.add( showBlobs.set("Show Blobs", true) );
     appParams.add( bAutoAdd.set("Auto Add", false) );
     appParams.add( autoAddRate.set("Auto Add Rate", 3, 1, 10) );
+    appParams.add( autoHueRate.set("Auto Hue Rate", 3, 1, 20) );
+    appParams.add( autoOutline.set("Auto Outline", 8, 1, 20) );
     //appParams.add( showVideo );
     appParams.add( showWorld );
     appParams.add( mainRotation );
@@ -398,6 +400,24 @@ void kinectGuiApp::update(){
 	  if ((elapsed % autoAddRate) == 0 && last != elapsed) {
 	    last = elapsed;
 	    if (bAutoAdd) addShiz();
+	  }
+    }
+    if (autoHueRate > 0) {
+          static int last = 0;
+          int elapsed = int(ofGetElapsedTimef());
+	  if ((elapsed % autoHueRate) == 0 && last != elapsed) {
+	    last = elapsed;
+	    mainHue += 1;
+	  }
+    }
+    if (autoOutline > 0) {
+          static int last = 0;
+          int elapsed = int(ofGetElapsedTimef());
+	  if ((elapsed % autoOutline) == 0 && last != elapsed) {
+	    int roll = ofRandom(1,3);
+	    if (roll==1) { showBlobs = true; showMain = false; }
+	    if (roll==2) { showBlobs = false; showMain = true; }
+	    if (roll==3) { showBlobs = true; showMain = true; }
 	  }
     }
 
