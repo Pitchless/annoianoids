@@ -195,12 +195,11 @@ public:
         add(ast);
     };
 
-    SpritePtr addSprite(float x, float y, string name, float scale = 1.0, float d=1, float b=1, float f=1) {
+    SpritePtr addSprite(float x, float y, string name, float s=30, float scale = 1.0, float d=1, float b=1, float f=1) {
         string fname("sprites/");
         fname += name;
         SpritePtr spr = SpritePtr(new Sprite);
-        //spr->setPhysics(density, bounce, friction);
-        spr->setup(getB2World(), x, y, fname, scale, d, b, f);
+        spr->setup(getB2World(), x, y, fname, s, scale, d, b, f);
         if (debug) {
             spr->showDebug = debug;
         }

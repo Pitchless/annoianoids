@@ -27,10 +27,10 @@ public:
     virtual ~Sprite() {};
 
     //virtual void setup(b2World *world, float x, float y) {
-    virtual void setup(b2World *world, float x, float y, string fname, float scale=1.0, float d=1.0, float b=1.0, float f=1.0) {
+    virtual void setup(b2World *world, float x, float y, string fname, float s=30, float scale=1.0, float d=1.0, float b=1.0, float f=1.0) {
         shapeScale = scale;
         setPhysics(d, b, f);
-        ofxBox2dCircle::setup(world, x, y, 40);
+        ofxBox2dCircle::setup(world, x, y, s);
         if (image.loadImage(fname)) {
             ofLogNotice() << "Loaded texture file '" << fname << "'";
         } else {
