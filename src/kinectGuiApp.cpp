@@ -83,6 +83,7 @@ void kinectGuiApp::setup(){
 
     world.setup(VIEW_W, VIEW_H);
     world.gravityY = 2.3;
+    bg.world = &world;
 }
 
 //--------------------------------------------------------------
@@ -257,6 +258,8 @@ void kinectGuiApp::setupGui() {
     appParams.add( showStencilImg.set("Stencil", false) );
     appParams.add( showGrayImg.set("Gray", false) );
     appParams.add( showBlobs.set("Show Blobs", true) );
+    appParams.add( bAutoAdd.set("Auto Add", false) );
+    appParams.add( autoAddRate.set("Auto Add Rate", 3, 1, 10) );
     //appParams.add( showVideo );
     appParams.add( showWorld );
     appParams.add( mainRotation );
@@ -388,6 +391,15 @@ void kinectGuiApp::update(){
 	bloblines.push_back(ln);
     }
     world.updateOutlines(bloblines);
+    size_t numBlobs = kinect.blobs.size();
+    if (numBlobs > 0) {
+          static int last = 0;
+          int elapsed = int(ofGetElapsedTimef());
+	  if ((elapsed % autoAddRate) == 0 && last != elapsed) {
+	    last = elapsed;
+	    if (bAutoAdd) addShiz();
+	  }
+    }
 
     /* TODO: fix for floats
     if (joyAxisLeftY != 0) {
@@ -599,6 +611,7 @@ void kinectGuiApp::keyPressed(int key){
     if(key == 'c') { world.addCircle(mouseX/scale, mouseY/scale); }
     if(key == 'b') { world.addRect(mouseX/scale, mouseY/scale); }
     if(key == 'a') { world.addAsteroid(mouseX/scale, mouseY/scale); }
+    if(key == 'n') { addShiz(); }
     if(key == '1') {
       world.addSprite(mouseX/scale, mouseY/scale, "600px-Smiley_svg.png");
     }
@@ -627,6 +640,43 @@ void kinectGuiApp::keyPressed(int key){
       p->setVelocity(ofRandom(-10, 10), ofRandom(-10, 10));
     }
 }
+
+void kinectGuiApp::addShiz() { addShiz(int(ofRandom(1,6))); };
+
+void kinectGuiApp::addShiz(int shiz) {
+    float x = ofRandom(0.0, world.width);
+    float y = -200;
+    ofLogNotice() << "SHIZ " << shiz << " " << x << "x" << y;
+    if(shiz == 1) {
+      world.addSprite(x, y, "smiley_yell.png");
+      return;
+    }
+    if(shiz == 2) {
+      world.addSprite(x, y, "smiley_pink.png");
+      return;
+    }
+    if(shiz == 3) {
+      world.addSprite(x, y, "axe.png", 40, 2.2, 2.0, 0.02, 0.6);
+      return;
+    }
+    if(shiz == 4) {
+      world.addBox(x, y, "raggy1.png", 3, 2.2, 1.0, 0.5, 1.6);
+      return;
+    }
+    if(shiz == 5) {
+      world.addBox(x, y, "dildo.gif", 4, 0.6, 1.0, 0.5, 1.6);
+      return;
+    }
+    /*
+    if(shiz == "p") {
+      PhotonPtr p = PhotonPtr(new Photon);
+      p->setup(world.getB2World(), mouseX/scale, mouseY/scale);
+      world.add((StuffPtr)p); 
+      p->setVelocity(ofRandom(-10, 10), ofRandom(-10, 10));
+    }
+    */
+  
+};
 
 //--------------------------------------------------------------
 void kinectGuiApp::keyReleased(int key){

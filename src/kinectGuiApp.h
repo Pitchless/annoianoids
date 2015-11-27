@@ -48,6 +48,8 @@ class kinectGuiApp : public ofBaseApp, public ofxMidiListener {
         ofParameter<float> scale;
         ofParameter<int> pointMode;
         ofParameter<bool> bPointColor;
+        ofParameter<bool> bAutoAdd;
+        ofParameter<int> autoAddRate;
 
 	Background bg;
         World world; // the box2d world
@@ -84,6 +86,8 @@ class kinectGuiApp : public ofBaseApp, public ofxMidiListener {
         void playNextVideo();
         void cueNextVideo();
         void cueVideo(int num);
+        void addShiz();
+        void addShiz(int shiz);
 
         ofImage imgMain;
 
