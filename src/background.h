@@ -2,6 +2,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "sprite_image.h"
 
 /*
  * Class to handle the background, fills the window.
@@ -9,7 +10,7 @@
 class Background
 {
 protected:
-    vector<ofImage> images_;
+    vector<SpriteImage> images_;
     int curImg_;
     string dataDirPath;
 
@@ -56,10 +57,8 @@ public:
 
     void draw() {
         ofPushStyle();
-        if (showGradient)
-            ofBackgroundGradient( color1, color2 );
-        if (showImages && hasImages())
-            drawImages();
+        if (showGradient) ofBackgroundGradient( color1, color2 );
+        if (showImages && hasImages()) drawImages();
 	ofPopStyle();
     };
 
@@ -72,7 +71,7 @@ public:
         return images_.size() == 0 ? false : true;
     };
 
-    ofImage& curImage() {
+    SpriteImage& curImage() {
         return images_[curImg_];
     };
 
@@ -113,8 +112,8 @@ public:
     };
 
     bool addImage(string fname) {
-        ofImage img;
-        if (!img.loadImage(fname)) {
+        SpriteImage img;
+        if (!img.load(fname)) {
             ofLogError() << "Failed to load texture file '" << fname << "'";
             return false;
         }
