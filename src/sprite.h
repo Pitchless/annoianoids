@@ -17,7 +17,7 @@ private:
     float shapeScale;
 public:
     ofParameter<bool> showDebug;
-    Sprite() : tint(255,255,255,255), shapeScale(1.0) {
+    Sprite() : tint(255,255,255,255), shapeScale(1.0), showDebug("Show Debug", false) {
       // TODO: Why doesn't this work?
       //ofLogNotice() << "HELLO";
       //density = 1.0;
@@ -29,9 +29,7 @@ public:
     //virtual void setup(b2World *world, float x, float y) {
     virtual void setup(b2World *world, float x, float y, string fname, float scale=1.0, float d=1.0, float b=1.0, float f=1.0) {
         shapeScale = scale;
-	ofLogNotice() << "setup: " << density << " " << friction << " " << bounce;
         setPhysics(d, b, f);
-	ofLogNotice() << "setup: " << density << " " << friction << " " << bounce;
         ofxBox2dCircle::setup(world, x, y, 40);
         if (image.loadImage(fname)) {
             ofLogNotice() << "Loaded texture file '" << fname << "'";
@@ -52,15 +50,19 @@ public:
         float w = image.getWidth()/scale;
         float h = image.getHeight()/scale;
 
+	ofPushStyle();
         glPushMatrix();
         glTranslatef(x, y, 0);
         glRotatef(getRotation(), 0, 0, 1);
         ofSetColor(255,255,255); // No tint
         image.draw(-(w/2), -(h/2), w, h);
-            //ofEnableAlphaBlending();
-            //ofFill();
-            //ofSetColor(0,255,0,160);
-            //ofCircle(0, 0, radius);
+	if (showDebug) {
+            ofEnableAlphaBlending();
+            ofFill();
+            ofSetColor(0,255,0,120);
+            ofCircle(0, 0, radius);
+	}
         glPopMatrix();
+	ofPopStyle();
     };
 };

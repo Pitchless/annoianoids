@@ -21,6 +21,7 @@ public:
     ofParameter<float> gravityY;
     ofParameter<float> border;
     ofParameter<bool> paused;
+    ofParameter<bool> debug;
     float width, height;
 
     World()
@@ -30,6 +31,7 @@ public:
         , gravityY("Gravity Y", 0, -10, 10)
         , border("World Border", 100, 0, 100)
         , paused("Pause", false)
+        , debug("Debug", false)
     {};
 
     void setup(float w, float h) {
@@ -58,6 +60,7 @@ public:
         clearBtn.addListener(this, &World::clear);
         gui.add( wakeUpBtn.setup("Wake up", w, 28) );
         gui.add( paused );
+        gui.add( debug );
         wakeUpBtn.addListener(this, &World::wakeUp);
         gui.add( gravityX );
         gui.add( gravityY );
@@ -198,6 +201,9 @@ public:
         SpritePtr spr = SpritePtr(new Sprite);
         //spr->setPhysics(density, bounce, friction);
         spr->setup(getB2World(), x, y, fname, scale, d, b, f);
+        if (debug) {
+            spr->showDebug = debug;
+        }
         add(spr);
         return spr;
     };

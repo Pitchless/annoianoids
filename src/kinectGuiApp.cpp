@@ -614,7 +614,7 @@ void kinectGuiApp::keyPressed(int key){
     if(key == '3') {
       float x = mouseX/scale;
       float y = mouseY/scale;
-      world.addSprite(x, y, "qiBAkjkgT.png", 2, 2.0, 0.02, 0.6);
+      world.addSprite(x, y, "qiBAkjkgT.png", 2.2, 2.0, 0.02, 0.6);
     }
     if(key == 'p') {
       PhotonPtr p = PhotonPtr(new Photon);
