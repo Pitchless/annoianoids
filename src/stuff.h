@@ -3,6 +3,7 @@
 
 #include "ofMain.h"
 #include "ofxBox2d.h"
+#include "World.h"
 
 /*
  TODO: stuff mess.
@@ -23,6 +24,7 @@ public:
   virtual ~Stuff(){};
   virtual void update() = 0;
   virtual void draw() = 0;
+  //virtual ofxBox2dBaseShape getShape();
 };
 typedef shared_ptr<Stuff> StuffPtr;
 typedef vector<StuffPtr> StuffVec;

@@ -13,7 +13,7 @@ private:
 public:
     Photon() : radius(1.0) {};
     virtual ~Photon() {};
-
+    
     virtual void setup(b2World *world, float x, float y) {
         // these are used to create the shape
         b2CircleShape shape;

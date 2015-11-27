@@ -7,7 +7,7 @@
 
 static int hexColors[4] = {0x31988A, 0xFDB978, 0xFF8340, 0xE8491B};
 
-class Asteroid : public Stuff, public ofxBox2dPolygon {
+class Asteroid : public ofxBox2dPolygon, public Stuff {
 private:
     ofImage         texture;
     ofMesh          mesh;

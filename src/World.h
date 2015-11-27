@@ -53,13 +53,14 @@ public:
         gui.setup("Box2DWorld");
         gui.add( numBodies );
         gui.add( numJoints );
+        float w = gui.getWidth();
+        gui.add( clearBtn.setup("Clear", w, 28) );
+        clearBtn.addListener(this, &World::clear);
+        gui.add( wakeUpBtn.setup("Wake up", w, 28) );
+        gui.add( paused );
+        wakeUpBtn.addListener(this, &World::wakeUp);
         gui.add( gravityX );
         gui.add( gravityY );
-        gui.add( paused );
-        gui.add( clearBtn.setup("Clear") );
-        clearBtn.addListener(this, &World::clear);
-        gui.add( wakeUpBtn.setup("Wake up") );
-        wakeUpBtn.addListener(this, &World::wakeUp);
     };
 
     b2World* getB2World() {

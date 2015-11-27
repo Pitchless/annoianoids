@@ -16,6 +16,7 @@ private:
     ofColor         tint;
     float shapeScale;
 public:
+    ofParameter<bool> showDebug;
     Sprite() : tint(255,255,255,255), shapeScale(1.0) {
       // TODO: Why doesn't this work?
       //ofLogNotice() << "HELLO";

@@ -694,11 +694,12 @@ void kinectGuiApp::windowResized(int w, int h){
 
     // Re-layout the gui
     status = ofToString(w) + "x" + ofToString(h);
-    guiApp.setPosition(ofGetWidth()-guiApp.getShape().width-10, 10);
-    guiImages.setPosition(10,10);
+    bg.gui.setPosition(10,10);
+    world.gui.setPosition(bg.gui.getShape().getRight()+10,10);
+    guiImages.setPosition(world.gui.getShape().getRight()+10,10);
     guiKinect.setPosition(guiImages.getShape().getRight()+10,10);
-    world.gui.setPosition(guiKinect.getShape().getRight()+10,10);
-    bg.gui.setPosition(world.gui.getShape().getRight()+10,10);
+    guiApp.setPosition(ofGetWidth()-guiApp.getShape().width-10, 10);
+    bg.gui.minimizeAll();
     guiImages.minimizeAll();
     guiKinect.minimizeAll();
     guiBox2d.minimizeAll();

@@ -39,15 +39,16 @@ public:
     
     void setupGui() {
       gui.setup("Background");
+      float w = gui.getWidth();
       static ofxButton btnNext, btnPrev;
-      gui.add(btnNext.setup("Next Image", gui.getWidth(), 32));
+      gui.add(btnNext.setup("Next Image", w, 32));
       btnNext.addListener(this, &Background::next);
-      gui.add(btnPrev.setup("Previous", gui.getWidth(), 32));
+      gui.add(btnPrev.setup("Previous", w, 32));
       btnPrev.addListener(this, &Background::prev);
       gui.add(showGradient);
+      gui.add(showImages);
       gui.add(color1);
       gui.add(color2);
-      gui.add(showImages);
       gui.add(colorTint);
     };
 
