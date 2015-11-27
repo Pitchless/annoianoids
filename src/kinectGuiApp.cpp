@@ -82,6 +82,7 @@ void kinectGuiApp::setup(){
     cueVideo(0);
 
     world.setup(VIEW_W, VIEW_H);
+    world.gravityY = 2.3;
 }
 
 //--------------------------------------------------------------

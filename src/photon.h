@@ -7,12 +7,12 @@
 #include "World.h"
 #include "stuff.h"
 
-class Photon : public Stuff {
+class Photon : public ofxBox2dBaseShape, public Stuff {
 private:
     float radius;
 public:
     Photon() : radius(1.0) {};
-    ~Photon() {};
+    virtual ~Photon() {};
 
     virtual void setup(b2World *world, float x, float y) {
         // these are used to create the shape
@@ -36,6 +36,8 @@ public:
 
         alive = true;
     };
+
+    virtual void update() {};
 
     virtual void draw() {
         if(!isBody()) return;

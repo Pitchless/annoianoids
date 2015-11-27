@@ -60,8 +60,6 @@ public:
         clearBtn.addListener(this, &World::clear);
         gui.add( wakeUpBtn.setup("Wake up") );
         wakeUpBtn.addListener(this, &World::wakeUp);
-        gui.add( addBtn.setup("Add Smile") );
-        addBtn.addListener(this, &World::addSpider5);
     };
 
     b2World* getB2World() {
@@ -88,6 +86,7 @@ public:
         float right = width + border;
         float top = 0 - border;
         float bottom = height + border;
+	/*
         for(int i=0; i<outlines.size(); i++) {
             outlines[i].get()->update();
         }
@@ -114,6 +113,7 @@ public:
                 obj->setVelocity(vel);
             }
         }
+        */
         // TODO: Cull (destroy) objects that have gone too far and reached the outer limits.
         numBodies = box2d.getBodyCount();
     };
@@ -199,9 +199,5 @@ public:
         spr->setup(getB2World(), x, y, fname, scale, d, b, f);
         add(spr);
         return spr;
-    };
-
-    void addSpider5() {
-        addSprite(200,200, "600px-Smiley_svg.png");
     };
 };

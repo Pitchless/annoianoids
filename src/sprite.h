@@ -10,7 +10,7 @@
 class Sprite;
 typedef shared_ptr<Sprite> SpritePtr;
 
-class Sprite : public ofxBox2dCircle {
+class Sprite : public ofxBox2dCircle, public Stuff {
 private:
     ofImage         image;
     ofColor         tint;
@@ -38,6 +38,8 @@ public:
             ofLogError() << "Failed to load texture file '" << fname << "'";
         }
     };
+
+    virtual void update() {};
 
     virtual void draw() {
         if(!isBody()) return;

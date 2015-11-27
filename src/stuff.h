@@ -3,7 +3,6 @@
 
 #include "ofMain.h"
 #include "ofxBox2d.h"
-#include "World.h"
 
 /*
  TODO: stuff mess.
@@ -14,24 +13,19 @@
  */
 
 /*
- * The world is made of Stuff, the leaves on the tree.
+ * The world is made of Stuff, the leaves on the tree. Virtual base
+ * (interface) classes need to impliment to be added to Things.
  */
-typedef ofxBox2dBaseShape Stuff;
-typedef shared_ptr<Stuff> StuffPtr;
-typedef vector<StuffPtr> StuffVec;
-
-/*
-class Stuff : public ofxBox2dBaseShape {
+class Stuff {
 protected:
 private:
 public:
-  Stuff() {};
   virtual ~Stuff(){};
-  virtual void create(b2World* world) {};
-  virtual void update() {};
-  virtual void draw() {};
+  virtual void update() = 0;
+  virtual void draw() = 0;
 };
-*/
+typedef shared_ptr<Stuff> StuffPtr;
+typedef vector<StuffPtr> StuffVec;
 
 /*
  * Stuff is orgnaised into Things, the branches of the tree.
@@ -45,12 +39,6 @@ protected:
     StuffVec stuff_;
 public:
     Thing() {};
-
-    //void create(World world) {
-    //  for (int i=0; i<stuff.size(); i++) {
-    //    stuff[i]->create(world);
-    //  }
-    //};
 
     size_t size() {
         return stuff_.size();
