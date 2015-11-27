@@ -15,6 +15,7 @@
 #include "background.h"
 #include "World.h"
 #include "photon.h"
+#include "ofxGif.h"
 
 const float VIEW_W = 640;
 const float VIEW_H = 480;

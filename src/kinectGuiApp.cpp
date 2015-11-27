@@ -619,12 +619,12 @@ void kinectGuiApp::keyPressed(int key){
     if(key == '4') {
       float x = mouseX/scale;
       float y = mouseY/scale;
-      world.addBox(x, y, "424956_10151243754230300_1382486128_n.png", 4, 2.2, 1.0, 0.5, 1.6);
+      world.addBox(x, y, "424956_10151243754230300_1382486128_n.png", 3, 2.2, 1.0, 0.5, 1.6);
     }
     if(key == '5') {
       float x = mouseX/scale;
       float y = mouseY/scale;
-      world.addBox(x, y, "tumblr_lnxy5xxaWS1qm9sn7o1_500.gif", 4, 1.0, 1.0, 0.5, 1.6);
+      world.addBox(x, y, "tumblr_lnxy5xxaWS1qm9sn7o1_500.gif", 4, 0.6, 1.0, 0.5, 1.6);
     }
     if(key == 'p') {
       PhotonPtr p = PhotonPtr(new Photon);

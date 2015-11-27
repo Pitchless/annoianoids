@@ -6,13 +6,50 @@
 #include "ofxBox2dBaseShape.h"
 #include "World.h"
 #include "stuff.h"
+#include "ofxGif.h"
+
+class SpriteImage : public ofImage {
+private:
+    size_t idx;
+    bool isGif;
+    ofxGIF::fiGifLoader gifloader;
+
+public:
+    SpriteImage() : idx(0), isGif(false) {};
+    virtual ~SpriteImage() {};
+    
+    bool load(const string& name) {
+      if (ofFilePath::getFileExt(name) == "gif") {
+	isGif = true;
+        gifloader.load(name);
+	return true;
+      } else {
+        return ofImage::load(name);
+      }
+    };
+
+    float getWidth() { return isGif ? gifloader.pages[0].getWidth() : ofImage::getWidth(); };
+    float getHeight() { return isGif ? gifloader.pages[0].getHeight() : ofImage::getHeight(); };
+    
+    void draw(float x, float y, float w, float h) {
+      if (isGif) {
+	  if (ofGetElapsedTimeMillis() % 3) {
+	      idx++;
+	      if (idx > gifloader.pages.size()-1) idx = 0;
+	  }
+          gifloader.pages[idx].draw(x, y, w, h);
+      } else {
+          ofImage::draw(x, y, w, h);
+      }
+    };
+};
 
 class Sprite;
 typedef shared_ptr<Sprite> SpritePtr;
 
 class Sprite : public ofxBox2dCircle, public Stuff {
 private:
-    ofImage         image;
+    SpriteImage         image;
     ofColor         tint;
     float shapeScale;
 public:
@@ -31,8 +68,8 @@ public:
         shapeScale = scale;
         setPhysics(d, b, f);
         ofxBox2dCircle::setup(world, x, y, s);
-        if (image.loadImage(fname)) {
-            ofLogNotice() << "Loaded texture file '" << fname << "'";
+        if (image.load(fname)) {
+            ofLogNotice() << "Loaded texture file hello '" << fname << "'";
         } else {
             ofLogError() << "Failed to load texture file '" << fname << "'";
         }
@@ -72,7 +109,7 @@ typedef shared_ptr<Box> BoxPtr;
 
 class Box : public ofxBox2dRect, public Stuff {
 private:
-    ofImage         image;
+    SpriteImage         image;
     ofColor         tint;
     float shapeScale;
 public:
@@ -83,7 +120,7 @@ public:
     virtual void setup(b2World *world, float x, float y, string fname, float scale=1.0, float ss=1.0, float d=1.0, float b=1.0, float f=1.0) {
         shapeScale = ss;
         setPhysics(d, b, f);
-        if (image.loadImage(fname)) {
+        if (image.load(fname)) {
             ofLogNotice() << "Loaded texture file '" << fname << "'";
         } else {
             ofLogError() << "Failed to load texture file '" << fname << "'";
