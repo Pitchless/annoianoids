@@ -604,9 +604,17 @@ void kinectGuiApp::keyPressed(int key){
     if(key == 'c') { world.addCircle(mouseX/scale, mouseY/scale); }
     if(key == 'b') { world.addRect(mouseX/scale, mouseY/scale); }
     if(key == 'a') { world.addAsteroid(mouseX/scale, mouseY/scale); }
-    if(key == '1') { world.addSprite(mouseX/scale, mouseY/scale, "600px-Smiley_svg.png"); }
-    if(key == '2') { world.addSprite(mouseX/scale, mouseY/scale, "2883994.png"); }
-    if(key == '3') { world.addSprite(mouseX/scale, mouseY/scale, "qiBAkjkgT.png", 2); }
+    if(key == '1') {
+      world.addSprite(mouseX/scale, mouseY/scale, "600px-Smiley_svg.png");
+    }
+    if(key == '2') {
+      world.addSprite(mouseX/scale, mouseY/scale, "2883994.png");
+    }
+    if(key == '3') {
+      float x = mouseX/scale;
+      float y = mouseY/scale;
+      world.addSprite(x, y, "qiBAkjkgT.png", 2, 2.0, 0.02, 0.6);
+    }
     if(key == 'p') {
       PhotonPtr p = PhotonPtr(new Photon);
       p->setup(world.getB2World(), mouseX/scale, mouseY/scale);

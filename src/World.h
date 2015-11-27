@@ -61,7 +61,7 @@ public:
         gui.add( wakeUpBtn.setup("Wake up") );
         wakeUpBtn.addListener(this, &World::wakeUp);
         gui.add( addBtn.setup("Add Smile") );
-	addBtn.addListener(this, &World::addSpider5);
+        addBtn.addListener(this, &World::addSpider5);
     };
 
     b2World* getB2World() {
@@ -191,15 +191,17 @@ public:
         add(ast);
     };
 
-    void addSprite(float x, float y, string name, float scale = 1.0) {
+    SpritePtr addSprite(float x, float y, string name, float scale = 1.0, float d=1, float b=1, float f=1) {
         string fname("sprites/");
-	fname += name;
+        fname += name;
         SpritePtr spr = SpritePtr(new Sprite);
-        spr->setup(getB2World(), x, y, fname, scale);
+        //spr->setPhysics(density, bounce, friction);
+        spr->setup(getB2World(), x, y, fname, scale, d, b, f);
         add(spr);
+        return spr;
     };
 
     void addSpider5() {
-      addSprite(200,200, "600px-Smiley_svg.png");
+        addSprite(200,200, "600px-Smiley_svg.png");
     };
 };

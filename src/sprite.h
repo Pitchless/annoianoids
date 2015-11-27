@@ -13,16 +13,24 @@ typedef shared_ptr<Sprite> SpritePtr;
 class Sprite : public ofxBox2dCircle {
 private:
     ofImage         image;
-    ofColor         color;
+    ofColor         tint;
     float shapeScale;
 public:
-    Sprite() : shapeScale(1.0) {};
-    ~Sprite() {};
+    Sprite() : tint(255,255,255,255), shapeScale(1.0) {
+      // TODO: Why doesn't this work?
+      //ofLogNotice() << "HELLO";
+      //density = 1.0;
+      //friction = 1.0;
+      //bounce = 1.0;
+    };
+    virtual ~Sprite() {};
 
     //virtual void setup(b2World *world, float x, float y) {
-    void setup(b2World *world, float x, float y, string fname, float scale=1.0) {
+    virtual void setup(b2World *world, float x, float y, string fname, float scale=1.0, float d=1.0, float b=1.0, float f=1.0) {
         shapeScale = scale;
-        setPhysics(1.0, 1.00, 1.0);
+	ofLogNotice() << "setup: " << density << " " << friction << " " << bounce;
+        setPhysics(d, b, f);
+	ofLogNotice() << "setup: " << density << " " << friction << " " << bounce;
         ofxBox2dCircle::setup(world, x, y, 40);
         if (image.loadImage(fname)) {
             ofLogNotice() << "Loaded texture file '" << fname << "'";
