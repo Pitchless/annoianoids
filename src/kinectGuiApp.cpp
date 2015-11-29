@@ -394,12 +394,12 @@ void kinectGuiApp::update(){
     }
     world.updateOutlines(bloblines);
     size_t numBlobs = kinect.blobs.size();
-    if (numBlobs > 0) {
+    if (bAutoAdd && numBlobs > 0) {
           static int last = 0;
           int elapsed = int(ofGetElapsedTimef());
 	  if ((elapsed % autoAddRate) == 0 && last != elapsed) {
 	    last = elapsed;
-	    if (bAutoAdd) addShiz();
+	    addShiz();
 	  }
     }
     if (autoHueRate > 0) {
