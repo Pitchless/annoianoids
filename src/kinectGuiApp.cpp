@@ -415,6 +415,7 @@ void kinectGuiApp::update(){
           int elapsed = int(ofGetElapsedTimef());
 	  if ((elapsed % autoOutline) == 0 && last != elapsed) {
 	    int roll = ofRandom(1,3);
+	    last = elapsed;
 	    if (roll==1) { showBlobs = true; showMain = false; }
 	    if (roll==2) { showBlobs = false; showMain = true; }
 	    if (roll==3) { showBlobs = true; showMain = true; }
@@ -666,30 +667,26 @@ void kinectGuiApp::keyPressed(int key){
     }
 }
 
-void kinectGuiApp::addShiz() { addShiz(int(ofRandom(1,12))); };
+void kinectGuiApp::addShiz() { addShiz(int(ofRandom(1,11))); };
 
 void kinectGuiApp::addShiz(int shiz) {
     float x = ofRandom(0.0, world.width);
     float y = -50;
     ofLogNotice() << "SHIZ " << shiz << " " << x << "x" << y;
     if(shiz == 1) { world.addSprite(x, y, "smiley_yell.png", 23); }
-    if(shiz == 2) { world.addSprite(x, y, "smiley_yell.png", 40); }
-    if(shiz == 3) { world.addSprite(x, y, "smiley_yell.png", 18); }
-    if(shiz == 4) { world.addSprite(x, y, "smiley_pink.png", 23, 1, 1, 1.4); }
-    if(shiz == 5) { world.addSprite(x, y, "smiley_pink.png", 42, 1, 1, 1.4); }
-    if(shiz == 6) { world.addSprite(x, y, "smiley_pink.png", 16, 1, 1, 1.4); }
-    if(shiz == 7) { world.addSprite(x, y, "axe.png", 42, 2.2, 2.0, 0.02, 0.6); }
-    if(shiz == 8) { world.addBox(x, y, "raggy1.png", 6, 3.0, 1.0, 0.1, 1.6); }
-    if(shiz == 9) {
+    if(shiz == 2) { world.addSprite(x, y, "smiley_pink.png", 42, 1, 1, 1.4); }
+    if(shiz == 3) { world.addSprite(x, y, "axe.png", 42, 2.2, 2.0, 0.02, 0.6); }
+    if(shiz == 4) { world.addBox(x, y, "raggy1.png", 6, 3.0, 1.0, 0.1, 1.6); }
+    if(shiz == 5) {
       for (int i=0; i<int(ofRandom(1,3)); i++) {
 	float s = ofRandom(3,6);
 	world.addBox(x, y, "dildo.gif", s, 0.9, 1.0, 0.5, 1.6);
       }
     }
-    if(shiz == 10) { world.addSprite(x, y, "fanny.png", 40, 1.0, 1.0, 1.4, 0.5); }
-    if(shiz == 11) { world.addSprite(x, y, "dino.png", 20, 2.0, 3.0, 0.4, 1.5); }
-    if(shiz == 12) { world.addBox(x, y, "spider5.png", 5, 2.0, 1.0, 1.4, 0.5); }
-    if(shiz == 13) {
+    if(shiz == 6) { world.addSprite(x, y, "fanny.png", 40, 1.0, 1.0, 1.4, 0.5); }
+    if(shiz == 7) { world.addSprite(x, y, "dino.png", 20, 2.0, 3.0, 0.4, 1.5); }
+    if(shiz == 8) { world.addBox(x, y, "spider5.png", 5, 2.0, 1.0, 1.4, 0.5); }
+    if(shiz == 9) {
       for (int i=0; i<int(ofRandom(1,3)); i++) {
 	float s = ofRandom(20,30);
         world.addSprite(x, y, "raggy2.png", s, 2.0, 1.0, 1.4, 0.5);
