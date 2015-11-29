@@ -48,7 +48,7 @@ class kinectGuiApp : public ofBaseApp, public ofxMidiListener {
         ofParameter<float> scale;
         ofParameter<int> pointMode;
         ofParameter<bool> bPointColor;
-        ofParameter<bool> bAutoAdd;
+        ofParameter<int> autoAddMinBlobs;
         ofParameter<int> autoAddRate;
         ofParameter<int> autoHueRate;
         ofParameter<int> autoOutline;

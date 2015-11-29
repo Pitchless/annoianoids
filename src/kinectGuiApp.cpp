@@ -240,7 +240,7 @@ void kinectGuiApp::setupGui() {
     guiApp.add( loadButton.setup("Load") );
     guiApp.add( saveButton.setup("Save") );
     guiApp.add( grabMaskButton.setup("Grab Mask") );
-    //guiApp.add( clearMaskButton.setup("Clear Mask") );
+    guiApp.add( clearMaskButton.setup("Clear Mask") );
     //guiApp.add( playVideoButton.setup("Play Video") );
     //guiApp.add( pauseVideoButton.setup("Pause Video") );
     //guiApp.add( cueNextVideoButton.setup("Cue Next Video") );
@@ -258,8 +258,8 @@ void kinectGuiApp::setupGui() {
     appParams.add( showStencilImg.set("Stencil", false) );
     appParams.add( showGrayImg.set("Gray", false) );
     appParams.add( showBlobs.set("Show Blobs", true) );
-    appParams.add( bAutoAdd.set("Auto Add", false) );
-    appParams.add( autoAddRate.set("Auto Add Rate", 3, 1, 10) );
+    appParams.add( autoAddRate.set("Auto Add Rate", 0, 0, 10) );
+    appParams.add( autoAddMinBlobs.set("Auto Add Min Blobs", 0, 0, 10) );
     appParams.add( autoHueRate.set("Auto Hue Rate", 3, 1, 20) );
     appParams.add( autoOutline.set("Auto Outline", 8, 1, 20) );
     //appParams.add( showVideo );
@@ -394,7 +394,7 @@ void kinectGuiApp::update(){
     }
     world.updateOutlines(bloblines);
     size_t numBlobs = kinect.blobs.size();
-    if (bAutoAdd && numBlobs > 0) {
+    if (autoAddRate > 0 && (int)numBlobs >= autoAddMinBlobs) {
           static int last = 0;
           int elapsed = int(ofGetElapsedTimef());
 	  if ((elapsed % autoAddRate) == 0 && last != elapsed) {
