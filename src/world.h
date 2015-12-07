@@ -21,10 +21,24 @@ public:
     };
 };
 
+class Box : public ofxBox2dRect, public Stuff {
+public:
+    Box() : ofxBox2dRect() {};
+    virtual ~Box() {};
+    virtual void update() {};
+    virtual void draw() {
+        ofPushStyle();
+        ofFill();
+        ofSetHexColor(0xBF2545);
+        ofxBox2dRect::draw();
+        ofPopStyle();
+    };
+};
+
+
 class World {
 private:
     ofxBox2d box2d;
-    vector <shared_ptr<ofxBox2dRect> > boxes;
     vector <shared_ptr<Outline> > outlines;
     Thing things;
 
@@ -148,12 +162,6 @@ public:
     };
 
     void draw() {
-        for(int i=0; i<boxes.size(); i++) {
-            ofFill();
-            ofSetHexColor(0xBF2545);
-            boxes[i].get()->draw();
-        }
-
         //for(int i=0; i<asteroids.size(); i++) {
         //    asteroids[i].get()->draw();
         //}
@@ -167,7 +175,6 @@ public:
     };
 
     void clear() {
-        boxes.clear();
         outlines.clear();
         //asteroids.clear();
         things.clear();
@@ -194,9 +201,10 @@ public:
     void addRect(int x, int y) {
         float w = ofRandom(4, 20);
         float h = ofRandom(4, 20);
-        boxes.push_back(shared_ptr<ofxBox2dRect>(new ofxBox2dRect));
-        boxes.back().get()->setPhysics(3.0, 0.53, 0.1);
-        boxes.back().get()->setup(box2d.getWorld(), x, y, w, h);
+        shared_ptr<Box> obj = shared_ptr<Box>(new Box);
+        obj->setPhysics(3.0, 0.53, 0.1);
+        obj->setup(box2d.getWorld(), x, y, w, h);
+        add(obj);
     };
 
     void addAsteroid(int x, int y) {
