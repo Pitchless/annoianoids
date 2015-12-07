@@ -142,23 +142,6 @@ void kinectGuiApp::cueVideo(int num) {
     videos[iCurVideo].setPaused(true);
     videos[iCurVideo].firstFrame();
     ofLogNotice() << "Cue video: " << getCurVideo().getMoviePath();
-    showBlobs = false;
-    showMain = false;
-    if (num == 0) {
-        kinect.lineColor.set(ofColor(0,0,10,32));
-    }
-    else if (num == 1) {
-        kinect.lineColor.set(ofColor(0,201,0,50));
-    }
-    else if (num == 2) {
-        kinect.lineColor.set(ofColor(0,201,0,50));
-    }
-    else if (num == 4) {
-        kinect.lineColor.set(ofColor(10,0,23,23));
-    }
-    else {
-        kinect.lineColor.set(ofColor(255,255,255,23));
-    }
 }
 
 void kinectGuiApp::playNextVideo() {
@@ -408,6 +391,7 @@ void kinectGuiApp::draw() {
     float h = VIEW_H;
 
     bg.draw();
+    drawKinectImages();
 
     ofPushStyle();
     ofPushMatrix();
@@ -415,19 +399,14 @@ void kinectGuiApp::draw() {
     ofRotate(mainRotation);
     ofTranslate(-(w/2.0), -(h/2.0));
     ofScale(scale, scale, 0.0);
-
     //if (showVideo)
     //    getCurVideo().draw(0,0,w,h);
-
-    drawKinectImages();
-
     if (showPointCloud) {
         easyCam.begin();
         //kinect.drawPointCloud();
         drawPointCloud();
         easyCam.end();
     }
-
     if (showWorld) world.draw();
     if (showMain)  imgMain.draw(0,0,w,h);
     if (showBlobs) kinect.drawBlobs(0,0,w,h);
