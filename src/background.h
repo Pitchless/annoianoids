@@ -3,7 +3,6 @@
 
 #include "ofMain.h"
 #include "sprite_image.h"
-#include "world.h"
 
 /*
  * Class to handle the background, fills the window.
@@ -24,8 +23,6 @@ public:
     ofParameter<int> autoChangeSec;
     ofParameter<int> autoChangeMax;
     ofxPanel gui;
-    World* world;
-    
 
     Background()
       : curImg_(0)
@@ -71,7 +68,6 @@ public:
         lastBg_s = now;
         next();
 	autoChangeSec = ofRandom(2,autoChangeMax);
-	world->clear();
       }
     };
 

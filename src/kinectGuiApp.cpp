@@ -56,7 +56,6 @@ void kinectGuiApp::setup() {
 
     world.setup(VIEW_W, VIEW_H);
     world.gravityY = 2.3;
-    bg.world = &world;
 }
 
 //--------------------------------------------------------------
