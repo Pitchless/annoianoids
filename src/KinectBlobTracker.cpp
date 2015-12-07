@@ -37,11 +37,13 @@ KinectBlobTracker::KinectBlobTracker()
     bFill.set("Fill", false);
     lineWidth.set("Line Width", 2.0, 0.0, 60.0);
 
+    nearClip.addListener(this, &KinectBlobTracker::clipChange);
     farClip.addListener(this, &KinectBlobTracker::clipChange);
 }
 
 KinectBlobTracker::~KinectBlobTracker() {
     kinectAngle.removeListener(this, &KinectBlobTracker::setCameraTiltAngle);
+    nearClip.removeListener(this, &KinectBlobTracker::clipChange);
     farClip.removeListener(this, &KinectBlobTracker::clipChange);
 }
 
