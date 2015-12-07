@@ -122,9 +122,6 @@ public:
         float top = 0 - border;
         float bottom = height + border;
 	/*
-        for(int i=0; i<outlines.size(); i++) {
-            outlines[i].get()->update();
-        }
         for(int i=0; i<circles.size(); i++) {
             ofxBox2dCircle* obj = circles[i].get();
             obj->update();
@@ -151,6 +148,7 @@ public:
         */
         // TODO: Cull (destroy) objects that have gone too far and reached the outer limits.
         numBodies = box2d.getBodyCount();
+        numJoints = box2d.getJointCount();
     };
 
     void updateOutlines(vector<ofPolyline> blobs) {
@@ -167,7 +165,7 @@ public:
         for(int i=0; i<outlines.size(); i++) {
             outlines[i].get()->draw();
         }
-        box2d.draw();
+        //box2d.draw(); // just draws the ground
     };
 
     void clear() {
