@@ -1,0 +1,82 @@
+
+[+] Animated gifs.
+[+] Random image order.
+[+] Auto move backgrounds along.
+    [ ] Move to main app?
+    [ ] Run with a count down we can display in gui.
+[ ] Change colors.
+[+] Auto add stuff.
+[+] Rect sprites.
+[ ] Have add return ptr.
+[ ] Read props from a file of same name .xml .yaml
+[ ] Outlines
+    [ ] Outlines are still seperate.
+    [ ] Fill. Seperate out kinect and app drawing.
+    [ ] Draw line at multi diff simplify, with erros.
+    [ ] Check for sprites that have got inside.
+[ ] Planets.  
+[-] Debug mode.
+[ ] Editable settings for types.
+[-] Side walls.
+[ ] Side lazer.
+[ ] Background should be part of the thingyverse.
+    [ ] objects then need their own Thing so we can clear seperately
+[ ] Move all buttons onto classes as props so they can easily be combined into custom palletes of controls.
+    [ ] ofxGuiPallette
+[ ] Move circles and boxes into stuff.
+[ ] Move video into bg
+
+setPhysics seems to need to happen before the body gets setup.
+
+If we scan the sprites dir we could auto setup everything.
+
+Use Sprite sub-classes to encode pys, ranges etc. Mind you that is what happened before and it got painful.
+
+Instead of global def, just use a an instance of the object that hasn't been created yet.
+
+Maybe some kind of struct for the setup args.
+A Physics struct or class.
+
+The shiz setup actually works really rather well, it contains all that def mess with basically
+one big switch statement. Bit of confusion on where to put the add* methods and they ended up
+being in a chain from app -> world -> Stuff<ofxBox2dBaseShape>. Where to inject the world and
+create the body is confused. ofxBox2d confuses that in the setup method, even though it has a
+create in the base class.
+* Add world at creation time, could even Ball(world).
+* Setup gets everything ready from it's args.
+* Create actuall puts it in the world. create(world)? Do we need it before?
+Then add a define method that setsup object but doesn't create them.
+
+  world.defineBall("smiley", radius, "smile.png"...);
+  
+  struct StuffX {
+    xtype
+    string name
+    vector<string> class
+    vector<string> tags
+    float width,height,radius
+    float density, bounce, friction
+    map<string,ofImage> images
+  }
+  
+Can then setup a bunch of objects for use in the app.
+
+  world.create("smiley", x, y)
+  
+  StuffPtr axe = world.create("axe", 200, 1000)
+  axe->setVelocity(ofRandom(-10, 10), ofRandom(-10, 10))
+  
+  world.create("photon", 0, 0)->setVelocity(23,42)->setBounce(12.3)
+
+ Inside the world calls add and clones the defined objects which are just held
+ in mem but never created. Also solves the issue of hitting the disk to load
+ the image each time (although and option to refresh would then be needed).
+ 
+   StuffPtr World::add(xtype, name, pos, phys) {
+      proto = defines[xtype] // copy construct
+      proto.setPosition(pos)
+      proto.setPhysics(phys)
+      proto.create()
+      return proto
+   }
+  
