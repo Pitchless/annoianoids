@@ -7,10 +7,23 @@
 #include "asteroid.h"
 #include "sprite.h"
 
+class Circle : public ofxBox2dCircle, public Stuff {
+public:
+    Circle() : ofxBox2dCircle() {};
+    virtual ~Circle() {};
+    virtual void update() {};
+    virtual void draw() {
+        ofPushStyle();
+        ofFill();
+        ofSetHexColor(0xf6c738);
+        ofxBox2dCircle::draw();
+        ofPopStyle();
+    };
+};
+
 class World {
 private:
     ofxBox2d box2d;
-    vector <shared_ptr<ofxBox2dCircle> > circles;
     vector <shared_ptr<ofxBox2dRect> > boxes;
     vector <shared_ptr<Outline> > outlines;
     Thing things;
@@ -135,12 +148,6 @@ public:
     };
 
     void draw() {
-        for(int i=0; i<circles.size(); i++) {
-            ofFill();
-            ofSetHexColor(0xf6c738);
-            circles[i].get()->draw();
-        }
-
         for(int i=0; i<boxes.size(); i++) {
             ofFill();
             ofSetHexColor(0xBF2545);
@@ -160,7 +167,6 @@ public:
     };
 
     void clear() {
-        circles.clear();
         boxes.clear();
         outlines.clear();
         //asteroids.clear();
@@ -178,10 +184,11 @@ public:
 
     void addCircle(int x, int y) {
         float r = ofRandom(10, 23);
-        circles.push_back(shared_ptr<ofxBox2dCircle>(new ofxBox2dCircle));
-        circles.back().get()->setPhysics(6.0, 0.02, 0.2);
-        circles.back().get()->setup(box2d.getWorld(), x, y, r);
-        circles.back().get()->setVelocity(ofRandom(-10, 10), ofRandom(-10, 10));
+        shared_ptr<Circle> obj = shared_ptr<Circle>(new Circle);
+        obj->setPhysics(1.0, 0.2, 0.2);
+        obj->setup(getB2World(), x, y, r);
+        obj->setVelocity(ofRandom(-10, 10), ofRandom(-10, 10));
+        add(obj);
     };
 
     void addRect(int x, int y) {
