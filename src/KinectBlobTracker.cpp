@@ -28,7 +28,7 @@ KinectBlobTracker::KinectBlobTracker()
     maxBlobs.set("Max Blobs", 10, 0, 200);
     bFindHoles.set("Find Holes", false);
     bUseApproximation.set("Use Approximation", false);
-    simplify.set("Simplify Blob Lines", 0.0, 0.0, 1.0);
+    simplify.set("Simplify Blob Lines", 0.0, 0.0, 10.0);
     resampleSpacing.set("Resample Spacing", 0.0, 0.0, kinect.width);
     resampleCount.set("Resample Count", 0, 0, 1000);
 
@@ -266,7 +266,7 @@ void KinectBlobTracker::drawBlobs(float x, float y, float w, float h) {
                 for (size_t i=0; i<pts.size(); ++i) {
                     ofVertex(pts[i].x, pts[i].y);
                 }
-            ofEndShape(true);
+           ofEndShape(true);
 
             // Verts
             if (showVerts) {
