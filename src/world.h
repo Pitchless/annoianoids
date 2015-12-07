@@ -114,6 +114,7 @@ public:
         if (paused) {
             return;
         }
+        // TODO: What is the best order for this?
         box2d.update();
         things.update();
         float left = 0 - border;
@@ -162,21 +163,15 @@ public:
     };
 
     void draw() {
-        //for(int i=0; i<asteroids.size(); i++) {
-        //    asteroids[i].get()->draw();
-        //}
         things.draw();
-
         for(int i=0; i<outlines.size(); i++) {
             outlines[i].get()->draw();
         }
-
         box2d.draw();
     };
 
     void clear() {
         outlines.clear();
-        //asteroids.clear();
         things.clear();
     };
 
