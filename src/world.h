@@ -4,7 +4,7 @@
 #include "ofxBox2d.h"
 #include "stuff.h"
 #include "outline.h"
-#include "Asteroid.h"
+#include "asteroid.h"
 #include "sprite.h"
 
 class World {
