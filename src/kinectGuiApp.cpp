@@ -9,7 +9,6 @@ void kinectGuiApp::setup(){
     ofEnableAlphaBlending();
     ofEnableSmoothing();
     ofSetWindowShape(1280, 960);
-    bg.setup("bg");
 
     maskFilename = "mask.png";
 
@@ -30,34 +29,6 @@ void kinectGuiApp::setup(){
     scale.set("Scale", 1.0, 0.1, 10.0);
     pointMode.set("Point Mode",6,0,6);
     bPointColor.set("Point Color", true);
-    // enum ofPrimitiveMode{
-    //OF_PRIMITIVE_TRIANGLES
-    //OF_PRIMITIVE_TRIANGLE_STRIP
-    //OF_PRIMITIVE_TRIANGLE_FAN
-    //OF_PRIMITIVE_LINES
-    //OF_PRIMITIVE_LINE_STRIP
-    //OF_PRIMITIVE_LINE_LOOP
-    //OF_PRIMITIVE_POINTS
-
-    // Midi
-    // print ports to console
-	midiIn.listPorts(); // via instance
-	//ofxMidiIn::listPorts(); // via static as well
-
-	// open port by number (you may need to change this)
-	midiIn.openPort(1);
-	//midiIn.openPort("IAC Pure Data In");	// by name
-	//midiIn.openVirtualPort("ofxMidiIn Input");	// open a virtual port
-
-	// don't ignore sysex, timing, & active sense messages,
-	// these are ignored by default
-	midiIn.ignoreTypes(false, false, false);
-
-	// add app as a listener
-	midiIn.addListener(this);
-
-	// print received messages to the console
-	midiIn.setVerbose(true);
 
     joyAxisLeftX  = 0.0;
     joyAxisLeftY  = 0.0;
@@ -74,6 +45,8 @@ void kinectGuiApp::setup(){
         ofAddListener(pad->onButtonReleased, this, &kinectGuiApp::buttonReleased);
 	}
 
+    bg.setup("bg");
+
     kinect.setup();
     setupGui();
     loadSettings();
@@ -87,36 +60,6 @@ void kinectGuiApp::setup(){
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::newMidiMessage(ofxMidiMessage& msg) {
-	// make a copy of the latest message
-	midiMessage = msg;
-
-    stringstream text;
-    // draw the last recieved message contents to the screen
-	text << "Received: " << ofxMidiMessage::getStatusString(midiMessage.status);
-	text << " channel: " << midiMessage.channel;
-	text << " pitch: " << midiMessage.pitch;
-	text << " velocity: " << midiMessage.velocity;
-	text << " control: " << midiMessage.control;
-	text << " value: " << midiMessage.value;
-
-//	if(midiMessage.status == MIDI_PITCH_BEND) {
-//		ofRect(20, 202, ofMap(midiMessage.value, 0, MIDI_MAX_BEND, 0, ofGetWidth()-40), 20);
-//	}
-//	else {
-//		ofRect(20, 202, ofMap(midiMessage.value, 0, 127, 0, ofGetWidth()-40), 20);
-//	}
-
-	text << "delta: " << midiMessage.deltatime;
-    ofLogNotice() << "MIDI: " << text.str();
-
-    if (msg.channel == 10 && msg.velocity > 0 && msg.pitch == 60) {
-        cueNextVideo();
-    }
-    if (msg.channel == 10 && msg.velocity > 0 && msg.pitch == 44) {
-        togglePlayVideo();
-    }
-}
 
 void kinectGuiApp::loadVideoDir(string dirname) {
     ofLogNotice() << "Loading video from: " << dirname;
@@ -805,11 +748,6 @@ void kinectGuiApp::exit() {
     loadButton.removeListener(this, &kinectGuiApp::loadSettings);
     saveButton.removeListener(this, &kinectGuiApp::saveSettings);
     grabMaskButton.removeListener(this, &kinectGuiApp::grabMask);
-
-    // clean up midi
-	midiIn.closePort();
-	midiIn.removeListener(this);
-
 }
 
 

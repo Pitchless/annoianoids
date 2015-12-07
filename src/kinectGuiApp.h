@@ -4,7 +4,6 @@
 #include "ofxGui.h"
 #include "ofxOpenCv.h"
 #include "ofxKinect.h"
-#include "ofxMidi.h"
 #include "ofxGamepadHandler.h"
 
 // Custom controls.
@@ -20,7 +19,7 @@
 const float VIEW_W = 640;
 const float VIEW_H = 480;
 
-class kinectGuiApp : public ofBaseApp, public ofxMidiListener {
+class kinectGuiApp : public ofBaseApp {
 
     public:
         KinectBlobTracker kinect;
@@ -92,11 +91,6 @@ class kinectGuiApp : public ofBaseApp, public ofxMidiListener {
         void addShiz(int shiz);
 
         ofImage imgMain;
-
-        // ofxMidi
-        ofxMidiIn midiIn;
-        ofxMidiMessage midiMessage;
-        void newMidiMessage(ofxMidiMessage& eventArgs);
 
         void setupGui();
         void loadSettings();
