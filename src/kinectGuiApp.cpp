@@ -71,7 +71,6 @@ void kinectGuiApp::loadVideoDir(string dirname) {
         ofLogNotice() << "No video found, added default blank video.";
         return;
     }
-    //videos.resize(dir.numFiles());
     vector<string> names;
     for (size_t i=0; i < dir.numFiles(); i++) {
         names.push_back(dir.getPath(i));
@@ -119,15 +118,8 @@ void kinectGuiApp::pauseVideo() {
 }
 
 void kinectGuiApp::cueNextVideo() {
-    //getCurVideo().stop();
-    //iCurVideo++;
     int num = iCurVideo + 1;
-    //if ( iCurVideo > videos.size()-1 ) { iCurVideo = 0; }
     if ( num > videos.size()-1 ) { num = 0; }
-    //videos[iCurVideo].play();
-    //videos[iCurVideo].setPaused(true);
-    //videos[iCurVideo].firstFrame();
-    //ofLogNotice() << "Cue video: " << getCurVideo().getMoviePath();
     cueVideo(num);
 }
 
@@ -365,26 +357,6 @@ void kinectGuiApp::update(){
 	  }
     }
 
-    /* TODO: fix for floats
-    if (joyAxisLeftY != 0) {
-        ofColor c = kinect.lineColor.get();
-        int foo = -4*joyAxisLeftY;
-        //ofLogNotice() << "joy: " << joyAxisLeftY << " foo: " << foo;
-        //c[3] += int(-2*joyAxisLeftY); // -1 reverse negative is up on stick
-        c[3] = ofClamp(c[3] + foo, 0, 255);
-        //c.clamp();
-        kinect.lineColor.set(c);
-
-        mainAlpha = ofClamp(mainAlpha+foo, 0, 1.0);
-    }
-    */
-    //if (joyAxisRightX != 0) {
-    //    mainHue = ofClamp(mainHue+(-4*joyAxisRightX), 0, 255);
-    //}
-    //if (joyAxisRightY != 0) {
-    //    mainSaturation = ofClamp(mainSaturation+(-4*joyAxisRightY), 0, 255);
-    //}
-
     world.update();
 
     // Copy the kinect grey image into our video layer
@@ -518,25 +490,7 @@ void kinectGuiApp::drawPointCloud() {
     ofScale(1, -1, -1);
     ofTranslate(0, 0, -1000); // center the points a bit
     glEnable(GL_DEPTH_TEST);
-
     mesh.drawVertices();
-
-    //int step = 2;
-    //for(int y = 0; y < h; y += step) {
-    //    for(int x = 0; x < w; x += step) {
-    //        if(kinect.kinect.getDistanceAt(x, y) > 0) {
-    //            //mesh.addVertex(kinect.kinect.getWorldCoordinateAt(x, y));
-    //            //mesh.addColor(kinect.kinect.getColorAt(x,y));
-    //            mesh = ofMesh::box(1.0, 1.0, 1.0);
-    //            ofPushMatrix();
-    //            ofTranslate(kinect.kinect.getWorldCoordinateAt(x, y));
-    //            //mesh.draw();
-    //            mesh.drawWireframe();
-    //            ofPopMatrix();
-    //        }
-    //    }
-    //}
-
     glDisable(GL_DEPTH_TEST);
     ofPopMatrix();
 }
@@ -548,51 +502,12 @@ void kinectGuiApp::keyPressed(int key){
     if (key == 'S') { saveSettings(); }
     if (key == 'L') { loadSettings(); }
     if (key == 'g') { grabMask(); }
-    /*
-    if (key == 'p') { playVideo(); }
-    if (key == 'P') { pauseVideo(); }
-    //if (key == ' ') { togglePlayVideo(); }
-    if (key == ' ') { showBlobs = false; showMain = false; }
-    if (key == 'C') { cueNextVideo(); }
-    if (key == 'N') { playNextVideo(); }
-    if (key == '1') { cueVideo(0); }
-    if (key == '2') { cueVideo(1); }
-    if (key == '3') { cueVideo(2); }
-    if (key == '4') { cueVideo(3); }
-    if (key == '5') { cueVideo(4); }
-    if (key == '6') { cueVideo(5); }
-    if (key == '7') { cueVideo(6); }
-    if (key == '8') { cueVideo(7); }
-    if (key == '9') { cueVideo(8); }
-    if (key == '0') { cueVideo(9); }
-    */
-    else if (key == 'g') { kinect.lineColor.set(ofColor(0,230,0,32)); }
-    //else if (key == 'b') { kinect.lineColor.set(ofColor(0,0,200,32)); }
-    else if (key == 'y') { kinect.lineColor.set(ofColor(200,200,0,32)); }
-    else if (key == 'm') { showBlobs = false; showMain = true; }
 
     if(key == 'C') { world.clear(); }
     if(key == 'c') { world.addCircle(mouseX/scale, mouseY/scale); }
     if(key == 'b') { world.addRect(mouseX/scale, mouseY/scale); }
     if(key == 'a') { world.addAsteroid(mouseX/scale, mouseY/scale); }
     if(key == 'n') { addShiz(); }
-    /*
-    if(key == '1') {
-      //world.addSprite(mouseX/scale, mouseY/scale, "600px-Smiley_svg.png");
-    }
-    if(key == '2') {
-      //world.addSprite(mouseX/scale, mouseY/scale, "2883994.png");
-    }
-    if(key == '3') {
-      //world.addSprite(x, y, "qiBAkjkgT.png", 40, 2.2, 2.0, 0.02, 0.6);
-    }
-    if(key == '4') {
-      //world.addBox(x, y, "424956_10151243754230300_1382486128_n.png", 3, 2.2, 1.0, 0.5, 1.6);
-    }
-    if(key == '5') {
-      //world.addBox(x, y, "tumblr_lnxy5xxaWS1qm9sn7o1_500.gif", 4, 0.6, 1.0, 0.5, 1.6);
-    }
-    */
     if (key == '1') addShiz(1);
     if (key == '2') addShiz(2);
     if (key == '3') addShiz(3);
@@ -635,15 +550,6 @@ void kinectGuiApp::addShiz(int shiz) {
         world.addSprite(x, y, "raggy2.png", s, 2.0, 1.0, 1.4, 0.5);
       }
     }
-    /*
-    if(shiz == "p") {
-      PhotonPtr p = PhotonPtr(new Photon);
-      p->setup(world.getB2World(), mouseX/scale, mouseY/scale);
-      world.add((StuffPtr)p); 
-      p->setVelocity(ofRandom(-10, 10), ofRandom(-10, 10));
-    }
-    */
-  
 };
 
 //--------------------------------------------------------------
@@ -663,9 +569,6 @@ void kinectGuiApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void kinectGuiApp::mousePressed(int x, int y, int button){
-    //world.addCircle(mouseX/scale, mouseY/scale);
-    //world.addRect(mouseX/scale, mouseY/scale);
-    //world.addAsteroid(mouseX/scale, mouseY/scale);
 }
 
 //--------------------------------------------------------------
@@ -677,36 +580,23 @@ void kinectGuiApp::mouseReleased(int x, int y, int button){
 // ofxGamepad events
 
 void kinectGuiApp::axisChanged(ofxGamepadAxisEvent& e) {
-	//ofLogNotice() << "AXIS " << e.axis << " VALUE " << ofToString(e.value) << endl;
+    //ofLogNotice() << "AXIS " << e.axis << " VALUE " << ofToString(e.value) << endl;
     float val = e.value;
     if ( !(val > joyDeadzone || val < -joyDeadzone) ) {
         val = 0.0;
     }
-	if ( e.axis == 0 ) { joyAxisLeftX  = val; }
+    if ( e.axis == 0 ) { joyAxisLeftX  = val; }
     if ( e.axis == 1 ) { joyAxisLeftY  = val; }
     if ( e.axis == 3 ) { joyAxisRightX = val; }
     if ( e.axis == 4 ) { joyAxisRightY = val; }
 }
 
 void kinectGuiApp::buttonPressed(ofxGamepadButtonEvent& e) {
-  /*
-	//ofLogNotice() << "BUTTON " << e.button << " PRESSED" << endl;
-	if (e.button == 1) { showBlobs = !showBlobs; } // B
-	if (e.button == 3) {
-        kinect.bFill = !kinect.bFill;
-        if (kinect.bFill && kinect.lineColor.get()[3] > 100) {
-            ofColor c = kinect.lineColor.get();
-            c[3] = 100;
-            kinect.lineColor.set(c);
-        }
-    }
-    else if (e.button == 4) { kinect.lineColor.set(ofColor(255,255,255,32)); } // left shoulder
-    else if (e.button == 5) { kinect.lineColor.set(ofColor(0,0,0,32)); } // left shoulder
-    */
+    ofLogNotice() << "BUTTON " << e.button << " PRESSED" << endl;
 }
 
 void kinectGuiApp::buttonReleased(ofxGamepadButtonEvent& e) {
-	//ofLogNotice() << "BUTTON " << e.button << " RELEASED" << endl;
+    ofLogNotice() << "BUTTON " << e.button << " RELEASED" << endl;
 }
 
 //--------------------------------------------------------------
@@ -749,5 +639,6 @@ void kinectGuiApp::exit() {
     saveButton.removeListener(this, &kinectGuiApp::saveSettings);
     grabMaskButton.removeListener(this, &kinectGuiApp::grabMask);
 }
+
 
 
