@@ -581,12 +581,12 @@ void kinectGuiApp::addShiz(int shiz) {
         world.addSprite(x, y, "axe.png", 42, 2.2, 2.0, 0.02, 0.6);
     }
     if(shiz == 4) {
-        world.addBox(x, y, "raggy1.png", 6, 3.0, 1.0, 0.1, 1.6);
+        world.addBoxSprite(x, y, "raggy1.png", 6, 3.0, 1.0, 0.1, 1.6);
     }
     if(shiz == 5) {
         for (int i=0; i<int(ofRandom(1,3)); i++) {
             float s = ofRandom(3,6);
-            world.addBox(x, y, "dildo.gif", s, 0.9, 1.0, 0.5, 1.6);
+            world.addBoxSprite(x, y, "dildo.gif", s, 0.9, 1.0, 0.5, 1.6);
         }
     }
     if(shiz == 6) {
@@ -596,7 +596,7 @@ void kinectGuiApp::addShiz(int shiz) {
         world.addSprite(x, y, "dino.png", 20, 2.0, 3.0, 0.4, 1.5);
     }
     if(shiz == 8) {
-        world.addBox(x, y, "spider5.png", 5, 2.0, 1.0, 1.4, 0.5);
+        world.addBoxSprite(x, y, "spider5.png", 5, 2.0, 1.0, 1.4, 0.5);
     }
     if(shiz == 9) {
         for (int i=0; i<int(ofRandom(1,3)); i++) {

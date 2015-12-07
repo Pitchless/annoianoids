@@ -69,18 +69,18 @@ public:
     };
 };
 
-class Box;
-typedef shared_ptr<Box> BoxPtr;
+class BoxSprite;
+typedef shared_ptr<BoxSprite> BoxSpritePtr;
 
-class Box : public ofxBox2dRect, public Stuff {
+class BoxSprite : public ofxBox2dRect, public Stuff {
 private:
     SpriteImage         image;
     ofColor         tint;
     float shapeScale;
 public:
     ofParameter<bool> showDebug;
-    Box() : tint(255,255,255,255), shapeScale(1.0), showDebug("Show Debug", false) { };
-    virtual ~Box() {};
+    BoxSprite() : tint(255,255,255,255), shapeScale(1.0), showDebug("Show Debug", false) { };
+    virtual ~BoxSprite() {};
 
     virtual void setup(b2World *world, float x, float y, string fname, float scale=1.0, float ss=1.0, float d=1.0, float b=1.0, float f=1.0) {
         shapeScale = ss;
