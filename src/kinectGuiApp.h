@@ -21,115 +21,115 @@ const float VIEW_H = 480;
 
 class kinectGuiApp : public ofBaseApp {
 
-    public:
-        KinectBlobTracker kinect;
-        ofParameter<bool> showGui;
-        ofParameter<bool> showPointCloud;
-        ofParameter<bool> showColorImg;
-        ofParameter<bool> showDepthImg;
-        ofParameter<bool> showMaskImg;
-        ofParameter<bool> showStencilImg;
-        ofParameter<bool> showGrayImg;
-        ofParameter<bool> showBlobs;
-        ofParameter<bool> showVideo;
-        ofParameter<bool> showMain;
-        ofParameter<bool> showWorld;
-        ofParameter<bool> showJoystick;
-        ofParameter<float> joyDeadzone;
-        float joyAxisLeftX, joyAxisLeftY, joyAxisRightX, joyAxisRightY;
-        ofParameter<ofColor> bgColor1;
-        ofParameter<ofColor> bgColor2;
-        ofParameter<int> mainAlpha;
-        ofParameter<int> mainHue;
-        ofParameter<int> mainSaturation;
-        ofParameter<int> mainBrightness;
-        ofParameter<float> mainRotation;
-        ofParameter<float> scale;
-        ofParameter<int> pointMode;
-        ofParameter<bool> bPointColor;
-        ofParameter<int> autoAddMinBlobs;
-        ofParameter<int> autoAddRate;
-        ofParameter<int> autoHueRate;
-        ofParameter<int> autoOutline;
+public:
+    KinectBlobTracker kinect;
+    ofParameter<bool> showGui;
+    ofParameter<bool> showPointCloud;
+    ofParameter<bool> showColorImg;
+    ofParameter<bool> showDepthImg;
+    ofParameter<bool> showMaskImg;
+    ofParameter<bool> showStencilImg;
+    ofParameter<bool> showGrayImg;
+    ofParameter<bool> showBlobs;
+    ofParameter<bool> showVideo;
+    ofParameter<bool> showMain;
+    ofParameter<bool> showWorld;
+    ofParameter<bool> showJoystick;
+    ofParameter<float> joyDeadzone;
+    float joyAxisLeftX, joyAxisLeftY, joyAxisRightX, joyAxisRightY;
+    ofParameter<ofColor> bgColor1;
+    ofParameter<ofColor> bgColor2;
+    ofParameter<int> mainAlpha;
+    ofParameter<int> mainHue;
+    ofParameter<int> mainSaturation;
+    ofParameter<int> mainBrightness;
+    ofParameter<float> mainRotation;
+    ofParameter<float> scale;
+    ofParameter<int> pointMode;
+    ofParameter<bool> bPointColor;
+    ofParameter<int> autoAddMinBlobs;
+    ofParameter<int> autoAddRate;
+    ofParameter<int> autoHueRate;
+    ofParameter<int> autoOutline;
 
-	Background bg;
-        World world; // the box2d world
+    Background bg;
+    World world; // the box2d world
 
-        void setup();
-        void update();
-        void draw();
-        void drawPointCloud();
+    void setup();
+    void update();
+    void draw();
+    void drawPointCloud();
 
-        void keyPressed  (int key);
-        void keyReleased(int key);
-        void mouseMoved(int x, int y );
-        void mouseDragged(int x, int y, int button);
-        void mousePressed(int x, int y, int button);
-        void mouseReleased(int x, int y, int button);
-        void windowResized(int w, int h);
-        void dragEvent(ofDragInfo dragInfo);
-        void gotMessage(ofMessage msg);
-        void exit();
+    void keyPressed  (int key);
+    void keyReleased(int key);
+    void mouseMoved(int x, int y );
+    void mouseDragged(int x, int y, int button);
+    void mousePressed(int x, int y, int button);
+    void mouseReleased(int x, int y, int button);
+    void windowResized(int w, int h);
+    void dragEvent(ofDragInfo dragInfo);
+    void gotMessage(ofMessage msg);
+    void exit();
 
-        // ofxGamepad
-        void axisChanged(ofxGamepadAxisEvent &e);
-        void buttonPressed(ofxGamepadButtonEvent &e);
-        void buttonReleased(ofxGamepadButtonEvent &e);
+    // ofxGamepad
+    void axisChanged(ofxGamepadAxisEvent &e);
+    void buttonPressed(ofxGamepadButtonEvent &e);
+    void buttonReleased(ofxGamepadButtonEvent &e);
 
-        vector<ofVideoPlayer> videos;
-        int iCurVideo;
-        ofVideoPlayer& getCurVideo();
-        bool addVideo(string filename);
-        void loadVideoDir(string dirname);
-        void playVideo();
-        void togglePlayVideo();
-        void pauseVideo();
-        void playNextVideo();
-        void cueNextVideo();
-        void cueVideo(int num);
-        void addShiz();
-        void addShiz(int shiz);
+    vector<ofVideoPlayer> videos;
+    int iCurVideo;
+    ofVideoPlayer& getCurVideo();
+    bool addVideo(string filename);
+    void loadVideoDir(string dirname);
+    void playVideo();
+    void togglePlayVideo();
+    void pauseVideo();
+    void playNextVideo();
+    void cueNextVideo();
+    void cueVideo(int num);
+    void addShiz();
+    void addShiz(int shiz);
 
-        ofImage imgMain;
+    ofImage imgMain;
 
-        void setupGui();
-        void loadSettings();
-        void saveSettings();
-        void grabMask();
-        void clearMask();
-        void drawKinectImages();
-        void connect();
+    void setupGui();
+    void loadSettings();
+    void saveSettings();
+    void grabMask();
+    void clearMask();
+    void drawKinectImages();
+    void connect();
 
-        ofxPanel guiApp;
-        ofParameterGroup appParams;
-        ofxFpsSlider fpsSlider;
-        ofxButton loadButton;
-        ofxButton saveButton;
-        ofxButton playVideoButton;
-        ofxButton pauseVideoButton;
-        ofxButton cueNextVideoButton;
-        ofxButton nextVideoButton;
-        ofxLabel status;
+    ofxPanel guiApp;
+    ofParameterGroup appParams;
+    ofxFpsSlider fpsSlider;
+    ofxButton loadButton;
+    ofxButton saveButton;
+    ofxButton playVideoButton;
+    ofxButton pauseVideoButton;
+    ofxButton cueNextVideoButton;
+    ofxButton nextVideoButton;
+    ofxLabel status;
 
-        ofxPanel guiKinect;
-        ofParameterGroup connectionParams;
-        ofParameterGroup kinectParams;
-        ofParameterGroup blobParams;
-        ofxButton reConnectButton;
-        ofxButton grabMaskButton;
-        ofxButton clearMaskButton;
-        string maskFilename;
+    ofxPanel guiKinect;
+    ofParameterGroup connectionParams;
+    ofParameterGroup kinectParams;
+    ofParameterGroup blobParams;
+    ofxButton reConnectButton;
+    ofxButton grabMaskButton;
+    ofxButton clearMaskButton;
+    string maskFilename;
 
-        ofxPanel guiImages;
-        ofxGuiImage colorImgGui;
-        ofxGuiImage depthImgGui;
-        ofxGuiImage maskImgGui;
-        ofxGuiImage stencilImgGui;
-        ofxGuiImage grayImgGui;
-	
-	ofxPanel guiBox2d;
+    ofxPanel guiImages;
+    ofxGuiImage colorImgGui;
+    ofxGuiImage depthImgGui;
+    ofxGuiImage maskImgGui;
+    ofxGuiImage stencilImgGui;
+    ofxGuiImage grayImgGui;
 
-        // used for viewing the point cloud
-        ofEasyCam easyCam;
+    ofxPanel guiBox2d;
+
+    // used for viewing the point cloud
+    ofEasyCam easyCam;
 };
 

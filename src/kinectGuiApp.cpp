@@ -2,7 +2,7 @@
 #include "photon.h"
 
 //--------------------------------------------------------------
-void kinectGuiApp::setup(){
+void kinectGuiApp::setup() {
     ofSetWindowTitle("Annoianoids");
     //ofSetLogLevel(OF_LOG_VERBOSE);
     ofSetFrameRate(60);
@@ -36,14 +36,14 @@ void kinectGuiApp::setup(){
     joyAxisRightY = 0.0;
     showJoystick.set("Show Joystick", false);
     joyDeadzone.set("Joystick Deadzone", 0.1, 0.0, 1.0);
-	ofxGamepadHandler::get()->enableHotplug();
-	//CHECK IF THERE EVEN IS A GAMEPAD CONNECTED
-	if(ofxGamepadHandler::get()->getNumPads()>0){
+    ofxGamepadHandler::get()->enableHotplug();
+    //CHECK IF THERE EVEN IS A GAMEPAD CONNECTED
+    if(ofxGamepadHandler::get()->getNumPads()>0) {
         ofxGamepad* pad = ofxGamepadHandler::get()->getGamepad(0);
         ofAddListener(pad->onAxisChanged, this, &kinectGuiApp::axisChanged);
         ofAddListener(pad->onButtonPressed, this, &kinectGuiApp::buttonPressed);
         ofAddListener(pad->onButtonReleased, this, &kinectGuiApp::buttonReleased);
-	}
+    }
 
     bg.setup("bg");
 
@@ -79,12 +79,14 @@ void kinectGuiApp::loadVideoDir(string dirname) {
 
     int num_loaded = 0;
     for (size_t i=0; i < names.size(); i++) {
-        if ( addVideo(names[i]) ) { num_loaded++; }
+        if ( addVideo(names[i]) ) {
+            num_loaded++;
+        }
     }
     ofLogNotice() << "Loaded " << num_loaded << " video(s) in: " << dirname;
 }
 
-ofVideoPlayer& kinectGuiApp::getCurVideo(){
+ofVideoPlayer& kinectGuiApp::getCurVideo() {
     return videos[iCurVideo];
 }
 
@@ -108,8 +110,12 @@ void kinectGuiApp::playVideo() {
 
 void kinectGuiApp::togglePlayVideo() {
     ofVideoPlayer vid = getCurVideo();
-    if ( vid.isPaused() ) { playVideo(); }
-    else { pauseVideo(); }
+    if ( vid.isPaused() ) {
+        playVideo();
+    }
+    else {
+        pauseVideo();
+    }
 }
 
 void kinectGuiApp::pauseVideo() {
@@ -119,7 +125,9 @@ void kinectGuiApp::pauseVideo() {
 
 void kinectGuiApp::cueNextVideo() {
     int num = iCurVideo + 1;
-    if ( num > videos.size()-1 ) { num = 0; }
+    if ( num > videos.size()-1 ) {
+        num = 0;
+    }
     cueVideo(num);
 }
 
@@ -154,7 +162,7 @@ void kinectGuiApp::cueVideo(int num) {
     }
 }
 
-void kinectGuiApp::playNextVideo(){
+void kinectGuiApp::playNextVideo() {
     cueNextVideo();
     playVideo();
 }
@@ -167,7 +175,7 @@ void kinectGuiApp::setupGui() {
     ofxGuiSetTextColor( ofColor::white );
     ofxGuiSetFont("verdana.ttf", 10);
     //ofxGuiSetFont("Hyperspace Bold.otf", 10);
-    
+
     // Note: The panels will get repositioned in windowResized
     guiApp.setup("KinectGui");
     guiApp.add( fpsSlider.setup("FPS", 60) );
@@ -277,11 +285,13 @@ void kinectGuiApp::setupGui() {
     guiImgGroup->add( stencilImgGui.setup("Stencil", (ofImage*)&kinect.stencilImg, true) );
     guiImgGroup->add( grayImgGui.setup("Gray", (ofImage*)&kinect.grayImg, true) );
     guiImages.add( guiImgGroup );
-    
+
     world.setupGui();
 }
 
-void kinectGuiApp::connect() { kinect.reConnect(); }
+void kinectGuiApp::connect() {
+    kinect.reConnect();
+}
 
 //--------------------------------------------------------------
 void kinectGuiApp::loadSettings() {
@@ -312,7 +322,7 @@ void kinectGuiApp::clearMask() {
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::update(){
+void kinectGuiApp::update() {
     bg.update();
     getCurVideo().update();
     kinect.update();
@@ -320,41 +330,50 @@ void kinectGuiApp::update(){
     float scaley = VIEW_H/kinect.kinect.height;
     vector<ofPolyline> bloblines;
     for (int i=0; i<kinect.blobs.size(); i++ ) {
-	ofPolyline ln;
+        ofPolyline ln;
         vector<ofPoint> verts = kinect.blobs[i].getVertices();
-	for (int j=0; j<verts.size(); j++) {
-	    ln.addVertex(verts[j].x *scalex, verts[j].y*scaley);
-	}
-	bloblines.push_back(ln);
+        for (int j=0; j<verts.size(); j++) {
+            ln.addVertex(verts[j].x *scalex, verts[j].y*scaley);
+        }
+        bloblines.push_back(ln);
     }
     world.updateOutlines(bloblines);
     size_t numBlobs = kinect.blobs.size();
     if (autoAddRate > 0 && (int)numBlobs >= autoAddMinBlobs) {
-          static int last = 0;
-          int elapsed = int(ofGetElapsedTimef());
-	  if ((elapsed % autoAddRate) == 0 && last != elapsed) {
-	    last = elapsed;
-	    addShiz();
-	  }
+        static int last = 0;
+        int elapsed = int(ofGetElapsedTimef());
+        if ((elapsed % autoAddRate) == 0 && last != elapsed) {
+            last = elapsed;
+            addShiz();
+        }
     }
     if (autoHueRate > 0) {
-          static int last = 0;
-          int elapsed = int(ofGetElapsedTimef());
-	  if ((elapsed % autoHueRate) == 0 && last != elapsed) {
-	    last = elapsed;
-	    mainHue += 1;
-	  }
+        static int last = 0;
+        int elapsed = int(ofGetElapsedTimef());
+        if ((elapsed % autoHueRate) == 0 && last != elapsed) {
+            last = elapsed;
+            mainHue += 1;
+        }
     }
     if (autoOutline > 0) {
-          static int last = 0;
-          int elapsed = int(ofGetElapsedTimef());
-	  if ((elapsed % autoOutline) == 0 && last != elapsed) {
-	    int roll = ofRandom(1,3);
-	    last = elapsed;
-	    if (roll==1) { showBlobs = true; showMain = false; }
-	    if (roll==2) { showBlobs = false; showMain = true; }
-	    if (roll==3) { showBlobs = true; showMain = true; }
-	  }
+        static int last = 0;
+        int elapsed = int(ofGetElapsedTimef());
+        if ((elapsed % autoOutline) == 0 && last != elapsed) {
+            int roll = ofRandom(1,3);
+            last = elapsed;
+            if (roll==1) {
+                showBlobs = true;
+                showMain = false;
+            }
+            if (roll==2) {
+                showBlobs = false;
+                showMain = true;
+            }
+            if (roll==3) {
+                showBlobs = true;
+                showMain = true;
+            }
+        }
     }
 
     world.update();
@@ -385,7 +404,7 @@ void kinectGuiApp::update(){
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::draw(){
+void kinectGuiApp::draw() {
     float w = VIEW_W;
     float h = VIEW_H;
 
@@ -393,26 +412,26 @@ void kinectGuiApp::draw(){
 
     ofPushStyle();
     ofPushMatrix();
-      ofTranslate((w/2.0), (h/2.0));
-      ofRotate(mainRotation);
-      ofTranslate(-(w/2.0), -(h/2.0));
-      ofScale(scale, scale, 0.0);
+    ofTranslate((w/2.0), (h/2.0));
+    ofRotate(mainRotation);
+    ofTranslate(-(w/2.0), -(h/2.0));
+    ofScale(scale, scale, 0.0);
 
-      //if (showVideo)
-      //    getCurVideo().draw(0,0,w,h);
+    //if (showVideo)
+    //    getCurVideo().draw(0,0,w,h);
 
-      drawKinectImages();
+    drawKinectImages();
 
-      if (showPointCloud) {
-          easyCam.begin();
-          //kinect.drawPointCloud();
-          drawPointCloud();
-          easyCam.end();
-      }
+    if (showPointCloud) {
+        easyCam.begin();
+        //kinect.drawPointCloud();
+        drawPointCloud();
+        easyCam.end();
+    }
 
-      if (showWorld) world.draw();
-      if (showMain)  imgMain.draw(0,0,w,h);
-      if (showBlobs) kinect.drawBlobs(0,0,w,h);
+    if (showWorld) world.draw();
+    if (showMain)  imgMain.draw(0,0,w,h);
+    if (showBlobs) kinect.drawBlobs(0,0,w,h);
     ofPopMatrix();
     ofPopStyle();
 
@@ -424,7 +443,7 @@ void kinectGuiApp::draw(){
         guiApp.draw();
         guiKinect.draw();
         guiImages.draw();
-	world.gui.draw();
+        world.gui.draw();
     }
 }
 
@@ -496,18 +515,38 @@ void kinectGuiApp::drawPointCloud() {
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::keyPressed(int key){
-    if (key == '\t') { showGui = !showGui; }
-    if (key == 'F') { ofToggleFullscreen(); }
-    if (key == 'S') { saveSettings(); }
-    if (key == 'L') { loadSettings(); }
-    if (key == 'g') { grabMask(); }
+void kinectGuiApp::keyPressed(int key) {
+    if (key == '\t') {
+        showGui = !showGui;
+    }
+    if (key == 'F') {
+        ofToggleFullscreen();
+    }
+    if (key == 'S') {
+        saveSettings();
+    }
+    if (key == 'L') {
+        loadSettings();
+    }
+    if (key == 'g') {
+        grabMask();
+    }
 
-    if(key == 'C') { world.clear(); }
-    if(key == 'c') { world.addCircle(mouseX/scale, mouseY/scale); }
-    if(key == 'b') { world.addRect(mouseX/scale, mouseY/scale); }
-    if(key == 'a') { world.addAsteroid(mouseX/scale, mouseY/scale); }
-    if(key == 'n') { addShiz(); }
+    if(key == 'C') {
+        world.clear();
+    }
+    if(key == 'c') {
+        world.addCircle(mouseX/scale, mouseY/scale);
+    }
+    if(key == 'b') {
+        world.addRect(mouseX/scale, mouseY/scale);
+    }
+    if(key == 'a') {
+        world.addAsteroid(mouseX/scale, mouseY/scale);
+    }
+    if(key == 'n') {
+        addShiz();
+    }
     if (key == '1') addShiz(1);
     if (key == '2') addShiz(2);
     if (key == '3') addShiz(3);
@@ -518,61 +557,77 @@ void kinectGuiApp::keyPressed(int key){
     if (key == '8') addShiz(8);
     if (key == '9') addShiz(9);
     if(key == 'p') {
-      PhotonPtr p = PhotonPtr(new Photon);
-      p->setup(world.getB2World(), mouseX/scale, mouseY/scale);
-      world.add((StuffPtr)p); 
-      p->setVelocity(ofRandom(-10, 10), ofRandom(-10, 10));
+        PhotonPtr p = PhotonPtr(new Photon);
+        p->setup(world.getB2World(), mouseX/scale, mouseY/scale);
+        world.add((StuffPtr)p);
+        p->setVelocity(ofRandom(-10, 10), ofRandom(-10, 10));
     }
 }
 
-void kinectGuiApp::addShiz() { addShiz(int(ofRandom(1,11))); };
+void kinectGuiApp::addShiz() {
+    addShiz(int(ofRandom(1,11)));
+};
 
 void kinectGuiApp::addShiz(int shiz) {
     float x = ofRandom(0.0, world.width);
     float y = -50;
     ofLogNotice() << "SHIZ " << shiz << " " << x << "x" << y;
-    if(shiz == 1) { world.addSprite(x, y, "smiley_yell.png", 23); }
-    if(shiz == 2) { world.addSprite(x, y, "smiley_pink.png", 42, 1, 1, 1.4); }
-    if(shiz == 3) { world.addSprite(x, y, "axe.png", 42, 2.2, 2.0, 0.02, 0.6); }
-    if(shiz == 4) { world.addBox(x, y, "raggy1.png", 6, 3.0, 1.0, 0.1, 1.6); }
-    if(shiz == 5) {
-      for (int i=0; i<int(ofRandom(1,3)); i++) {
-	float s = ofRandom(3,6);
-	world.addBox(x, y, "dildo.gif", s, 0.9, 1.0, 0.5, 1.6);
-      }
+    if(shiz == 1) {
+        world.addSprite(x, y, "smiley_yell.png", 23);
     }
-    if(shiz == 6) { world.addSprite(x, y, "fanny.png", 40, 1.0, 1.0, 1.4, 0.5); }
-    if(shiz == 7) { world.addSprite(x, y, "dino.png", 20, 2.0, 3.0, 0.4, 1.5); }
-    if(shiz == 8) { world.addBox(x, y, "spider5.png", 5, 2.0, 1.0, 1.4, 0.5); }
+    if(shiz == 2) {
+        world.addSprite(x, y, "smiley_pink.png", 42, 1, 1, 1.4);
+    }
+    if(shiz == 3) {
+        world.addSprite(x, y, "axe.png", 42, 2.2, 2.0, 0.02, 0.6);
+    }
+    if(shiz == 4) {
+        world.addBox(x, y, "raggy1.png", 6, 3.0, 1.0, 0.1, 1.6);
+    }
+    if(shiz == 5) {
+        for (int i=0; i<int(ofRandom(1,3)); i++) {
+            float s = ofRandom(3,6);
+            world.addBox(x, y, "dildo.gif", s, 0.9, 1.0, 0.5, 1.6);
+        }
+    }
+    if(shiz == 6) {
+        world.addSprite(x, y, "fanny.png", 40, 1.0, 1.0, 1.4, 0.5);
+    }
+    if(shiz == 7) {
+        world.addSprite(x, y, "dino.png", 20, 2.0, 3.0, 0.4, 1.5);
+    }
+    if(shiz == 8) {
+        world.addBox(x, y, "spider5.png", 5, 2.0, 1.0, 1.4, 0.5);
+    }
     if(shiz == 9) {
-      for (int i=0; i<int(ofRandom(1,3)); i++) {
-	float s = ofRandom(20,30);
-        world.addSprite(x, y, "raggy2.png", s, 2.0, 1.0, 1.4, 0.5);
-      }
+        for (int i=0; i<int(ofRandom(1,3)); i++) {
+            float s = ofRandom(20,30);
+            world.addSprite(x, y, "raggy2.png", s, 2.0, 1.0, 1.4, 0.5);
+        }
     }
 };
 
 //--------------------------------------------------------------
-void kinectGuiApp::keyReleased(int key){
+void kinectGuiApp::keyReleased(int key) {
 
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::mouseMoved(int x, int y ){
+void kinectGuiApp::mouseMoved(int x, int y ) {
 
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::mouseDragged(int x, int y, int button){
+void kinectGuiApp::mouseDragged(int x, int y, int button) {
 
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::mousePressed(int x, int y, int button){
+void kinectGuiApp::mousePressed(int x, int y, int button) {
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::mouseReleased(int x, int y, int button){
+void kinectGuiApp::mouseReleased(int x, int y, int button) {
 
 }
 
@@ -585,10 +640,18 @@ void kinectGuiApp::axisChanged(ofxGamepadAxisEvent& e) {
     if ( !(val > joyDeadzone || val < -joyDeadzone) ) {
         val = 0.0;
     }
-    if ( e.axis == 0 ) { joyAxisLeftX  = val; }
-    if ( e.axis == 1 ) { joyAxisLeftY  = val; }
-    if ( e.axis == 3 ) { joyAxisRightX = val; }
-    if ( e.axis == 4 ) { joyAxisRightY = val; }
+    if ( e.axis == 0 ) {
+        joyAxisLeftX  = val;
+    }
+    if ( e.axis == 1 ) {
+        joyAxisLeftY  = val;
+    }
+    if ( e.axis == 3 ) {
+        joyAxisRightX = val;
+    }
+    if ( e.axis == 4 ) {
+        joyAxisRightY = val;
+    }
 }
 
 void kinectGuiApp::buttonPressed(ofxGamepadButtonEvent& e) {
@@ -600,7 +663,7 @@ void kinectGuiApp::buttonReleased(ofxGamepadButtonEvent& e) {
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::windowResized(int w, int h){
+void kinectGuiApp::windowResized(int w, int h) {
     float sw = ofGetWidth()/VIEW_W;
     float sh = ofGetHeight()/VIEW_H;
     scale = sw > sh ? sh : sw;
@@ -621,12 +684,12 @@ void kinectGuiApp::windowResized(int w, int h){
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::gotMessage(ofMessage msg){
+void kinectGuiApp::gotMessage(ofMessage msg) {
 
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::dragEvent(ofDragInfo dragInfo){
+void kinectGuiApp::dragEvent(ofDragInfo dragInfo) {
 
 }
 
