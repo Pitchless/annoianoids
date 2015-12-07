@@ -205,7 +205,7 @@ void kinectGuiApp::setupGui() {
     appParams.add( autoAddRate.set("Auto Add Rate", 0, 0, 10) );
     appParams.add( autoAddMinBlobs.set("Auto Add Min Blobs", 0, 0, 10) );
     appParams.add( autoHueRate.set("Auto Hue Rate", 3, 1, 20) );
-    appParams.add( autoOutline.set("Auto Outline", 8, 1, 20) );
+    appParams.add( autoOutline.set("Auto Outline", 0, 0, 20) );
     //appParams.add( showVideo );
     appParams.add( mainRotation );
     appParams.add( scale );
