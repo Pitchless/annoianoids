@@ -3,7 +3,7 @@
 
 //--------------------------------------------------------------
 void kinectGuiApp::setup(){
-    ofSetWindowTitle("Annoyanoids");
+    ofSetWindowTitle("Annoianoids");
     //ofSetLogLevel(OF_LOG_VERBOSE);
     ofSetFrameRate(60);
     ofEnableAlphaBlending();
