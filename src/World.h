@@ -53,15 +53,18 @@ public:
     ofxButton clearBtn, wakeUpBtn, addBtn;
     void setupGui() {
         gui.setup("Box2DWorld");
-        gui.add( numBodies );
-        gui.add( numJoints );
+
         float w = gui.getWidth();
         gui.add( clearBtn.setup("Clear", w, 28) );
         clearBtn.addListener(this, &World::clear);
         gui.add( wakeUpBtn.setup("Wake up", w, 28) );
+        wakeUpBtn.addListener(this, &World::wakeUp);
+
+        gui.add( numBodies );
+        gui.add( numJoints );
+
         gui.add( paused );
         gui.add( debug );
-        wakeUpBtn.addListener(this, &World::wakeUp);
         gui.add( gravityX );
         gui.add( gravityY );
     };

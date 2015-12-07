@@ -58,11 +58,11 @@ public:
       btnPrev.addListener(this, &Background::prev);
       gui.add(showGradient);
       gui.add(showImages);
+      gui.add(autoChangeSec);
+      gui.add(autoChangeMax);
       gui.add(color1);
       gui.add(color2);
       gui.add(colorTint);
-      gui.add(autoChangeSec);
-      gui.add(autoChangeMax);
     };
 
     void update() {
