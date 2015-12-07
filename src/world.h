@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "ofxBox2d.h"
 #include "stuff.h"
-#include "Outline.h"
+#include "outline.h"
 #include "Asteroid.h"
 #include "sprite.h"
 
