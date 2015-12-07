@@ -12,7 +12,7 @@
 
 #include "KinectBlobTracker.h"
 #include "background.h"
-#include "World.h"
+#include "world.h"
 #include "photon.h"
 #include "ofxGif.h"
 

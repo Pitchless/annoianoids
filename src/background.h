@@ -3,7 +3,7 @@
 
 #include "ofMain.h"
 #include "sprite_image.h"
-#include "World.h"
+#include "world.h"
 
 /*
  * Class to handle the background, fills the window.

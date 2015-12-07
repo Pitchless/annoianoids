@@ -4,7 +4,6 @@
 #include "ofxBox2d.h"
 #include "ofxBox2dCircle.h"
 #include "ofxBox2dBaseShape.h"
-#include "World.h"
 #include "stuff.h"
 
 class Photon : public ofxBox2dBaseShape, public Stuff {

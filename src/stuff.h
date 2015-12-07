@@ -3,7 +3,6 @@
 
 #include "ofMain.h"
 #include "ofxBox2d.h"
-#include "World.h"
 
 /*
  TODO: stuff mess.
