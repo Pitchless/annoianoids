@@ -19,7 +19,7 @@
 const float VIEW_W = 640;
 const float VIEW_H = 480;
 
-class kinectGuiApp : public ofBaseApp {
+class ofApp : public ofBaseApp {
 
 public:
     KinectBlobTracker kinect;

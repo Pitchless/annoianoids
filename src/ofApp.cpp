@@ -1,8 +1,8 @@
-#include "kinectGuiApp.h"
+#include "ofApp.h"
 #include "photon.h"
 
 //--------------------------------------------------------------
-void kinectGuiApp::setup() {
+void ofApp::setup() {
     ofSetWindowTitle("Annoianoids");
     //ofSetLogLevel(OF_LOG_VERBOSE);
     ofSetFrameRate(60);
@@ -40,9 +40,9 @@ void kinectGuiApp::setup() {
     //CHECK IF THERE EVEN IS A GAMEPAD CONNECTED
     if(ofxGamepadHandler::get()->getNumPads()>0) {
         ofxGamepad* pad = ofxGamepadHandler::get()->getGamepad(0);
-        ofAddListener(pad->onAxisChanged, this, &kinectGuiApp::axisChanged);
-        ofAddListener(pad->onButtonPressed, this, &kinectGuiApp::buttonPressed);
-        ofAddListener(pad->onButtonReleased, this, &kinectGuiApp::buttonReleased);
+        ofAddListener(pad->onAxisChanged, this, &ofApp::axisChanged);
+        ofAddListener(pad->onButtonPressed, this, &ofApp::buttonPressed);
+        ofAddListener(pad->onButtonReleased, this, &ofApp::buttonReleased);
     }
 
     bg.setup("bg");
@@ -60,7 +60,7 @@ void kinectGuiApp::setup() {
 
 //--------------------------------------------------------------
 
-void kinectGuiApp::loadVideoDir(string dirname) {
+void ofApp::loadVideoDir(string dirname) {
     ofLogNotice() << "Loading video from: " << dirname;
     iCurVideo = 0;
     ofDirectory dir(dirname);
@@ -85,11 +85,11 @@ void kinectGuiApp::loadVideoDir(string dirname) {
     ofLogNotice() << "Loaded " << num_loaded << " video(s) in: " << dirname;
 }
 
-ofVideoPlayer& kinectGuiApp::getCurVideo() {
+ofVideoPlayer& ofApp::getCurVideo() {
     return videos[iCurVideo];
 }
 
-bool kinectGuiApp::addVideo(string filename) {
+bool ofApp::addVideo(string filename) {
     ofVideoPlayer vid;
     ofLogNotice() << "Loading movie: " << filename;
     //videoPlayer.setPixelFormat(OF_PIXELS_RGBA);
@@ -102,12 +102,12 @@ bool kinectGuiApp::addVideo(string filename) {
     return true;
 }
 
-void kinectGuiApp::playVideo() {
+void ofApp::playVideo() {
     getCurVideo().play();
     ofLogNotice() << "Playing video: " << getCurVideo().getMoviePath();
 }
 
-void kinectGuiApp::togglePlayVideo() {
+void ofApp::togglePlayVideo() {
     ofVideoPlayer vid = getCurVideo();
     if ( vid.isPaused() ) {
         playVideo();
@@ -117,12 +117,12 @@ void kinectGuiApp::togglePlayVideo() {
     }
 }
 
-void kinectGuiApp::pauseVideo() {
+void ofApp::pauseVideo() {
     getCurVideo().setPaused(true);
     ofLogNotice() << "Pause video: " << getCurVideo().getMoviePath();
 }
 
-void kinectGuiApp::cueNextVideo() {
+void ofApp::cueNextVideo() {
     int num = iCurVideo + 1;
     if ( num > videos.size()-1 ) {
         num = 0;
@@ -130,7 +130,7 @@ void kinectGuiApp::cueNextVideo() {
     cueVideo(num);
 }
 
-void kinectGuiApp::cueVideo(int num) {
+void ofApp::cueVideo(int num) {
     return;
     if ( num < 0 || num > videos.size()-1 ) {
         ofLogWarning() << "Attempt to cue unknown video: " << num;
@@ -144,12 +144,12 @@ void kinectGuiApp::cueVideo(int num) {
     ofLogNotice() << "Cue video: " << getCurVideo().getMoviePath();
 }
 
-void kinectGuiApp::playNextVideo() {
+void ofApp::playNextVideo() {
     cueNextVideo();
     playVideo();
 }
 
-void kinectGuiApp::setupGui() {
+void ofApp::setupGui() {
     ofxGuiSetHeaderColor( ofColor(100) );    // param group headers
     ofxGuiSetBackgroundColor( ofColor(60) ); // bg of params (sliders and stuff but not buttons)
     ofxGuiSetBorderColor( ofColor(200) );     // bg of param groups (but not panels)
@@ -197,15 +197,15 @@ void kinectGuiApp::setupGui() {
     appParams.add( mainSaturation );
     guiApp.add( appParams );
     guiApp.add( status.setup("Status","") );
-    reConnectButton.addListener(this, &kinectGuiApp::connect);
-    loadButton.addListener(this, &kinectGuiApp::loadSettings);
-    saveButton.addListener(this, &kinectGuiApp::saveSettings);
-    grabMaskButton.addListener(this, &kinectGuiApp::grabMask);
-    clearMaskButton.addListener(this, &kinectGuiApp::clearMask);
-    playVideoButton.addListener(this, &kinectGuiApp::playVideo);
-    pauseVideoButton.addListener(this, &kinectGuiApp::pauseVideo);
-    cueNextVideoButton.addListener(this, &kinectGuiApp::cueNextVideo);
-    nextVideoButton.addListener(this, &kinectGuiApp::playNextVideo);
+    reConnectButton.addListener(this, &ofApp::connect);
+    loadButton.addListener(this, &ofApp::loadSettings);
+    saveButton.addListener(this, &ofApp::saveSettings);
+    grabMaskButton.addListener(this, &ofApp::grabMask);
+    clearMaskButton.addListener(this, &ofApp::clearMask);
+    playVideoButton.addListener(this, &ofApp::playVideo);
+    pauseVideoButton.addListener(this, &ofApp::pauseVideo);
+    cueNextVideoButton.addListener(this, &ofApp::cueNextVideo);
+    nextVideoButton.addListener(this, &ofApp::playNextVideo);
 
     guiKinect.setup("Kinect");
     ofxGuiGroup * guiKinectGroup = new ofxGuiGroup();
@@ -271,12 +271,12 @@ void kinectGuiApp::setupGui() {
     world.setupGui();
 }
 
-void kinectGuiApp::connect() {
+void ofApp::connect() {
     kinect.reConnect();
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::loadSettings() {
+void ofApp::loadSettings() {
     guiApp.loadFromFile("settings.xml");
     guiKinect.loadFromFile("kinect.xml");
     bg.gui.loadFromFile("bg.xml");
@@ -284,7 +284,7 @@ void kinectGuiApp::loadSettings() {
     kinect.loadMask(maskFilename);
 }
 
-void kinectGuiApp::saveSettings() {
+void ofApp::saveSettings() {
     guiApp.saveToFile("settings.xml");
     guiKinect.saveToFile("kinect.xml");
     bg.gui.saveToFile("bg.xml");
@@ -292,11 +292,11 @@ void kinectGuiApp::saveSettings() {
     kinect.saveMask(maskFilename);
 }
 
-void kinectGuiApp::grabMask() {
+void ofApp::grabMask() {
     kinect.grabMask();
 }
 
-void kinectGuiApp::clearMask() {
+void ofApp::clearMask() {
     kinect.clearMask();
     ofFile maskfile(maskFilename);
     if (maskfile.exists())
@@ -304,7 +304,7 @@ void kinectGuiApp::clearMask() {
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::update() {
+void ofApp::update() {
     bg.update();
     getCurVideo().update();
     kinect.update();
@@ -386,7 +386,7 @@ void kinectGuiApp::update() {
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::draw() {
+void ofApp::draw() {
     float w = VIEW_W;
     float h = VIEW_H;
 
@@ -425,7 +425,7 @@ void kinectGuiApp::draw() {
     }
 }
 
-void kinectGuiApp::drawKinectImages() {
+void ofApp::drawKinectImages() {
     vector<ofxCvImage*> images;
     if (showColorImg)   images.push_back(&kinect.colorImg);
     if (showDepthImg)   images.push_back(&kinect.depthImg);
@@ -457,7 +457,7 @@ void kinectGuiApp::drawKinectImages() {
         images[i]->draw(rects[i]);
 }
 
-void kinectGuiApp::drawPointCloud() {
+void ofApp::drawPointCloud() {
     int w = 640;
     int h = 480;
     ofMesh mesh;
@@ -493,7 +493,7 @@ void kinectGuiApp::drawPointCloud() {
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::keyPressed(int key) {
+void ofApp::keyPressed(int key) {
     if (key == '\t') {
         showGui = !showGui;
     }
@@ -542,11 +542,11 @@ void kinectGuiApp::keyPressed(int key) {
     }
 }
 
-void kinectGuiApp::addShiz() {
+void ofApp::addShiz() {
     addShiz(int(ofRandom(1,11)));
 };
 
-void kinectGuiApp::addShiz(int shiz) {
+void ofApp::addShiz(int shiz) {
     float x = ofRandom(0.0, world.width);
     float y = -50;
     ofLogNotice() << "SHIZ " << shiz << " " << x << "x" << y;
@@ -586,33 +586,33 @@ void kinectGuiApp::addShiz(int shiz) {
 };
 
 //--------------------------------------------------------------
-void kinectGuiApp::keyReleased(int key) {
+void ofApp::keyReleased(int key) {
 
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::mouseMoved(int x, int y ) {
+void ofApp::mouseMoved(int x, int y ) {
 
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::mouseDragged(int x, int y, int button) {
+void ofApp::mouseDragged(int x, int y, int button) {
 
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::mousePressed(int x, int y, int button) {
+void ofApp::mousePressed(int x, int y, int button) {
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::mouseReleased(int x, int y, int button) {
+void ofApp::mouseReleased(int x, int y, int button) {
 
 }
 
 //--------------------------------------------------------------
 // ofxGamepad events
 
-void kinectGuiApp::axisChanged(ofxGamepadAxisEvent& e) {
+void ofApp::axisChanged(ofxGamepadAxisEvent& e) {
     //ofLogNotice() << "AXIS " << e.axis << " VALUE " << ofToString(e.value) << endl;
     float val = e.value;
     if ( !(val > joyDeadzone || val < -joyDeadzone) ) {
@@ -632,16 +632,16 @@ void kinectGuiApp::axisChanged(ofxGamepadAxisEvent& e) {
     }
 }
 
-void kinectGuiApp::buttonPressed(ofxGamepadButtonEvent& e) {
+void ofApp::buttonPressed(ofxGamepadButtonEvent& e) {
     ofLogNotice() << "BUTTON " << e.button << " PRESSED" << endl;
 }
 
-void kinectGuiApp::buttonReleased(ofxGamepadButtonEvent& e) {
+void ofApp::buttonReleased(ofxGamepadButtonEvent& e) {
     ofLogNotice() << "BUTTON " << e.button << " RELEASED" << endl;
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::windowResized(int w, int h) {
+void ofApp::windowResized(int w, int h) {
     float sw = ofGetWidth()/VIEW_W;
     float sh = ofGetHeight()/VIEW_H;
     scale = sw > sh ? sh : sw;
@@ -662,23 +662,23 @@ void kinectGuiApp::windowResized(int w, int h) {
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::gotMessage(ofMessage msg) {
+void ofApp::gotMessage(ofMessage msg) {
 
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::dragEvent(ofDragInfo dragInfo) {
+void ofApp::dragEvent(ofDragInfo dragInfo) {
 
 }
 
 //--------------------------------------------------------------
-void kinectGuiApp::exit() {
+void ofApp::exit() {
 //    kinect.setCameraTiltAngle(0); // zero the tilt on exit
     kinect.close();
 
-    loadButton.removeListener(this, &kinectGuiApp::loadSettings);
-    saveButton.removeListener(this, &kinectGuiApp::saveSettings);
-    grabMaskButton.removeListener(this, &kinectGuiApp::grabMask);
+    loadButton.removeListener(this, &ofApp::loadSettings);
+    saveButton.removeListener(this, &ofApp::saveSettings);
+    grabMaskButton.removeListener(this, &ofApp::grabMask);
 }
 
 
