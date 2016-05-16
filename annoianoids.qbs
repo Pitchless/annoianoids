@@ -22,16 +22,24 @@ Project{
         // the addons from the qbs file change the following lines to
         // the list of used addons in array format. eg:
         //
-        // of.addons: [
-        //     'ofxGui',
-        //     'ofxOpenCv',
-        // ]
+        of.addons: [
+            "ofxGui",
+            "ofxKinect",
+            "ofxXmlSettings",
+            "ofxOpenCv",
+            "ofxGamepad",
+            "ofxBox2d",
+            "ofxGif",
+        ]
 
         // additional flags for the project. the of module sets some
         // flags by default to add the core libraries, search paths...
         // this flags can be augmented through the following properties:
         of.pkgConfigs: []       // list of additional system pkgs to include
-        of.includePaths: []     // include search paths
+        of.includePaths: [
+            "/home/mda/Lab/of_v0.9.0_linux64_release/addons/ofxBox2d/libs",
+            "/home/mda/Lab/of_v0.9.0_linux64_release/addons/ofxGamePad/libs/wgois/include"
+        ];
         of.cFlags: []           // flags passed to the c compiler
         of.cxxFlags: []         // flags passed to the c++ compiler
         of.linkerFlags: []      // flags passed to the linker
