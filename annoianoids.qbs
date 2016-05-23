@@ -15,6 +15,22 @@ Project{
             'src/main.cpp',
             'src/ofApp.cpp',
             'src/ofApp.h',
+            'src/KinectBlobTracker.h',
+            'src/KinectBlobTracker.cpp',
+            'src/ofxGuiImage.h',
+            'src/ofxGuiImage.cpp',
+            'src/ofxFpsSlider.h',
+            'src/ofxFpsSlider.cpp',
+            'src/background.h',
+            'src/photon.h',
+            'src/sprite_image.h',
+            'src/asteroid.h',
+            'src/stuff.h',
+            'src/world.h',
+            'src/sprite.h',
+            'src/polygon.h',
+            'src/outline.h',
+
         ]
 
         // This project is using addons.make to include the addons
@@ -42,7 +58,9 @@ Project{
         ];
         of.cFlags: []           // flags passed to the c compiler
         of.cxxFlags: []         // flags passed to the c++ compiler
-        of.linkerFlags: []      // flags passed to the linker
+        of.linkerFlags: [
+            '/home/mda/Lab/of_v0.9.0_linux64_release/addons/ofxGamepad/libs/wgois/lib/linux64/libwgois64.a',
+        ]      // flags passed to the linker
         of.defines: []          // defines are passed as -D to the compiler
         // and can be checked with #ifdef or #if in the code
         of.frameworks: []       // osx only, additional frameworks to link with the project
