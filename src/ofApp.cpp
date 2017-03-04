@@ -50,13 +50,13 @@ void ofApp::loadVideoDir(string dirname) {
     iCurVideo = 0;
     ofDirectory dir(dirname);
     dir.listDir();
-    if (dir.numFiles() == 0) {
+    if (dir.size() == 0) {
         videos.resize(1); // at least one blank video
         ofLogNotice() << "No video found, added default blank video.";
         return;
     }
     vector<string> names;
-    for (size_t i=0; i < dir.numFiles(); i++) {
+    for (size_t i=0; i < dir.size(); i++) {
         names.push_back(dir.getPath(i));
     }
     sort(names.begin(), names.end());

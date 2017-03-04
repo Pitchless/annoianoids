@@ -107,13 +107,13 @@ public:
         ofLogNotice() << "Loading media from: " << dirname;
         ofDirectory dir(dirname);
         dir.listDir();
-        if (dir.numFiles() == 0) {
+        if (dir.size() == 0) {
             images_.resize(1); // at least one blank
             ofLogNotice() << "No images found, added default blank.";
             return;
         }
         vector<string> names;
-        for (size_t i=0; i < dir.numFiles(); i++) {
+        for (size_t i=0; i < dir.size(); i++) {
             names.push_back(dir.getPath(i));
         }
         //sort(names.begin(), names.end());
