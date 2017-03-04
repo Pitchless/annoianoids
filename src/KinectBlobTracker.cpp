@@ -128,13 +128,13 @@ void KinectBlobTracker::update() {
 
     // load the rgb image
     if (bVideo) {
-        colorImg.setFromPixels(kinect.getPixels(), kinect.width, kinect.height);
+        colorImg.setFromPixels(kinect.getPixels());
         if (kinectFlip)
             colorImg.mirror(false,true);
     }
 
     // load grayscale depth image from the kinect source
-    depthImg.setFromPixels(kinect.getDepthPixels(), kinect.width, kinect.height);
+    depthImg.setFromPixels(kinect.getDepthPixels());
     if (kinectFlip)
         depthImg.mirror(false,true);
 
@@ -207,9 +207,9 @@ void KinectBlobTracker::grabMask() {
     // Add a bit to each value to pull the mask forward a bit, help deal with
     // noise in the kinect data.
     // TODO - Do this with cvAdd, could be faster?
-    unsigned char* pix = maskImg.getPixels();
+    ofPixels pix = maskImg.getPixels();
     int numPixels = maskImg.getWidth() * maskImg.getHeight();
-    for ( int i=0; i<numPixels; ++i ) {
+    for ( int i = 0; i < pix.size(); ++i ) {
         pix[i] = ofClamp(pix[i]+extraMaskDepth, 0, 255);
     }
 }
@@ -228,7 +228,7 @@ bool KinectBlobTracker::loadMask(string filename) {
         return false;
     ofxCvColorImage cvColorImg;
     cvColorImg.allocate(maskImg.width, maskImg.height);
-    cvColorImg.setFromPixels(loadImg.getPixels(), maskImg.width, maskImg.height);
+    cvColorImg.setFromPixels(loadImg.getPixels());
     maskImg = cvColorImg;
     return true;
 }
@@ -240,8 +240,8 @@ void KinectBlobTracker::saveMask(string filename) {
     cvColorImg.allocate(maskImg.width, maskImg.height);
     cvColorImg = maskImg;
     ofImage saveImg;
-    saveImg.setFromPixels(cvColorImg.getPixels(),
-            cvColorImg.width, cvColorImg.height, OF_IMAGE_COLOR);
+    //saveImg.setFromPixels(cvColorImg.getPixels(), cvColorImg.width, cvColorImg.height, OF_IMAGE_COLOR);
+    saveImg.setFromPixels(cvColorImg.getPixels());
     saveImg.saveImage(filename);
 }
 

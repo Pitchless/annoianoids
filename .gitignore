@@ -12,3 +12,6 @@ obj/
 
 # Editor
 *.swp
+
+# OSX
+/bin/annoianoids.app/

@@ -4,7 +4,7 @@
 #include "ofxGui.h"
 #include "ofxOpenCv.h"
 #include "ofxKinect.h"
-#include "ofxGamepadHandler.h"
+//#include "ofxGamepadHandler.h"
 
 // Custom controls.
 #include "ofxFpsSlider.h"
@@ -36,7 +36,7 @@ public:
     ofParameter<bool> showWorld;
     ofParameter<bool> showJoystick;
     ofParameter<float> joyDeadzone;
-    float joyAxisLeftX, joyAxisLeftY, joyAxisRightX, joyAxisRightY;
+//    float joyAxisLeftX, joyAxisLeftY, joyAxisRightX, joyAxisRightY;
     ofParameter<ofColor> bgColor1;
     ofParameter<ofColor> bgColor2;
     ofParameter<int> mainAlpha;
@@ -72,9 +72,9 @@ public:
     void exit();
 
     // ofxGamepad
-    void axisChanged(ofxGamepadAxisEvent &e);
-    void buttonPressed(ofxGamepadButtonEvent &e);
-    void buttonReleased(ofxGamepadButtonEvent &e);
+//    void axisChanged(ofxGamepadAxisEvent &e);
+//    void buttonPressed(ofxGamepadButtonEvent &e);
+//    void buttonReleased(ofxGamepadButtonEvent &e);
 
     vector<ofVideoPlayer> videos;
     int iCurVideo;

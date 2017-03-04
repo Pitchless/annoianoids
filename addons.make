@@ -1,7 +1,7 @@
+ofxBox2d
+ofxGamepad
+ofxGif
 ofxGui
 ofxKinect
-ofxXmlSettings
 ofxOpenCv
-ofxGamepad
-ofxBox2d
-ofxGif
+ofxXmlSettings
