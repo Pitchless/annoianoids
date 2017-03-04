@@ -1,5 +1,4 @@
 ofxBox2d
-ofxGamepad
 ofxGif
 ofxGui
 ofxKinect

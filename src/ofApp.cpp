@@ -30,21 +30,6 @@ void ofApp::setup() {
     pointMode.set("Point Mode",6,0,6);
     bPointColor.set("Point Color", true);
 
-//    joyAxisLeftX  = 0.0;
-//    joyAxisLeftY  = 0.0;
-//    joyAxisRightX = 0.0;
-//    joyAxisRightY = 0.0;
-    showJoystick.set("Show Joystick", false);
-    joyDeadzone.set("Joystick Deadzone", 0.1, 0.0, 1.0);
-//    ofxGamepadHandler::get()->enableHotplug();
-    //CHECK IF THERE EVEN IS A GAMEPAD CONNECTED
-//    if(ofxGamepadHandler::get()->getNumPads()>0) {
-//        ofxGamepad* pad = ofxGamepadHandler::get()->getGamepad(0);
-//        ofAddListener(pad->onAxisChanged, this, &ofApp::axisChanged);
-//        ofAddListener(pad->onButtonPressed, this, &ofApp::buttonPressed);
-//        ofAddListener(pad->onButtonReleased, this, &ofApp::buttonReleased);
-//    }
-
     bg.setup("bg");
 
     kinect.setup();
@@ -172,8 +157,6 @@ void ofApp::setupGui() {
     //guiApp.add( nextVideoButton.setup("Play Next Video") );
     appParams.setName("Display");
     appParams.add( showGui.set("Show Gui", true) );
-    //appParams.add( showJoystick );
-    //appParams.add( joyDeadzone );
     appParams.add( showPointCloud.set("Show Point Cloud", false) );
     appParams.add( pointMode );
     appParams.add( bPointColor );
@@ -412,9 +395,6 @@ void ofApp::draw() {
     ofPopMatrix();
     ofPopStyle();
 
-//    if (showJoystick)
-//        ofxGamepadHandler::get()->draw(42,80);
-
     if (showGui) {
         bg.gui.draw();
         guiApp.draw();
@@ -607,37 +587,6 @@ void ofApp::mousePressed(int x, int y, int button) {
 void ofApp::mouseReleased(int x, int y, int button) {
 
 }
-
-//--------------------------------------------------------------
-// ofxGamepad events
-
-//void ofApp::axisChanged(ofxGamepadAxisEvent& e) {
-//    //ofLogNotice() << "AXIS " << e.axis << " VALUE " << ofToString(e.value) << endl;
-//    float val = e.value;
-//    if ( !(val > joyDeadzone || val < -joyDeadzone) ) {
-//        val = 0.0;
-//    }
-//    if ( e.axis == 0 ) {
-//        joyAxisLeftX  = val;
-//    }
-//    if ( e.axis == 1 ) {
-//        joyAxisLeftY  = val;
-//    }
-//    if ( e.axis == 3 ) {
-//        joyAxisRightX = val;
-//    }
-//    if ( e.axis == 4 ) {
-//        joyAxisRightY = val;
-//    }
-//}
-//
-//void ofApp::buttonPressed(ofxGamepadButtonEvent& e) {
-//    ofLogNotice() << "BUTTON " << e.button << " PRESSED" << endl;
-//}
-//
-//void ofApp::buttonReleased(ofxGamepadButtonEvent& e) {
-//    ofLogNotice() << "BUTTON " << e.button << " RELEASED" << endl;
-//}
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h) {

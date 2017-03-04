@@ -5,26 +5,19 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "8E3BE2D09545B67C76ED22CFFC7396CD33BC1846" : 9223372036854775807,
-    "903165F9FDCB952EAE50578862E56DA722F43224" : 9223372036854775807,
     "9C7BF52463125CA866C7A3A3931090F6CE01A291" : 9223372036854775807,
-    "770565934CC83CB07923D2685AB725886422C240" : 9223372036854775807
+    "903165F9FDCB952EAE50578862E56DA722F43224" : 9223372036854775807
   },
-  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "9B4CB5DA-680F-43D2-BE17-F0083964033A",
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E0DAD1F1-BFF0-479A-89C8-3F6207673B0D",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "8E3BE2D09545B67C76ED22CFFC7396CD33BC1846" : "annoianoids\/",
-    "903165F9FDCB952EAE50578862E56DA722F43224" : "..\/..\/addons\/ofxBox2d",
     "9C7BF52463125CA866C7A3A3931090F6CE01A291" : "..\/..\/addons\/ofxGif",
-    "770565934CC83CB07923D2685AB725886422C240" : "..\/..\/addons\/ofxGamepad"
+    "903165F9FDCB952EAE50578862E56DA722F43224" : "..\/..\/addons\/ofxBox2d"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "annoianoids",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "annoianoids.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
-    {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/underdoeg\/ofxGamepad.git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "770565934CC83CB07923D2685AB725886422C240"
-    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Pitchless\/annoianoids.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
