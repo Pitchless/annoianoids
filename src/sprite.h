@@ -62,7 +62,7 @@ public:
             ofEnableAlphaBlending();
             ofFill();
             ofSetColor(0,255,0,120);
-            ofCircle(0, 0, radius);
+            ofDrawCircle(0, 0, radius);
 	}
         glPopMatrix();
 	ofPopStyle();

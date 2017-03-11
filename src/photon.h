@@ -47,9 +47,9 @@ public:
         ofRotate(getRotation(), 0, 0, 1);
         ofFill();
         ofSetColor(255,255,255,200);
-        ofCircle(0, 0, radius);
+        ofDrawCircle(0, 0, radius);
         ofSetColor(255,255,0,223);
-        ofCircle(0, 0, radius/2);
+        ofDrawCircle(0, 0, radius/2);
         ofPopStyle();
         ofPopMatrix();
 
