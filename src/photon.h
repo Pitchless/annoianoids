@@ -10,7 +10,7 @@ class Photon : public ofxBox2dBaseShape, public Stuff {
 private:
     float radius;
 public:
-    Photon() : radius(1.0) {};
+    Photon() : radius(2.0) {};
     virtual ~Photon() {};
     
     virtual void setup(b2World *world, float x, float y) {
@@ -19,7 +19,6 @@ public:
 
         shape.m_p.SetZero();
         shape.m_radius		= radius / OFX_BOX2D_SCALE;
-        this->radius		= radius;
 
         fixture.shape		= &shape;
         fixture.density		= 0.6;
