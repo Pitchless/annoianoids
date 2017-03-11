@@ -27,7 +27,7 @@ public:
             r = ofRandom(32, 64);
         ofDisableArbTex();
         string fname("tex_6.png");
-        if (texture.loadImage(fname)) {
+        if (texture.load(fname)) {
             ofLogNotice() << "Loaded texture file '" << fname << "'";
         } else {
             ofLogError() << "Failed to load texture file '" << fname << "'";
