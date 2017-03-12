@@ -33,8 +33,8 @@ public:
             ofLogError() << "Failed to load texture file '" << fname << "'";
         }
         //printf("IMAGE %f x %f\n", texture.getWidth(), texture.getHeight());
-        texture.getTextureReference().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
-        texture.getTextureReference().setTextureWrap(GL_REPEAT, GL_REPEAT);
+        texture.getTexture().setTextureMinMagFilter(GL_NEAREST, GL_NEAREST);
+        texture.getTexture().setTextureWrap(GL_REPEAT, GL_REPEAT);
 
         color.setHex(hexColors[(int)ofRandom(4)]);
         mesh.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
