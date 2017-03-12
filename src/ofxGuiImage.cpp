@@ -29,7 +29,7 @@ void ofxGuiImage::render(){
 	ofPushMatrix();
 
 	ofSetColor(backgroundColor);
-	ofRect(b);
+	ofDrawRectangle(b);
 
 	ofTranslate(b.x, b.y);
 	ofSetColor(ofColor::white);

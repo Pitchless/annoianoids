@@ -293,7 +293,7 @@ void KinectBlobTracker::drawBlobs(float x, float y, float w, float h) {
                      << " Perimeter:" << it->getPerimeter();
                 ofSetColor(boundingColor);
                 ofRectangle box = it->getBoundingBox();
-                ofRect(box);
+                ofDrawRectangle(box);
                 ofDrawBitmapString(info.str(), box.x, box.y);
             }
         }

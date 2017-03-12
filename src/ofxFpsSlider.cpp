@@ -22,13 +22,13 @@ void ofxFpsSlider::render() {
 
     ofFill();
     ofSetColor(backgroundColor);
-    ofRect(b);
+    ofDrawRectangle(b);
 
     ofTranslate(b.x, b.y);
     float valAsPct = ofMap( fps, min, max, 0, b.width-2, true );
     ofEnableAlphaBlending();
     ofSetColor(fillColor);
-    ofRect(1, 1, valAsPct, b.height-2);
+    ofDrawRectangle(1, 1, valAsPct, b.height-2);
 
     ofTranslate(0, b.height / 2 + 4);
     ofSetColor(textColor);

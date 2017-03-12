@@ -149,7 +149,7 @@ public:
         info << "Pos: " << pos.x << " x " << pos.y;
         ofSetColor(ofColor::green);
         //ofRectangle box = it->getBoundingBox();
-        //ofRect(box);
+        //ofDrawRectangle(box);
         //ofDrawBitmapString(info.str(), box.x, box.y);
         ofDrawBitmapString(info.str(), pos.x, pos.y);
     };
