@@ -78,7 +78,7 @@ bool ofApp::addVideo(string filename) {
     ofVideoPlayer vid;
     ofLogNotice() << "Loading movie: " << filename;
     //videoPlayer.setPixelFormat(OF_PIXELS_RGBA);
-    if (!vid.loadMovie(filename)) {
+    if (!vid.load(filename)) {
         ofLogError() << "Failed to load movie: " << filename;
         return false;
     }
