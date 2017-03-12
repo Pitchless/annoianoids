@@ -224,7 +224,7 @@ bool KinectBlobTracker::loadMask(string filename) {
         return false;
 
     ofImage loadImg;
-    if (!loadImg.loadImage(filename))
+    if (!loadImg.load(filename))
         return false;
     ofxCvColorImage cvColorImg;
     cvColorImg.allocate(maskImg.width, maskImg.height);
@@ -242,7 +242,7 @@ void KinectBlobTracker::saveMask(string filename) {
     ofImage saveImg;
     //saveImg.setFromPixels(cvColorImg.getPixels(), cvColorImg.width, cvColorImg.height, OF_IMAGE_COLOR);
     saveImg.setFromPixels(cvColorImg.getPixels());
-    saveImg.saveImage(filename);
+    saveImg.save(filename);
 }
 
 void KinectBlobTracker::drawBlobs(float x, float y, float w, float h) {
