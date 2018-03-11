@@ -1,0 +1,143 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "/usr/include",
+                "/usr/local/include",
+                "${workspaceRoot}"
+            ],
+            "defines": [],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "/usr/include",
+                    "/usr/local/include",
+                    "${workspaceRoot}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "macFrameworkPath": [
+                "/System/Library/Frameworks",
+                "/Library/Frameworks"
+            ]
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "/usr/include/c++/7",
+                "/usr/include/x86_64-linux-gnu/c++/7",
+                "/usr/include/c++/7/backward",
+                "/usr/lib/gcc/x86_64-linux-gnu/7/include",
+                "/usr/local/include",
+                "/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed",
+                "/usr/include/x86_64-linux-gnu",
+                "/usr/include",
+                "${workspaceRoot}",
+                "/usr/include/gstreamer-1.0",
+                "/usr/include/AL",
+                "/usr/include/rtaudio",
+                "/usr/include/alsa",
+                "/usr/include/libdrm",
+                "/usr/include/gtk-3.0",
+                "/usr/include/at-spi2-atk/2.0",
+                "/usr/include/at-spi-2.0",
+                "/usr/include/dbus-1.0",
+                "/usr/lib/x86_64-linux-gnu/dbus-1.0/include",
+                "/usr/include/gtk-3.0",
+                "/usr/include/gio-unix-2.0/",
+                "/usr/include/mirclient",
+                "/usr/include/mircore",
+                "/usr/include/mircookie",
+                "/usr/include/cairo",
+                "/usr/include/pango-1.0",
+                "/usr/include/harfbuzz",
+                "/usr/include/pango-1.0",
+                "/usr/include/atk-1.0",
+                "/usr/include/cairo",
+                "/usr/include/pixman-1",
+                "/usr/include/freetype2",
+                "/usr/include/libpng16",
+                "/usr/include/gdk-pixbuf-2.0",
+                "/usr/include/libpng16",
+                "/usr/include/glib-2.0",
+                "/usr/lib/x86_64-linux-gnu/glib-2.0/include",
+                "${workspaceRoot}/../../../libs/fmodex/include",
+                "${workspaceRoot}/../../../libs/glfw/include",
+                "${workspaceRoot}/../../../libs/glfw/include/GLFW",
+                "${workspaceRoot}/../../../libs/kiss/include",
+                "${workspaceRoot}/../../../libs/poco/include",
+                "${workspaceRoot}/../../../libs/tess2/include",
+                "${workspaceRoot}/../../../libs/utf8cpp/include",
+                "${workspaceRoot}/../../../libs/utf8cpp/include/utf8",
+                "${workspaceRoot}/../../../libs/openFrameworks",
+                "${workspaceRoot}/../../../libs/openFrameworks/video",
+                "${workspaceRoot}/../../../libs/openFrameworks/communication",
+                "${workspaceRoot}/../../../libs/openFrameworks/graphics",
+                "${workspaceRoot}/../../../libs/openFrameworks/events",
+                "${workspaceRoot}/../../../libs/openFrameworks/app",
+                "${workspaceRoot}/../../../libs/openFrameworks/utils",
+                "${workspaceRoot}/../../../libs/openFrameworks/gl",
+                "${workspaceRoot}/../../../libs/openFrameworks/sound",
+                "${workspaceRoot}/../../../libs/openFrameworks/types",
+                "${workspaceRoot}/../../../libs/openFrameworks/math",
+                "${workspaceRoot}/../../../libs/openFrameworks/3d",
+                "${workspaceRoot}/../../../addons/ofxBox2d/src",
+                "${workspaceRoot}/../../../addons/ofxBox2d/libs",
+                "${workspaceRoot}/../../../addons/ofxBox2d/libs/Box2D",
+                "${workspaceRoot}/../../../addons/ofxBox2d/libs/triangle",
+                "${workspaceRoot}/../../../addons/ofxGif/src",
+                "${workspaceRoot}/../../../addons/ofxGui/src",
+                "${workspaceRoot}/../../../addons/ofxKinect/src",
+                "${workspaceRoot}/../../../addons/ofxKinect/libs/libfreenect/include",
+                "${workspaceRoot}/../../../addons/ofxKinect/libs/libusb-1.0/include/libusb-1.0",
+                "${workspaceRoot}/../../../addons/ofxXmlSettings/src",
+                "${workspaceRoot}/../../../addons/ofxOpenCv/src",
+                "${workspaceRoot}/../../../addons/ofxOpenCv/libs/opencv/include/opencv",
+                "${workspaceRoot}/../../../addons/ofxOpenCv/libs/opencv/include"
+            ],
+            "defines": [],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "/usr/include/c++/7",
+                    "/usr/include/x86_64-linux-gnu/c++/7",
+                    "/usr/include/c++/7/backward",
+                    "/usr/lib/gcc/x86_64-linux-gnu/7/include",
+                    "/usr/local/include",
+                    "/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed",
+                    "/usr/include/x86_64-linux-gnu",
+                    "/usr/include",
+                    "${workspaceRoot}",
+                    "${workspaceRoot}/../../../libs",
+                    "${workspaceRoot}/../../../addons"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        },
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include",
+                "${workspaceRoot}"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "intelliSenseMode": "msvc-x64",
+            "browse": {
+                "path": [
+                    "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include/*",
+                    "${workspaceRoot}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 3
+}

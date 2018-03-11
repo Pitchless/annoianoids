@@ -1,0 +1,60 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build release",
+            "type": "shell",
+            "command": "make -j4 Release",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "build debug",
+            "type": "shell",
+            "command": "make -j4 Debug",
+            "problemMatcher": [
+                "$gcc"
+            ],
+        },
+        {
+            "label": "run release",
+            "type": "shell",
+            "command": "./${workspaceFolderBasename}",
+            "options": {
+                "cwd": "${workspaceFolder}/bin"
+            },
+            "presentation": {
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated"
+            },
+            "dependsOn": "build release",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "run debug",
+            "type": "shell",
+            "command": "./${workspaceFolderBasename}_debug",
+            "options": {
+                "cwd": "${workspaceFolder}/bin"
+            },
+            "presentation": {
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated"
+            },
+            "dependsOn": "build debug"
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "make clean"
+        }
+    ]
+}
