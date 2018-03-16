@@ -119,11 +119,10 @@ public:
     void drawShape() {
         ofBeginShape();
         vector<ofPoint> pts = getPoints();
-        for (int i=0; i<pts.size(); i++) {
+        for (size_t i=0; i<pts.size(); i++) {
             ofVertex(pts[i]);
         }
         ofEndShape(true);
-
     }
 
     void drawTex() {
@@ -131,7 +130,7 @@ public:
         mesh.clearVertices();
         vector<ofPoint> &pts = getPoints();
         ofPoint center       = getCentroid2D();
-        for (int i=0; i<pts.size(); i++) {
+        for (size_t i=0; i<pts.size(); i++) {
             mesh.addVertex(center);
             mesh.addVertex(pts[i]);
         }

@@ -208,8 +208,7 @@ void KinectBlobTracker::grabMask() {
     // noise in the kinect data.
     // TODO - Do this with cvAdd, could be faster?
     ofPixels pix = maskImg.getPixels();
-    int numPixels = maskImg.getWidth() * maskImg.getHeight();
-    for ( int i = 0; i < pix.size(); ++i ) {
+    for (size_t i = 0; i < pix.size(); ++i) {
         pix[i] = ofClamp(pix[i]+extraMaskDepth, 0, 255);
     }
 }

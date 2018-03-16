@@ -26,11 +26,11 @@ public:
 
     Background()
       : curImg_(0)
+      , lastBg_s(0)
       , showGradient("Show Gradient", false)
       , showImages("Show Images", true)
       , autoChangeSec("Auto Advance", 3, 0, 60)
       , autoChangeMax("Auto Max", 60, 1, 300)
-      , lastBg_s(0)
       {
         color1.set( "BGColor1", ofColor ( 0,0,0,255 ),ofColor ( 0,0,0,0 ),ofColor ( 255,255,255,255 ) );
         color2.set( "BGColor2", ofColor ( 255,255,255,255 ),ofColor ( 0,0,0,0 ),ofColor ( 255,255,255,255 ) );
@@ -93,7 +93,7 @@ public:
 
     void next() {
         curImg_++;
-        if (curImg_ > images_.size()-1)
+        if (curImg_ > int(images_.size())-1)
             curImg_ = 0;
     }
 

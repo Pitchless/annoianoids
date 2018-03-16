@@ -117,11 +117,11 @@ public:
         // TODO: What is the best order for this?
         box2d.update();
         things.update();
+	/*
         float left = 0 - border;
         float right = width + border;
         float top = 0 - border;
         float bottom = height + border;
-	/*
         for(int i=0; i<circles.size(); i++) {
             ofxBox2dCircle* obj = circles[i].get();
             obj->update();
@@ -153,7 +153,7 @@ public:
 
     void updateOutlines(vector<ofPolyline> blobs) {
         outlines.clear();
-        for ( int i=0; i<blobs.size(); i++) {
+        for (size_t i=0; i<blobs.size(); i++) {
             shared_ptr<Outline> ol = shared_ptr<Outline>(new Outline);
             ol->setup(box2d.getWorld(), blobs[i]);
             outlines.push_back(ol);
@@ -162,7 +162,7 @@ public:
 
     void draw() {
         things.draw();
-        for(int i=0; i<outlines.size(); i++) {
+        for(size_t i=0; i<outlines.size(); i++) {
             outlines[i].get()->draw();
         }
         //box2d.draw(); // just draws the ground

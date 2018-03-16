@@ -57,13 +57,13 @@ public:
     };
 
     void update() {
-        for (int i=0; i<stuff_.size(); i++) {
+        for (size_t i=0; i<stuff_.size(); i++) {
             stuff_[i]->update();
         }
     };
 
     void draw() {
-        for (int i=0; i<stuff_.size(); i++) {
+        for (size_t i=0; i<stuff_.size(); i++) {
             stuff_[i]->draw();
         }
     };
