@@ -7,17 +7,19 @@
             "label": "build release",
             "type": "shell",
             "command": "make -j4 Release",
-            "problemMatcher": [
-                "$gcc"
-            ]
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": "absolute"
+            }
         },
         {
             "label": "build debug",
             "type": "shell",
             "command": "make -j4 Debug",
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": "absolute"
+            }
         },
         {
             "label": "run release",
